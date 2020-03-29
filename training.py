@@ -102,7 +102,7 @@ class Trainer():
             criterion=model.loss()#TODO:2
         else:
             #criterion=nn.
-            criterion =nn.NLLLoss(weight=torch.Tensor([0.7,0.5]).cuda())
+            criterion =nn.NLLLoss(weight=torch.Tensor([0.3,0.7]).cuda())
 
         if self.use_lstm:
             criterion=NLLSequenceLoss()
