@@ -32,7 +32,7 @@ xlrd==1.2.0
 Data Preparation
 -------
 0. Download COVID-19 data or public database's data. 
-An example data of COVID-19 can be download from <https://cloud.tsinghua.edu.cn/f/365e7f81e4b443eb9fab/?dl=1>. 
+An example data of COVID-19 can be get from <https://cloud.tsinghua.edu.cn/f/365e7f81e4b443eb9fab/?dl=1>. 
 Two public databases used in our experiments were LIDC (https://wiki.cancerimagingarchive.net/display/Public/LIDC-IDRI) and 
 ILD (http://medgift.hevs.ch/wordpress/databases/ild-database).
 1. Resampling: python data/resample.py
