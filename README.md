@@ -1,4 +1,6 @@
 # Development and Evaluation of an AI System for COVID-19 Diagnosis
+Cheng Jin, Weixiang Chen, Yukun Cao, Zhanwei Xu, Xin Zhang, Lei Deng, Chuansheng Zheng, Jie Zhou, Heshui Shi, Jianjiang Feng
+
 This project hosts the inference code for implementing for covid-19 diagnosis system, 
 as presented in our paper: Development and Evaluation of an AI System for COVID-19 Diagnosis
  (https://www.medrxiv.org/content/10.1101/2020.03.20.20039834v2)
@@ -39,6 +41,7 @@ ILD (http://medgift.hevs.ch/wordpress/databases/ild-database).
 2. Cut into jpg and normalize gray scale: python test_hu.py
 3. Split dataset: python data/get_set_seperate_jpg.py
 4. Lung segmentation mask: using Deeplabv1 (https://github.com/DrSleep/tensorflow-deeplab-resnet)
+ or any other segmentation method.
 
 Train and Test
 -------

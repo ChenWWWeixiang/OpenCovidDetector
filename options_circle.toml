@@ -3,7 +3,7 @@ title = "covid19 PyTorch"
 [general]
 usecudnn = true
 usecudnnbenchmark = true
-gpuid = "1"
+gpuid = "2"
 loadpretrainedmodel = true
 random_seed = true
 pretrainedmodelpath = 'saves/trained_model.pt'
@@ -12,7 +12,7 @@ use_lstm=false
 use_slice=true
 
 [input]
-batchsize = 32
+batchsize = 2
 numworkers = 8
 shuffle = true
 
@@ -31,10 +31,10 @@ statsfrequency = 100
 data_root = '/mnt/data6/lung_jpgs_with_SEG'
 index_root = 'data/txt/train.txt'
 padding = 35
-learningrate = 1e-5
+learningrate = 1e-7
 momentum = 0.95
 weightdecay = 0.005
-save_prefix = "weights/trained_model"
+save_prefix = "weights/circle_trained2"
 
 [validation]
 validate = true

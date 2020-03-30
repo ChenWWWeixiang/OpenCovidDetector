@@ -6,8 +6,6 @@ weights
 cam_jpgs_resnet_new
 cam_rew
 data/txt
-ipt_results/*.npy
-ipt_results/*.pt
 fractal_dimension/*.txt
 re
 radiomics/*.npy
@@ -17,3 +15,5 @@ radiomics/mask
 radiomics/*.jpg
 example
 saves
+ipt_results
+view_segs

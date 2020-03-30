@@ -32,21 +32,21 @@ class Validator():
         self.use_slice = options['general']['use_slice']
         datalist=['/mnt/data7/ILD/resampled_data',
             #'/mnt/data7/reader_ex/resampled_data',
-            #'/mnt/data7/LIDC/resampled_data',
-            #'/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
-            #'/mnt/data7/resampled_data/test3'
+            '/mnt/data7/LIDC/resampled_data',
+            '/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
+            '/mnt/data7/resampled_data/test3'
             #'/mnt/data7/slice_test_seg/data_re',
                  #'/mnt/data7/resampled_data/resampled_test_3']
             ]
         masklist = ['/mnt/data7/ILD/resampled_seg',
             #'/mnt/data7/reader_ex/resampled_seg',
-            #'/mnt/data7/LIDC/resampled_seg',
-            #'/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
-            #'/mnt/data7/resampled_seg/test3'
+            '/mnt/data7/LIDC/resampled_seg',
+            '/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
+            '/mnt/data7/resampled_seg/test3'
             #'/mnt/data7/slice_test_seg/mask_re',
                    # '/mnt/data7/resampled_seg/test3']
             ]
-        self.savenpy = 're/reader.npy'
+        self.savenpy = 're/test.npy'
         f=open('ipt_results/answer.txt','r')
         #f = open('data/txt/val_list.txt', 'r')
         f=f.readlines()
@@ -54,7 +54,7 @@ class Validator():
         self.validationdataset = NCPJPGtestDataset(datalist,
                                                    masklist,
                                                    options[mode]["padding"],
-                                                   f,False)
+                                                   f,True)
 
         self.topk=3
         self.tot_data = len(self.validationdataset)

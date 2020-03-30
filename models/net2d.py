@@ -5,6 +5,7 @@ import torch.nn.functional as F
 import types
 import torch
 import re
+import torch.nn as nn
 
 #################################################################
 # You can find the definitions of those models here:
@@ -366,6 +367,97 @@ def modify_resnets(model,num_of_cls):
     model.forward = types.MethodType(forward, model)
     return model
 
+def modify_resUnets(model,num_of_cls):
+    # Modify attributs
+    model.classifier = torch.nn.Linear(2048,num_of_cls)
+    model.decoder=Decoder([2048,1024,512,256,64],[2048,512,128,64])
+    model.upper=nn.ConvTranspose2d(64, 1, kernel_size=4, stride=4)
+    del model.fc
+
+    def features_func(model, x):
+        x = model.conv1(x)
+        x = model.bn1(x)
+        x = model.relu(x)
+        f0 = model.maxpool(x)
+
+        f1 = model.layer1(f0)
+        f2 = model.layer2(f1)
+        f3 = model.layer3(f2)
+        f4 = model.layer4(f3)
+        return f4,f3,f2,f1,f0
+
+    def forward(self, input):
+        Fs = self.features_func(input)
+        y=self.decoder(Fs)
+        x = self.avgpool(Fs[0])
+        x = x.view(x.size(0), -1)
+        x = self.classifier(x).log_softmax(-1)
+        y = torch.sigmoid(self.upper(y))
+        return x,y
+    # Modify methods
+    model.features_func = types.MethodType(features_func, model)
+    #model.classifier = types.MethodType(classifier, model)
+    model.forward = types.MethodType(forward, model)
+    return model
+class DoubleConv(nn.Module):
+    """(convolution => [BN] => ReLU) * 2"""
+
+    def __init__(self, in_channels, out_channels):
+        super(DoubleConv,self).__init__()
+        self.double_conv = nn.Sequential(
+            nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True)
+        )
+
+    def forward(self, x):
+        return self.double_conv(x)
+
+class Up(nn.Module):
+    """Upscaling then double conv"""
+
+    def __init__(self, in_channels, out_channels, bilinear=True):
+        super(Up,self).__init__()
+
+        # if bilinear, use the normal convolutions to reduce the number of channels
+        if bilinear:
+            self.up = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
+        else:
+            self.up = nn.ConvTranspose2d(in_channels // 2, in_channels // 2, kernel_size=2, stride=2)
+
+        self.conv = DoubleConv(in_channels, out_channels)
+
+    def forward(self, x1, x2):
+        x1 = self.up(x1)
+        # input is CHW
+        diffY = torch.tensor([x2.size()[2] - x1.size()[2]])
+        diffX = torch.tensor([x2.size()[3] - x1.size()[3]])
+
+        x1 = F.pad(x1, [diffX // 2, diffX - diffX // 2,diffY // 2, diffY - diffY // 2])
+        # if you have padding issues, see
+        # https://github.com/HaiyongJiang/U-Net-Pytorch-Unstructured-Buggy/commit/0e854509c2cea854e247a9c615f175f76fbb2e3a
+        # https://github.com/xiaopeng-liao/Pytorch-UNet/commit/8ebac70e633bac59fc22bb5195e513d5832fb3bd
+        x = torch.cat([x2, x1], dim=1)
+        return self.conv(x)
+
+class Decoder(torch.nn.Module):
+    def __init__(self,inner_fs,o_fs):
+        super(Decoder,self).__init__()
+        self.deconv1=Up(inner_fs[0]+inner_fs[1],o_fs[0])
+        self.deconv2=Up(inner_fs[2]+o_fs[0],o_fs[1])
+        self.deconv3 = Up(inner_fs[3]+o_fs[1], o_fs[2])
+        self.deconv4 = Up(inner_fs[4]+o_fs[2], o_fs[3])
+
+    def forward(self,Fs):
+        x=self.deconv1(Fs[0],Fs[1])
+        x = self.deconv2(x, Fs[2])
+        x = self.deconv3(x, Fs[3])
+        x = self.deconv4(x, Fs[4])
+        return x
+
 def resnet18(num_classes=1000, pretrained='imagenet'):
     """Constructs a ResNet-18 model.
     """
@@ -415,6 +507,15 @@ def resnet152(num_classes=1000, pretrained='imagenet'):
         model = load_pretrained(model, num_classes, settings)
     model = modify_resnets(model,num_classes)
     return model
+
+
+def resUnet152(num_classes=1000, pretrained='imagenet'):
+    model = models.resnet152(pretrained=False)
+    settings = pretrained_settings['resnet152'][pretrained]
+    model = load_pretrained(model, num_classes, settings)
+    model = modify_resUnets(model,num_classes)
+    return model
+
 
 ###############################################################
 # SqueezeNets
