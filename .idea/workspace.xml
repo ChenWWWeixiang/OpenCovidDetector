@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Lipreading-DenseNet3D-master.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/get_all_infomation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/circle_training.py" beforeDir="false" afterPath="$PROJECT_DIR$/circle_training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/resample.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/resample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test_hu.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/test_hu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/gradcam_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/gradcam_demo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/net2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/net2d.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options_circle.toml" beforeDir="false" afterPath="$PROJECT_DIR$/options_circle.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options_lip.toml" beforeDir="false" afterPath="$PROJECT_DIR$/options_lip.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/validation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,7 +17,7 @@
         <entry file="file://$PROJECT_DIR$/models/gradcam_demo.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="23">
-              <caret line="271" column="9" lean-forward="true" selection-start-line="271" selection-start-column="9" selection-end-line="271" selection-end-column="9" />
+              <caret line="271" column="9" selection-start-line="271" selection-start-column="9" selection-end-line="271" selection-end-column="9" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#4676#5959#0" />
@@ -95,14 +78,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_hu.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/data/test_hu.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="5" column="55" lean-forward="true" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="312">
+                <caret line="7" column="103" selection-start-line="7" selection-start-column="103" selection-end-line="7" selection-end-column="103" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -191,7 +174,6 @@
         <option value="$PROJECT_DIR$/ipt_results/go_and_find.py" />
         <option value="$PROJECT_DIR$/ipt_results/answer.txt" />
         <option value="$PROJECT_DIR$/saves/lidc.npy" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/plot_roc.py" />
         <option value="$PROJECT_DIR$/testengine.py" />
         <option value="$PROJECT_DIR$/circle_validation.py" />
@@ -210,6 +192,7 @@
         <option value="$PROJECT_DIR$/validation.py" />
         <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
         <option value="$PROJECT_DIR$/data/test_hu.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -408,11 +391,26 @@
       <option name="project" value="LOCAL" />
       <updated>1585568506634</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="daily update0330">
+      <created>1585745797860</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585745797860</updated>
+    </task>
+    <task id="LOCAL-00005" summary="pictures">
+      <created>1585745844596</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1585745844596</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="28" width="1932" height="1034" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8178752" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -443,7 +441,8 @@
     <MESSAGE value="put links for examples and trained model" />
     <MESSAGE value="correct mistypes" />
     <MESSAGE value="daily update0330" />
-    <option name="LAST_COMMIT_MESSAGE" value="daily update0330" />
+    <MESSAGE value="pictures" />
+    <option name="LAST_COMMIT_MESSAGE" value="pictures" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -802,16 +801,6 @@
     <entry file="file://$PROJECT_DIR$/saves/test.npy">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="82">
-            <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/radiomics/get_r_features.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -929,6 +918,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="514">
           <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+          <folding>
+            <element signature="e#137#711#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1033,20 +1025,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/options_lip.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-230">
-          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/saves/for_xzw.pt">
       <provider selected="true" editor-type-id="LargeFileEditor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/models/gradcam_demo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
-          <caret line="271" column="9" lean-forward="true" selection-start-line="271" selection-start-column="9" selection-end-line="271" selection-end-column="9" />
+          <caret line="271" column="9" selection-start-line="271" selection-start-column="9" selection-end-line="271" selection-end-column="9" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#4676#5959#0" />
@@ -1060,10 +1045,27 @@
     <entry file="file://$PROJECT_DIR$/data/test_hu.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
-          <caret line="5" column="55" lean-forward="true" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
+          <caret line="5" column="55" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/options_lip.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-230">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="312">
+            <caret line="7" column="103" selection-start-line="7" selection-start-column="103" selection-end-line="7" selection-end-column="103" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

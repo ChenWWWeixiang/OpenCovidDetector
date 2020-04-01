@@ -5,8 +5,11 @@ This project hosts the inference code for implementing for covid-19 diagnosis sy
 as presented in our paper: Development and Evaluation of an AI System for COVID-19 Diagnosis
  (https://www.medrxiv.org/content/10.1101/2020.03.20.20039834v2)
 
+<img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/workflow.png" width =800% height = 100% div align=center />
+
 Environment
 -------
+Ubuntu==16.04
 python==3.6.1
 matplotlib==3.1.2
 six==1.13.0
