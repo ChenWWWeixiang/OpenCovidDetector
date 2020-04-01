@@ -1,4 +1,4 @@
-# Development and Evaluation of an AI System for COVID-19 Diagnosis
+# COVID-Net Open Source Initiative
 Cheng Jin, Weixiang Chen, Yukun Cao, Zhanwei Xu, Xin Zhang, Lei Deng, Chuansheng Zheng, Jie Zhou, Heshui Shi, Jianjiang Feng
 
 This project hosts the inference code for implementing for covid-19 diagnosis system, 
