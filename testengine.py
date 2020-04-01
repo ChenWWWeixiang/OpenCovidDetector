@@ -14,6 +14,41 @@ import numpy as np
 #from models.g_cam import GuidedPropo
 import matplotlib as plt
 KEEP_ALL=True
+import argparse
+parser = argparse.ArgumentParser()
+parser.description='please enter two parameters a and b ...'
+parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",  type=list,
+                    default=['/mnt/data7/ILD/resampled_seg',
+                            #'/mnt/data7/reader_ex/resampled_seg',
+                            '/mnt/data7/LIDC/resampled_seg',
+                            '/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
+                            '/mnt/data7/resampled_seg/test3'
+                            #'/mnt/data7/slice_test_seg/mask_re',
+                                   # '/mnt/data7/resampled_seg/test3']
+                            ])
+parser.add_argument("-i", "--imgpath", help="A list of paths for image data",  type=list,
+                    default=['/mnt/data7/ILD/resampled_data',
+                        #'/mnt/data7/reader_ex/resampled_data',
+                        '/mnt/data7/LIDC/resampled_data',
+                        '/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
+                        '/mnt/data7/resampled_data/test3'
+                        #'/mnt/data7/slice_test_seg/data_re',
+                             #'/mnt/data7/resampled_data/resampled_test_3']
+                        ])
+parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
+                    default='re/test.npy')
+parser.add_argument("-e", "--exclude_list", help="A path to a txt file for excluded data list. If no file need to be excluded, "
+                                                 "it should be 'none'.",  type=str,
+                    default='ipt_results/answer.txt')
+parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
+                    default=False)
+parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
+                    default='saves/trained_model.pt')
+parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
+                    default='2')
+args = parser.parse_args()
+
+
 def _validate(modelOutput, labels, topn=1):
     modelOutput=list(np.exp(modelOutput.cpu().numpy())[:,1])
     pos_count=np.sum(np.array(modelOutput)>0.5)
@@ -30,32 +65,23 @@ class Validator():
         self.use_lstm = options["general"]["use_lstm"]
         self.batchsize = options["input"]["batchsize"]
         self.use_slice = options['general']['use_slice']
-        datalist=['/mnt/data7/ILD/resampled_data',
-            #'/mnt/data7/reader_ex/resampled_data',
-            '/mnt/data7/LIDC/resampled_data',
-            '/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
-            '/mnt/data7/resampled_data/test3'
-            #'/mnt/data7/slice_test_seg/data_re',
-                 #'/mnt/data7/resampled_data/resampled_test_3']
-            ]
-        masklist = ['/mnt/data7/ILD/resampled_seg',
-            #'/mnt/data7/reader_ex/resampled_seg',
-            '/mnt/data7/LIDC/resampled_seg',
-            '/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
-            '/mnt/data7/resampled_seg/test3'
-            #'/mnt/data7/slice_test_seg/mask_re',
-                   # '/mnt/data7/resampled_seg/test3']
-            ]
-        self.savenpy = 're/test.npy'
-        f=open('ipt_results/answer.txt','r')
-        #f = open('data/txt/val_list.txt', 'r')
-        f=f.readlines()
-        f=[da.split('\t')[-1] for da in f]
-        self.validationdataset = NCPJPGtestDataset(datalist,
-                                                   masklist,
-                                                   options[mode]["padding"],
-                                                   f,True)
-
+        datalist = args.imgpath
+        masklist =args.maskpath
+        self.savenpy = args.savenpy
+        if not args.exclude_list=="none":
+            f=open(args.exclude_list,'r')
+            #f = open('data/txt/val_list.txt', 'r')
+            f=f.readlines()
+            f=[da.split('\t')[-1] for da in f]
+            self.validationdataset = NCPJPGtestDataset(datalist,
+                                                       masklist,
+                                                       options[mode]["padding"],
+                                                       f,1-args.invert_exclude)
+        else:
+            self.validationdataset = NCPJPGtestDataset(datalist,
+                                                       masklist,
+                                                       options[mode]["padding"],
+                                                       )
         self.topk=3
         self.tot_data = len(self.validationdataset)
         self.validationdataloader = DataLoader(
@@ -126,14 +152,7 @@ class Validator():
                         num_samples[0] += 1
                     else:
                         num_samples[1] += 1
-                    if isacc[i] == 0 and False:
-                        input = input.cpu().numpy()
-                        for b in range(input.shape[2]):
-                            I = (input[0, :, b, :, :].transpose(1, 2, 0) * 255).astype(np.uint8)
-                            cv2.imwrite(os.path.join(error_dir, 'error' + str(cnt) + '_truecls:' + str(
-                                label_numpy) + '_slice:' + str(b) + '.jpg'
-                                                     ), I)
-                        cnt += 1
+
 
                 # print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                 #                                                                       count[0],len(self.validationdataset),
@@ -156,14 +175,14 @@ if (options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):
     print("Running cudnn benchmark...")
     torch.backends.cudnn.benchmark = True
 
-os.environ['CUDA_VISIBLE_DEVICES'] = options["general"]['gpuid']
+os.environ['CUDA_VISIBLE_DEVICES'] = args.gpuid
 
 torch.manual_seed(options["general"]['random_seed'])
 
 # Create the model.
 model = resnet152(2)
 
-pretrained_dict = torch.load(options["general"]["pretrainedmodelpath"])
+pretrained_dict = torch.load(args.model_path)
 # load only exists weights
 model_dict = model.state_dict()
 pretrained_dict = {k: v for k, v in pretrained_dict.items() if

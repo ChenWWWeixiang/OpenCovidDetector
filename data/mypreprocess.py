@@ -1,12 +1,20 @@
 import SimpleITK as sitk
 import numpy as np
 import os,glob
-output_path='/mnt/data6/lung_data/lung_5th'
+import sys
+import argparse
+parser = argparse.ArgumentParser()
+parser.description='please enter two parameters a and b ...'
+parser.add_argument("-o", "--input_path", help="path to input dicom files",  type=str, default='/mnt/data6/lung_data/lung_5th')
+parser.add_argument("-i", "--output_path", help="path to output nii files",  type=str, default='/home/cwx/extra/NCP_CTs/NCP_control/control1')
+args = parser.parse_args()
+
+output_path=args.output_path
 os.makedirs(output_path,exist_ok=True)
 #input_path='/home/cwx/extra/NCP_ill'
 #input_c='/home/cwx/extra/new_control/control/control'
 #input_c='/home/cwx/extra/3rd/control/control '
-input_path='/home/cwx/extra/NCP_CTs/NCP_control/control1'
+input_path=args.input_path
 for i in range(3):
     #
     path=input_path+str(i+1)
