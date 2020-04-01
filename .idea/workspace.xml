@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,7 +69,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor>
-                <caret column="34" selection-start-column="34" selection-end-column="34" />
+                <caret column="30" selection-start-column="30" selection-end-column="30" />
               </first_editor>
               <second_editor />
             </state>
@@ -432,7 +431,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585751370735</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add pic to readme">
+      <created>1585753579718</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1585753579718</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add pic to readme">
+      <created>1585753612961</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1585753612961</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1095,7 +1108,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor>
-            <caret column="34" selection-start-column="34" selection-end-column="34" />
+            <caret column="30" selection-start-column="30" selection-end-column="30" />
           </first_editor>
           <second_editor />
         </state>
