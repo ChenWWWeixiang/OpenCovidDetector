@@ -367,11 +367,39 @@ def modify_resnets(model,num_of_cls):
     model.forward = types.MethodType(forward, model)
     return model
 
+def modify_resnets_plus(model,num_of_cls):
+    # Modify attributs
+    model.classifier = torch.nn.Linear(2048,num_of_cls)
+    model.classifier_gender = torch.nn.Linear(2048, 2)
+    model.classifier_age = torch.nn.Linear(2048, 1)
+
+    model.features=torch.nn.Sequential(model.conv1,model.bn1,model.relu,model.maxpool,
+                                       model.layer1,model.layer2,model.layer3,model.layer4,model.avgpool)
+    del model.fc
+
+    def features_func(self, input):
+        x = self.features(input)
+        return x
+
+    def forward(self, input):
+        x = self.features_func(input)
+        x = x.view(x.size(0), -1)
+        gender = self.classifier_gender(x).log_softmax(-1)
+        age = self.classifier_age(x).sigmoid()
+        y = self.classifier(x).log_softmax(-1)
+        return y,gender,age
+
+    # Modify methods
+    model.features_func = types.MethodType(features_func, model)
+    #model.classifier = types.MethodType(classifier, model)
+    model.forward = types.MethodType(forward, model)
+    return model
+
 def modify_resUnets(model,num_of_cls):
     # Modify attributs
     model.classifier = torch.nn.Linear(2048,num_of_cls)
-    model.decoder=Decoder([2048,1024,512,256,64],[2048,512,128,64])
-    model.upper=nn.ConvTranspose2d(64, 1, kernel_size=4, stride=4)
+    model.decoder=Decoder([2048,1024,512,256,64],[1024,512,256,64])
+    model.upper=nn.Sequential(nn.Upsample(scale_factor=4),DoubleConv(64,1,True))
     del model.fc
 
     def features_func(model, x):
@@ -392,7 +420,7 @@ def modify_resUnets(model,num_of_cls):
         x = self.avgpool(Fs[0])
         x = x.view(x.size(0), -1)
         x = self.classifier(x).log_softmax(-1)
-        y = torch.sigmoid(self.upper(y))
+        y = self.upper(y)
         return x,y
     # Modify methods
     model.features_func = types.MethodType(features_func, model)
@@ -402,7 +430,7 @@ def modify_resUnets(model,num_of_cls):
 class DoubleConv(nn.Module):
     """(convolution => [BN] => ReLU) * 2"""
 
-    def __init__(self, in_channels, out_channels):
+    def __init__(self, in_channels, out_channels,sigmoid=False):
         super(DoubleConv,self).__init__()
         self.double_conv = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
@@ -412,6 +440,15 @@ class DoubleConv(nn.Module):
             nn.BatchNorm2d(out_channels),
             nn.ReLU(inplace=True)
         )
+        if sigmoid:
+            self.double_conv = nn.Sequential(
+                nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
+                nn.BatchNorm2d(out_channels),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
+                nn.BatchNorm2d(out_channels),
+                nn.Sigmoid()
+            )
 
     def forward(self, x):
         return self.double_conv(x)
@@ -516,6 +553,12 @@ def resUnet152(num_classes=1000, pretrained='imagenet'):
     model = modify_resUnets(model,num_classes)
     return model
 
+def resnet152_plus(num_classes=1000, pretrained='imagenet'):
+    model = models.resnet152(pretrained=False)
+    settings = pretrained_settings['resnet152'][pretrained]
+    model = load_pretrained(model, num_classes, settings)
+    model = modify_resnets_plus(model,num_classes)
+    return model
 
 ###############################################################
 # SqueezeNets

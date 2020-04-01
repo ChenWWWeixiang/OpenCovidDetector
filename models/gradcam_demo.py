@@ -211,7 +211,7 @@ def show_cam_on_image(img, mask,extral=None):
 def model_get():
     model = resnet152(2)
 
-    pretrained_dict = torch.load('../res152_lungattention_2train_lidc.pt')
+    pretrained_dict = torch.load('../saves/for_xzw.pt')
     # load only exists weights
     model_dict = model.state_dict()
     pretrained_dict = {k: v for k, v in pretrained_dict.items() if
@@ -251,9 +251,9 @@ if __name__ == '__main__':
     for names in os.listdir(i_path):
         if names[0]=='c':
             continue
-        exlist=glob.glob('../ipt_results/cam_good/'+names.split('.jpg')[0]+'*')
-        if len(exlist)==0 and False:
-            continue
+        #exlist=glob.glob('../ipt_results/cam_good/'+names.split('.jpg')[0]+'*')
+        #if len(exlist)==0 and False:
+        #    continue
         try:
             img = cv2.imread(os.path.join(i_path, names), 1)
             img_raw=cv2.imread(os.path.join(i_path2,names),1)
@@ -300,9 +300,9 @@ if __name__ == '__main__':
         output_path = os.path.join(o_path, output_name)
         attention_area=np.array(attention_area>0.55,np.uint8)
         cv2.imwrite(output_path, I)
-        Inii=sitk.GetImageFromArray(img_raw[:,:,1]*255)
-        Lnii = sitk.GetImageFromArray(img[:, :, 2])
-        Mnii=sitk.GetImageFromArray(attention_area[:,:,1])
-        sitk.WriteImage(Inii,os.path.join(o_img_nii,output_name[:-4]+'.nii'))
-        sitk.WriteImage(Mnii,os.path.join(o_msk_nii, output_name[:-4]+ '.nii') )
-        sitk.WriteImage(Lnii, os.path.join(o_lung_nii, output_name[:-4] + '.nii'))
+        #Inii=sitk.GetImageFromArray(img_raw[:,:,1]*255)
+        #Lnii = sitk.GetImageFromArray(img[:, :, 2])
+        #Mnii=sitk.GetImageFromArray(attention_area[:,:,1])
+        #sitk.WriteImage(Inii,os.path.join(o_img_nii,output_name[:-4]+'.nii'))
+        #sitk.WriteImage(Mnii,os.path.join(o_msk_nii, output_name[:-4]+ '.nii') )
+        #sitk.WriteImage(Lnii, os.path.join(o_lung_nii, output_name[:-4] + '.nii'))

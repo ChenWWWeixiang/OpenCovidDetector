@@ -36,20 +36,22 @@ class NLLSequenceLoss(torch.nn.Module):
         loss = (loss * mask).sum() / mask.sum()
         return loss
 class Cir_loss(torch.nn.Module):
-    def __init__(self,lamda=[0.5,0.3,0.2], w=[0.4, 0.5]):
+    def __init__(self,lamda=[0.5,0.1,0.2], w=[0.3, 0.7]):
         super(Cir_loss, self).__init__()
         self.lamda=lamda
         self.cls_1st = torch.nn.NLLLoss(reduction='none', weight=torch.Tensor(w).cuda())
     def forward(self, output,gt,output_r,output_inv,mask,mask_input):
-        l1=self.cls_1st(output,gt)+(self.cls_1st(output_r,gt)*0.5+self.cls_1st(output_inv,1-gt)*0.8)*gt
+        l0=self.cls_1st(output,gt)
+        l1=(self.cls_1st(output_r,gt)*0.5+self.cls_1st(output_inv,1-gt)*0.5)*gt
         l2=0
         l3=0
         for i in range(mask.shape[0]):
-            if gt[i]==1:
-                l2+=torch.sum((mask[i,:,:,:]>0.5)*1.0)/224/224
-                temp=mask_input[i,:,:,:]
-                l3+=torch.std(temp[:,mask[i,0,:,:]>0.5])
-        return self.lamda[0]*l1.mean()+self.lamda[1]*l2+self.lamda[2]*l3
+            #if gt[i]==1:
+                l2+=torch.sum((mask[i,:,:,:]))/224/100
+                #temp=mask_input[i,:,:,:]
+                l3+=torch.std(mask[i,:,:,:])
+
+        return l0.mean()+self.lamda[0]*l1.mean()+self.lamda[1]*l2+self.lamda[2]*l3,l0.mean(),l1.mean(),l2,l3
 def timedelta_string(timedelta):
     totalSeconds = int(timedelta.total_seconds())
     hours, remainder = divmod(totalSeconds,60*60)
@@ -150,7 +152,7 @@ class Trainer():
             if self.use_3d or self.use_lstm:
                 loss = criterion(outputs, length,labels.squeeze(1))
             else:
-                loss = criterion(outputs, labels.squeeze(1),outputs_r,outputs_inv,seg_input,input_r)
+                loss,l0,l1,l2,l3 = criterion(outputs, labels.squeeze(1),outputs_r,outputs_inv,seg_input,input_r)
             loss.backward()
             optimizer.step()
             sampleNumber = i_batch * self.batchsize
@@ -159,6 +161,7 @@ class Trainer():
                 currentTime = datetime.now()
                 output_iteration(loss.cpu().detach().numpy(), sampleNumber, currentTime - startTime, len(self.trainingdataset))
                 Trainer.writer.add_scalar('Train Loss', loss, Trainer.tot_iter)
+                print(l0.detach().cpu().numpy(),l1.detach().cpu().numpy(),l2.detach().cpu().numpy(),l3.detach().cpu().numpy())
             Trainer.tot_iter += 1
 
         print("Epoch "+str(epoch)+"completed, saving state...")

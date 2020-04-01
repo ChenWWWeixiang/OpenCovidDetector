@@ -40,6 +40,7 @@ def _validate(modelOutput, length, labels, total=None, wrong=None):
 
 class Validator():
     def __init__(self, options, mode):
+        self.use_plus = options['general']['use_plus']
         self.use_3d=options['general']['use_3d']
         self.usecudnn = options["general"]["usecudnn"]
         self.use_lstm = options["general"]["use_lstm"]
@@ -77,30 +78,45 @@ class Validator():
         self.epoch+=1
         with torch.no_grad():
             print("Starting {}...".format(self.mode))
-            count = np.zeros((2))
+            count = np.zeros((4))
             if self.use_3d:
                 validator_function = model.validator_function()##TODO:
             if self.use_lstm:
                 validator_function = _validate
             model.eval()
             LL=[]
+            GG=[]
+            AA=0
             if(self.usecudnn):
                 net = nn.DataParallel(model).cuda()
             error_dir='error/'
             os.makedirs(error_dir,exist_ok=True)
             cnt=0
-            num_samples = np.zeros((2))
+            num_samples = np.zeros((4))
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
                 length = Variable(sample_batched['length']).cuda()
-                
+                if self.use_plus:
+                    age = Variable(sample_batched['age']).cuda()
+                    gender = Variable(sample_batched['gender']).cuda()
                 model = model.cuda()
 
-                outputs = net(input)
+                if not self.use_plus:
+                    outputs = net(input)
+                else:
+                    outputs, out_gender, out_age = net(input)
                 if self.use_3d or self.use_lstm:
                     (outputs, top1) = validator_function(outputs, length,labels)
                     _, maxindices = outputs.cpu().max(1)##vector--outputs
+                elif self.use_plus:
+                    _, maxindices = outputs.cpu().max(1)
+                    _, maxindices_gender = out_gender.cpu().max(1)
+                    pre_ages = out_age.cpu()*90
+                    genderacc = gender.cpu().numpy().reshape(gender.size(0)) == maxindices_gender.numpy()
+                    ages_mse=np.abs(pre_ages.numpy()-age.cpu().numpy())
+                    output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1])
+                    gender_numpy = gender.cpu().numpy()[:, 0]
                 else:
                     _, maxindices = outputs.cpu().max(1)
                 isacc=labels.cpu().numpy().reshape(labels.size(0))==maxindices.numpy()
@@ -126,13 +142,29 @@ class Validator():
                                                      ),I)
                         cnt+=1
 
+                    if self.use_plus and gender_numpy[i]>-1:
+                        GG.append([output_gender_numpy[i],gender_numpy[i]])
+                        AA+=ages_mse[i]
+                        if genderacc[i]==1 and gender[i]==0 :
+                            count[2] += 1
+                        if genderacc[i]==1 and gender[i]==1 :
+                            count[3] += 1
+                        if gender[i]==0:
+                            num_samples[2] += 1
+                        else:
+                            num_samples[3] += 1
+
 
                 #print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                 #                                                                       count[0],len(self.validationdataset),
                 #                                                                       1.0*count[0]/num_samples))
-        print(count.sum()/num_samples.sum())
+        print(count[:2].sum()/num_samples[:2].sum(),AA/(num_samples[2]+num_samples[3]))
         LL=np.array(LL)
-        np.save('re/'+self.mode+'records'+str(self.epoch)+'.npy',LL)
-        return count/num_samples,count.sum()/num_samples.sum()
+        np.save('re/' + self.mode + 'records' + str(self.epoch) + '.npy', LL)
+        if self.use_plus:
+            GG=np.array(GG)
+            np.save('re/' + self.mode + 'gender_records' + str(self.epoch) + '.npy', GG)
+
+        return count/num_samples,count[:2].sum()/num_samples[:2].sum()
     def validator_function(self,pre,label):
         pass

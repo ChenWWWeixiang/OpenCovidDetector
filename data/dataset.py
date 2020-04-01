@@ -163,7 +163,8 @@ class NCPJPGDataset(Dataset):
     def __init__(self, data_root,index_root, padding, augment=False):
         self.padding = padding
         self.data = []
-        self.data_root = data_root
+        self.data_root = open(data_root,'r').readlines()
+        self.text_book=[item.split('\t') for item in self.data_root]
         self.padding = padding
         self.augment = augment
         self.train_augmentation = transforms.Compose([transforms.Resize(256),
@@ -192,6 +193,7 @@ class NCPJPGDataset(Dataset):
         #print(np.sum(pa_id_0),len(pa_id)-np.sum(pa_id_0))
         cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1]=='.' or
                        data_path.split('/')[-2]=='masked_ild') for data_path in self.data]
+
         print(np.sum(np.array(cls)==0),np.sum(np.array(cls)==1))
 
     def __len__(self):
@@ -204,15 +206,29 @@ class NCPJPGDataset(Dataset):
             data_path=data_path[:-1]
         cls=1-int(data_path.split('/')[-1][0]=='c' or data_path.split('/')[-1][1]=='.' or
                   data_path.split('/')[-2]=='masked_ild')
-        data=Image.open( data_path)
-
+        data=Image.open(data_path)
+        age = -1
+        gender = -1
+        for line in self.text_book:
+            if  data_path.split('/')[-2]=='masked_ild' or data_path.split('/')[-1][1]=='.':
+                age=-1
+                gender=-1
+                break
+            else:
+                temp=data_path.split('/')[-2].split('_')[-1]+'/'+data_path.split('/')[-1].split('_')[0]+'_'+data_path.split('/')[-1].split('_')[1]
+                if line[0].split('.nii')[0]==temp:
+                    age=int(line[1])
+                    gender=int(line[2][:-1]=='M')#m 1, f 0
+                    break
         if self.augment:
             data=self.train_augmentation(data)
         else:
             data=self.test_augmentation(data)
         return {'temporalvolume': data,
             'label': torch.LongTensor([cls]),
-            'length':torch.LongTensor([1])
+            'length':torch.LongTensor([1]),
+            'gender':torch.LongTensor([gender]),
+            'age':torch.FloatTensor([age])
             }
 
 class NCPJPGtestDataset(Dataset):

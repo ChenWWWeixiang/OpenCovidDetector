@@ -1,14 +1,17 @@
 import os,random,glob
 #path='/mnt/data7/lung_jpgs_with_SEG'
-path=['/mnt/data7/resampled_jpgs/masked_train1',
-      '/mnt/data7/resampled_jpgs/masked_train2',
-      '/mnt/data7/resampled_jpgs/masked_train_lidc',
-      '/mnt/data7/resampled_jpgs/masked_train3',
+#path=['/mnt/data7/resampled_jpgs/masked_train1',
+#      '/mnt/data7/resampled_jpgs/masked_train2',
+#      '/mnt/data7/resampled_jpgs/masked_train_lidc',
+#      '/mnt/data7/resampled_jpgs/masked_train3',
+#      '/mnt/data7/resampled_jpgs/masked_ild']
+path=['/mnt/data9/new_seg_set/masked_jpgs1','/mnt/data9/new_seg_set/masked_jpgs2',
+      '/mnt/data7/resampled_jpgs/masked_train_lidc','/mnt/data7/resampled_jpgs/masked_train3',
       '/mnt/data7/resampled_jpgs/masked_ild']
 #path=['/mnt/data7/slice_test_seg/jpgs2']
-f1 = open('txt/train1300.txt', 'w')
-f2 = open('txt/test1300.txt', 'w')
-train_count=1300
+f1 = open('txt/train_xzw.txt', 'w')
+f2 = open('txt/test_xzw.txt', 'w')
+train_count=5000
 c=0
 for ipath in path:
     cnt = 0

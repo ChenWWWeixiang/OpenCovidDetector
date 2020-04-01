@@ -2,12 +2,13 @@ import SimpleITK as sitk
 import numpy as np
 from PIL import Image
 import cv2,os
-input_path='/mnt/data7/ILD/train20_data'
-input_mask='/mnt/data7/ILD/train20_seg'
+input_path='/mnt/data9/new_seg_set/resampled_data/test3'
+input_mask='/mnt/data9/new_seg_set/resampled_seg/test3'
 #input_path='/mnt/data7/resampled_data/train3'
 #input_mask='/mnt/data7/resampled_seg/train3'
-output_path_slices='/mnt/data7/resampled_jpgs/masked_ild'
-output_path_raw='/mnt/data7/resampled_jpgs/raw_ild'
+output_path_slices='/mnt/data9/new_seg_set/test_masked_jpgs3'
+output_path_raw='/mnt/data9/new_seg_set/test_raw_jpgs3'
+old_path='/mnt/data7/resampled_jpgs/masked_test3'
 #output_path_cropped='/mnt/data6/lung_resample_lungbox'
 #output_path_npy='/mnt/data6/lung_resample_npy'
 os.makedirs(output_path_slices,exist_ok=True)
@@ -18,6 +19,7 @@ os.makedirs(output_path_raw,exist_ok=True)
 cnt=0
 name_list=os.listdir(input_path)
 for idx,name in enumerate(name_list):
+
     #if idx>=100:
     #    break
     volume = sitk.ReadImage(os.path.join(input_path,name))
@@ -31,6 +33,8 @@ for idx,name in enumerate(name_list):
     #sitk.WriteImage(volume_box,os.path.join(output_path_cropped,name))
     V_set=[]
     for idx, i in enumerate(range(V.shape[0] - 40, 45, -5)):
+        if not os.path.exists(os.path.join(old_path,name.split('.n')[0]+'_'+str(i)+'.jpg')):
+            continue
     #for idx,i in enumerate(range(V.shape[1]-100,70,-5)):
     #for idx,i in enumerate(range(V.shape[2]-40,40,-5)):
         if idx>=60:

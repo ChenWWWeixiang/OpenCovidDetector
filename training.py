@@ -55,6 +55,7 @@ class Trainer():
     writer = SummaryWriter()    
     
     def __init__(self, options):
+        self.use_plus=options['general']['use_plus']
         self.use_slice = options['general']['use_slice']
         self.usecudnn = options["general"]["usecudnn"]
         self.use_3d=options['general']['use_3d']
@@ -103,12 +104,14 @@ class Trainer():
         else:
             #criterion=nn.
             criterion =nn.NLLLoss(weight=torch.Tensor([0.3,0.7]).cuda())
-
+            if self.use_plus:
+                criterion_age = nn.SmoothL1Loss(reduction='none').cuda()
+                criterion_gender = nn.NLLLoss(ignore_index=-1).cuda()
         if self.use_lstm:
             criterion=NLLSequenceLoss()
         if(self.usecudnn):
             net = nn.DataParallel(model).cuda()
-        criterion = criterion.cuda()
+            criterion = criterion.cuda()
                
         optimizer = optim.Adam(
                         model.parameters(),
@@ -123,14 +126,24 @@ class Trainer():
             input = Variable(sample_batched['temporalvolume'])
             labels = Variable(sample_batched['label'])
             length = Variable(sample_batched['length'])
+            if self.use_plus:
+                age = Variable(sample_batched['age']).cuda()
+                gender = Variable(sample_batched['gender']).cuda()
            # break
             if(self.usecudnn):
                 input = input.cuda()
                 labels = labels.cuda()
-
-            outputs = net(input)
+            if not self.use_plus:
+                outputs = net(input)
+            else:
+                outputs,out_gender,out_age=net(input)
             if self.use_3d or self.use_lstm:
                 loss = criterion(outputs, length,labels.squeeze(1))
+            elif self.use_plus:
+                l1 = criterion(outputs, labels.squeeze(1))
+                l2 = (criterion_age(out_age,age/90)*(age>0)).sum()/(age>0).sum()
+                l3 = criterion_gender(out_gender,gender.squeeze(1))
+                loss=l1+l2*0.01+l3*0.5
             else:
                 loss = criterion(outputs, labels.squeeze(1))
             loss.backward()

@@ -6,7 +6,7 @@ from training import Trainer
 from validation import Validator
 import torch.nn as nn
 import os
-from models.net2d import densenet121,densenet161,squeezenet1_1,vgg19_bn,resnet152
+from models.net2d import densenet121,densenet161,squeezenet1_1,vgg19_bn,resnet152,resnet152_plus
 
 
 
@@ -26,7 +26,10 @@ torch.manual_seed(options["general"]['random_seed'])
 if options['general']['use_3d']:
     model = Dense3D(options)##TODO:1
 elif options['general']['use_slice']:
-    model = resnet152(2)#vgg19_bn(2)#squeezenet1_1(2)
+    if options['general']['use_plus']:
+        model = resnet152_plus(2)
+    else:
+        model = resnet152(2)#vgg19_bn(2)#squeezenet1_1(2)
 else:
     model=densenet161(2)
 
@@ -62,7 +65,7 @@ for epoch in range(options["training"]["startepoch"], options["training"]["epoch
         print('-'*21)
         print('All acc:'+str(re_all))
         print('{:<10}|{:>10}'.format('Cls #', 'Accuracy'))
-        for i in range(2):
+        for i in range(len(result)):
             print('{:<10}|{:>10}'.format(i, result[i]))
         print('-'*21)
             
