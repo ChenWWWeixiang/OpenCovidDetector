@@ -58,9 +58,9 @@ xlrd==1.2.0
 
 2. __Download Trained Weight__: a trained model is available at <https://cloud.tsinghua.edu.cn/f/ba180ea9b2d44fdc9757/?dl=1>
 
-3. __Test__: run 
-```p
-ython testengine.py -p <path to trainedmodel> -m <list of paths for lung segmentation> -i <list of paths for image data> -o <path to save record> -g <gpuid>
+3. __Test__:  
+```
+python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmentation> -i <list of paths for image data> -o <path to save record> -g <gpuid>
 ``` 
 ### Train on Your Own Data
 
