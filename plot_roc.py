@@ -14,7 +14,7 @@ def get_CI(value,res):
     return res
 
 #res=np.load('ipt_results/results/train.npy')
-ress=['saves/test.npy','saves/reader.npy']
+ress=['saves/test.npy','saves/test_plus.npy']
 with open('ipt_results/results.csv','w') as f:
     f=csv.writer(f)
     f.writerow(['name','AUC','ACC','Specificity','Sensitivity','PPV','NPV','F1','Youden'])

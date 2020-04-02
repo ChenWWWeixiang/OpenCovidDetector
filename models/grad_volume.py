@@ -1,12 +1,15 @@
 import argparse
-import cv2,os
+import cv2, os
 import numpy as np
 import torch
-import  SimpleITK as sitk
+import SimpleITK as sitk
 from torch.autograd import Function
 from torchvision import models
-from models.net2d import vgg19_bn,densenet161,vgg16,vgg19,resnet152
-os.environ['CUDA_VISIBLE_DEVICES']='1'
+from models.net2d import vgg19_bn, densenet161, vgg16, vgg19, resnet152
+
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+
+
 class FeatureExtractor():
     """ Class for extracting activations and
     registering gradients from targetted intermediate layers """
@@ -28,6 +31,8 @@ class FeatureExtractor():
                 x.register_hook(self.save_gradient)
                 outputs += [x]
         return outputs, x
+
+
 class ModelOutputs():
     """ Class for making a forward pass, and getting:
     1. The network output.
@@ -46,9 +51,11 @@ class ModelOutputs():
         output = output.view(output.size(0), -1)
         output = self.model.classifier(output)
         return target_activations, output
+
+
 def preprocess_image(img):
-    means = [0,0,0]
-    stds = [1,1,1]
+    means = [0, 0, 0]
+    stds = [1, 1, 1]
 
     preprocessed_img = img.copy()[:, :, ::-1]
     for i in range(3):
@@ -60,6 +67,7 @@ def preprocess_image(img):
     preprocessed_img.unsqueeze_(0)
     input = preprocessed_img.requires_grad_(True)
     return input
+
 
 class GradCam:
     def __init__(self, model, target_layer_names, use_cuda):
@@ -110,7 +118,9 @@ class GradCam:
         cam = cv2.resize(cam, (224, 224))
         cam = cam - np.min(cam)
         cam = cam / np.max(cam)
-        return cam,pred
+        return cam, pred
+
+
 class GuidedBackpropReLU(Function):
 
     @staticmethod
@@ -132,6 +142,8 @@ class GuidedBackpropReLU(Function):
                                                  positive_mask_1), positive_mask_2)
 
         return grad_input
+
+
 class GuidedBackpropReLUModel:
     def __init__(self, model, use_cuda):
         self.model = model
@@ -173,6 +185,8 @@ class GuidedBackpropReLUModel:
         output = output[0, :, :, :]
 
         return output
+
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--use-cuda', action='store_true', default=True,
@@ -185,7 +199,6 @@ def get_args():
                         help='Model path')
     parser.add_argument('--output_path', type=str, default='/mnt/data9/new_seg_set/cam/NCP_ill4',
                         help='Cam output path')
-
     args = parser.parse_args()
     args.use_cuda = args.use_cuda and torch.cuda.is_available()
     if args.use_cuda:
@@ -194,27 +207,33 @@ def get_args():
         print("Using CPU for computation")
 
     return args
-def deprocess_image(img,mask=None):
+
+
+def deprocess_image(img, mask=None):
     """ see https://github.com/jacobgil/keras-grad-cam/blob/master/grad-cam.py#L65 """
     img = img - np.mean(img)
     img = img / (np.std(img) + 1e-5)
     img = img * 0.1
     img = img + 0.5
-    img[mask==0]=0.5
+    img[mask == 0] = 0.5
     img = np.clip(img, 0, 1)
 
-    return np.uint8(img*255)
-def show_cam_on_image(img, mask,extral=None):
-    if isinstance(extral,np.ndarray):
-        mask=mask*extral[:,:,1]
+    return np.uint8(img * 255)
+
+
+def show_cam_on_image(img, mask, extral=None):
+    if isinstance(extral, np.ndarray):
+        mask = mask * extral[:, :, 1]
     heatmap = cv2.applyColorMap(np.uint8(255 * mask), cv2.COLORMAP_JET)
     heatmap = np.float32(heatmap) / 255
 
     cam = heatmap + np.float32(img)
     cam = cam / np.max(cam)
-    cam[extral==0]=np.float32(img)[extral==0]
-    #cv2.imwrite("cam.jpg", np.uint8(255 * cam))
+    cam[extral == 0] = np.float32(img)[extral == 0]
+    # cv2.imwrite("cam.jpg", np.uint8(255 * cam))
     return np.uint8(255 * cam)
+
+
 def model_get(path):
     model = resnet152(2)
 
@@ -223,94 +242,81 @@ def model_get(path):
     model_dict = model.state_dict()
     pretrained_dict = {k: v for k, v in pretrained_dict.items() if
                        k in model_dict.keys() and v.size() == model_dict[k].size()}
-    #print('matched keys:', len(pretrained_dict))
+    # print('matched keys:', len(pretrained_dict))
     model_dict.update(pretrained_dict)
     model.load_state_dict(model_dict)
     return model
+
+
 import glob
+
 if __name__ == '__main__':
     args = get_args()
 
     # Can work with any model, but it assumes that the model has a
     # feature method, and a classifier method,
-    # as in the VGG models in torchvision.
     grad_cam = GradCam(model=model_get(args.model_path), \
                        target_layer_names=["6"], use_cuda=args.use_cuda)
     gb_model = GuidedBackpropReLUModel(model=model_get(args.model_path), use_cuda=args.use_cuda)
     o_path = args.output_path
-    #o_img_nii='../reader_study/cam/img'
-    #o_msk_nii = '../reader_study/cam/mask'
-    #o_lung_nii='../reader_study/cam/lung'
+    # o_img_nii='../reader_study/cam/img'
+    # o_msk_nii = '../reader_study/cam/mask'
+    # o_lung_nii='../reader_study/cam/lung'
     i_path = args.mask_path
     i_path2 = args.image_path
 
-    os.makedirs(o_path,exist_ok=True)
-    #os.makedirs(o_img_nii, exist_ok=True)
+    os.makedirs(o_path, exist_ok=True)
+    # os.makedirs(o_img_nii, exist_ok=True)
     ##os.makedirs(o_msk_nii, exist_ok=True)
-    #os.makedirs(o_lung_nii, exist_ok=True)
+    # os.makedirs(o_lung_nii, exist_ok=True)
     for names in os.listdir(i_path):
-        if names[0]=='c':
+        if names[0] == 'c':
             continue
-        #exlist=glob.glob('../ipt_results/cam_good/'+names.split('.jpg')[0]+'*')
-        #if len(exlist)==0 and False:
+        # exlist=glob.glob('../ipt_results/cam_good/'+names.split('.jpg')[0]+'*')
+        # if len(exlist)==0 and False:
         #    continue
-        try:
 
-            img = cv2.imread(os.path.join(i_path, names), 1)
-            img_raw=cv2.imread(os.path.join(i_path2,names),1)
-            raw_shape=(img.shape[1],img.shape[0])
+        img = sitk.ReadImage(os.path.join(i_path, names))
+        seg = sitk.ReadImage(os.path.join(i_path2, names))
+        V=sitk.GetArrayFromImage(img)
+        M = sitk.GetArrayFromImage(seg)
 
-            rate=raw_shape/np.array([224,224])
-            img_raw=np.float32(cv2.resize(img_raw,(224,224)))/255
+        M = M[:V.shape[0], :, :]
+        sums = M.sum(1).sum(1)
+        idd = np.where(sums > 0)[0]
+        M = M[idd, :, :]
+        V = V[idd, :, :]
+        V = V[:M.shape[0], :M.shape[1], :M.shape[2]]
+
+        CAM_V = []
+        for idx, i in enumerate(range(0,V.shape[0])):
+            data = V[i:i + 1, :, :]
+            data[data > 700] = 700
+            data[data < -1200] = -1200
+            data = data * 255.0 / 1900
+            data = data - data.min()
+            img_raw = np.concatenate([data[0:1, :, :], data[0:1, :, :], data[0:1, :, :]], 0)
+            img_raw = img_raw.astype(np.uint8).transpose(1, 2, 0)
+            # data=data/data.max()
+            img = np.concatenate([data, M[i:i + 1, :, :] * 255], 0)  # mask one channel
+            img = img.astype(np.uint8).transpose(1, 2, 0)
+            raw_shape = (img.shape[1], img.shape[0])
+
+            img_raw = np.float32(cv2.resize(img_raw, (224, 224))) / 255
             img = np.float32(cv2.resize(img, (224, 224))) / 255
-        except:
-            print(os.path.join(i_path2,names))
-            continue
-        input = preprocess_image(img)
 
-        # If None, returns the map for the highest scoring category.
-        # Otherwise, targets the requested index.
-        target_index = 1
-        mask,pred = grad_cam(input, target_index)
-        if pred[0]<0.8:
-            continue
-        #cam=show_cam_on_image(img_raw, mask)
+            input = preprocess_image(img)
 
+            target_index = 1
+            mask, pred = grad_cam(input, target_index)
 
-        gb = gb_model(input, index=target_index)
-        gb = gb.transpose((1, 2, 0))
+            cam = cv2.resize(mask, raw_shape)
+            CAM_V.append(cam)
+        CAM_V=np.array(CAM_V)
+        V=np.array(V)
+        output_name = names.split('.nii')[0] + '.npy'
+        output_path = os.path.join(o_path, 'CAM_'+output_name)
+        output_path_v = os.path.join(o_path, 'RAW_'+output_name)
 
-        cam_mask = cv2.merge([mask, mask, mask])
-        attention_area = cam_mask >0.55
-        #cam_gb = deprocess_image(cam_mask*gb)
-        gbt=gb.copy()
-        gb = deprocess_image(gb)
-        attention_area=attention_area*(np.abs(gb-128)>64)
-        attention_area=attention_area[:,:,0]+attention_area[:,:,1]+attention_area[:,:,2]
-        attention_area=(attention_area>=1).astype(np.uint8)
-        kernel = np.ones((5, 5), np.uint8)
-        attention_area = cv2.erode(cv2.morphologyEx(attention_area, cv2.MORPH_CLOSE, kernel),kernel)
-        lung_mask=cv2.erode(img[:,:,2],kernel)
-        attention_area=attention_area*lung_mask
-        attention_area = np.stack([attention_area, attention_area, attention_area], -1)
-        #if np.sum(attention_area)<=10:
-        #    continue
-        cam = show_cam_on_image(img_raw, mask)
-        cam_gb = deprocess_image(cam_mask * gbt,attention_area)
-        img_raw=cv2.resize(img_raw,raw_shape)
-        cam_mask=cv2.resize(cam_mask,raw_shape)
-        cam_gb=cv2.resize(cam_gb,raw_shape)
-        attention_area=cv2.resize(attention_area,raw_shape)
-        #I = np.concatenate([img_raw*255,cam,cam_gb,attention_area*255],1)
-        #I=cam
-        output_name = names.split('.jpg')[0] + '.npy'
-        output_path = os.path.join(o_path, output_name)
-        #attention_area=np.array(attention_area>0.55,np.uint8)
-        #cv2.imwrite(output_path, I)
-        np.save(output_path,cam_mask)
-        #Inii=sitk.GetImageFromArray(img_raw[:,:,1]*255)
-        #Lnii = sitk.GetImageFromArray(img[:, :, 2])
-        #Mnii=sitk.GetImageFromArray(attention_area[:,:,1])
-        #sitk.WriteImage(Inii,os.path.join(o_img_nii,output_name[:-4]+'.nii'))
-        #sitk.WriteImage(Mnii,os.path.join(o_msk_nii, output_name[:-4]+ '.nii') )
-        #sitk.WriteImage(Lnii, os.path.join(o_lung_nii, output_name[:-4] + '.nii'))
+        np.save(output_path, CAM_V)
+        np.save(output_path_v, V)

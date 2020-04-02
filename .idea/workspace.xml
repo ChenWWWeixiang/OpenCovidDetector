@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/models/grad_volume.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/resample.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/resample.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/test_hu.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/test_hu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/gradcam_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/gradcam_demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_roc.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_roc.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/testengine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,40 +23,32 @@
       <file leaf-file-name="gradcam_demo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/gradcam_demo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="263" column="31" selection-start-line="263" selection-start-column="31" selection-end-line="263" selection-end-column="31" />
+            <state relative-caret-position="76">
+              <caret line="179" selection-start-line="179" selection-end-line="186" selection-end-column="47" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#292#926#0" />
+                <element signature="e#953#1610#0" />
+                <element signature="e#1642#2148#0" />
+                <element signature="e#2169#3799#0" />
+                <element signature="e#3841#4640#0" />
                 <element signature="e#4676#5959#0" />
-                <element signature="e#5980#6508#0" />
                 <element signature="e#6549#6817#0" />
+                <element signature="e#6868#7236#0" />
+                <element signature="e#7258#7716#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
-              <caret line="81" column="21" lean-forward="true" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="training.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/training.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="160" column="42" selection-start-line="160" selection-start-column="42" selection-end-line="160" selection-end-column="42" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#1316#1537#0" />
-                <element signature="e#1593#1822#0" />
-              </folding>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="9">
+                <caret line="55" selection-start-line="55" selection-end-line="55" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -70,32 +65,8 @@
       <file leaf-file-name="testengine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testengine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_hu.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/test_hu.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="997">
-              <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="validation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/validation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="165" column="45" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
+            <state relative-caret-position="748">
+              <caret line="207" column="30" lean-forward="true" selection-start-line="207" selection-start-column="30" selection-end-line="207" selection-end-column="30" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -114,13 +85,7 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>elist</find>
-      <find>slice_idx</find>
-      <find>90</find>
-      <find>89</find>
-      <find>0.89</find>
       <find>count</find>
-      <find>lists</find>
       <find>LL</find>
       <find>item</find>
       <find>air_error_name</find>
@@ -141,9 +106,15 @@
       <find>num_samples</find>
       <find>model</find>
       <find>i_path</find>
-      <find>isacc</find>
-      <find>cam_gb</find>
       <find>save_prefix</find>
+      <find>lists</find>
+      <find>isacc</find>
+      <find>gender_numpy</find>
+      <find>cam_gb</find>
+      <find>mask</find>
+      <find>names</find>
+      <find>cam_mask</find>
+      <find>model_get</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,7 +126,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/data/txt/find_val_cases.py" />
         <option value="$PROJECT_DIR$/compute_acc_val_slice.py" />
         <option value="$PROJECT_DIR$/data/count_lung_area.py" />
         <option value="$PROJECT_DIR$/ipt_results/show_z_hist.py" />
@@ -186,7 +156,6 @@
         <option value="$PROJECT_DIR$/ipt_results/go_and_find.py" />
         <option value="$PROJECT_DIR$/ipt_results/answer.txt" />
         <option value="$PROJECT_DIR$/saves/lidc.npy" />
-        <option value="$PROJECT_DIR$/plot_roc.py" />
         <option value="$PROJECT_DIR$/circle_validation.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/main_circle.py" />
@@ -194,18 +163,20 @@
         <option value="$PROJECT_DIR$/circle_training.py" />
         <option value="$PROJECT_DIR$/get_all_infomation.py" />
         <option value="$PROJECT_DIR$/options_lip.toml" />
-        <option value="$PROJECT_DIR$/data/dataset.py" />
         <option value="$PROJECT_DIR$/models/net2d.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/validation.py" />
         <option value="$PROJECT_DIR$/data/mypreprocess.py" />
         <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
-        <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/data/resample.py" />
-        <option value="$PROJECT_DIR$/data/test_hu.py" />
-        <option value="$PROJECT_DIR$/testengine.py" />
         <option value="$PROJECT_DIR$/training.py" />
+        <option value="$PROJECT_DIR$/testengine.py" />
+        <option value="$PROJECT_DIR$/data/dataset.py" />
+        <option value="$PROJECT_DIR$/plot_roc.py" />
+        <option value="$PROJECT_DIR$/data/test_hu.py" />
+        <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
+        <option value="$PROJECT_DIR$/models/grad_volume.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -228,11 +199,6 @@
             <path>
               <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
-              <item name="saves" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -269,25 +235,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.resample">
-    <configuration name="get_all_infomation" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Lipreading-DenseNet3D-master" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_all_infomation.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.gradcam_demo">
     <configuration name="gradcam_demo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -306,7 +254,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="plot_roc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -318,7 +266,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/plot_roc.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -360,20 +308,38 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="testengine" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Lipreading-DenseNet3D-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testengine.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list>
-      <item itemvalue="Python.get_all_infomation" />
       <item itemvalue="Python.test_hu" />
-      <item itemvalue="Python.main" />
       <item itemvalue="Python.gradcam_demo" />
       <item itemvalue="Python.resample" />
+      <item itemvalue="Python.testengine" />
+      <item itemvalue="Python.plot_roc" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.resample" />
-        <item itemvalue="Python.test_hu" />
         <item itemvalue="Python.gradcam_demo" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.get_all_infomation" />
+        <item itemvalue="Python.test_hu" />
+        <item itemvalue="Python.plot_roc" />
+        <item itemvalue="Python.testengine" />
+        <item itemvalue="Python.resample" />
       </list>
     </recent_temporary>
   </component>
@@ -493,7 +459,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585792422674</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add model plus">
+      <created>1585796901993</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1585796901993</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -531,7 +504,8 @@
     <MESSAGE value="daily update0330" />
     <MESSAGE value="pictures" />
     <MESSAGE value="add pic to readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="add pic to readme" />
+    <MESSAGE value="add model plus" />
+    <option name="LAST_COMMIT_MESSAGE" value="add model plus" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -605,11 +579,6 @@
           <url>file://$PROJECT_DIR$/reader_study/check_results.py</url>
           <line>81</line>
           <option name="timeStamp" value="486" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>162</line>
-          <option name="timeStamp" value="499" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ipt_results/show_z_hist.py</url>
@@ -697,11 +666,6 @@
           <option name="timeStamp" value="682" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>302</line>
-          <option name="timeStamp" value="683" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/circle_training.py</url>
           <line>155</line>
           <option name="timeStamp" value="705" />
@@ -722,9 +686,19 @@
           <option name="timeStamp" value="737" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/testengine.py</url>
+          <line>205</line>
+          <option name="timeStamp" value="745" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/dataset.py</url>
+          <line>328</line>
+          <option name="timeStamp" value="747" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/gradcam_demo.py</url>
-          <line>300</line>
-          <option name="timeStamp" value="742" />
+          <line>309</line>
+          <option name="timeStamp" value="749" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -737,88 +711,69 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="743" />
+      <option name="time" value="750" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="img.shape[:2]/np.array([224,224])" language="Python" />
+        <watch expression="output_path" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
       <expression>
-        <expression-string>img.shape[:2]/np.array([224,224])</expression-string>
+        <expression-string>output_path</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>img.shape</expression-string>
+        <expression-string>line[0].split('.nii')[0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>(age&gt;0).sum()</expression-string>
+        <expression-string>temp</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>loss</expression-string>
+        <expression-string>data_path</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>l3</expression-string>
+        <expression-string>_, maxindices_gender = out_gender.cpu().mean(0).max(0)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>l2</expression-string>
+        <expression-string>_, maxindices_gender = out_gender.cpu().mean(0).max()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>l1</expression-string>
+        <expression-string>out_gender.cpu().mean(0).max()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>criterion_age(out_age,age)*(age&gt;0)</expression-string>
+        <expression-string>out_gender.cpu().mean(0)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>criterion_gender(out_gender,gender.squeeze(1))</expression-string>
+        <expression-string>label</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>criterion_age(out_age,age)</expression-string>
+        <expression-string>pre.cpu().numpy().mean()* 90</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ipt_results/go_and_find.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
-          <folding>
-            <element signature="e#390#964#0" />
-            <element signature="e#990#1035#0" />
-            <element signature="e#1067#1750#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ipt_results/answer.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="173" column="43" selection-start-line="173" selection-start-column="43" selection-end-line="173" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model_3train.pt">
       <provider selected="true" editor-type-id="LargeFileEditor" />
     </entry>
@@ -890,22 +845,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="58" column="34" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/roc.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ipt_results/results.csv">
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-      <provider selected="true" editor-type-id="csv-text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plot_roc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -992,20 +931,6 @@
     <entry file="file://$PROJECT_DIR$/all_ages_genders.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="226" column="39" selection-start-line="226" selection-start-column="39" selection-end-line="226" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#402#2994#0" />
-            <element signature="e#3029#5252#0" />
-            <element signature="e#7849#12273#0" />
-            <element signature="e#12317#16805#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/torch/nn/modules/loss.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
@@ -1066,16 +991,6 @@
     <entry file="file://$PROJECT_DIR$/saves/val_gender.npy">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="115">
-            <caret line="8" column="6" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/options_lip.toml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -1100,10 +1015,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/training.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="160" column="42" selection-start-line="160" selection-start-column="42" selection-end-line="160" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="70" column="12" lean-forward="true" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="113" column="20" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saves/test_plus.npy">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="322" column="23" lean-forward="true" selection-start-line="322" selection-start-column="23" selection-end-line="322" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#402#2994#0" />
+            <element signature="e#3029#5252#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/roc.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ipt_results/results.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_roc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data/test_hu.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="997">
-          <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+        <state relative-caret-position="859">
+          <caret line="38" column="37" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
@@ -1112,18 +1089,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/testengine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="165" column="45" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
+        <state relative-caret-position="748">
+          <caret line="207" column="30" lean-forward="true" selection-start-line="207" selection-start-column="30" selection-end-line="207" selection-end-column="30" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -1132,36 +1099,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/gradcam_demo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="263" column="31" selection-start-line="263" selection-start-column="31" selection-end-line="263" selection-end-column="31" />
+        <state relative-caret-position="76">
+          <caret line="179" selection-start-line="179" selection-end-line="186" selection-end-column="47" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#292#926#0" />
+            <element signature="e#953#1610#0" />
+            <element signature="e#1642#2148#0" />
+            <element signature="e#2169#3799#0" />
+            <element signature="e#3841#4640#0" />
             <element signature="e#4676#5959#0" />
-            <element signature="e#5980#6508#0" />
             <element signature="e#6549#6817#0" />
+            <element signature="e#6868#7236#0" />
+            <element signature="e#7258#7716#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/models/grad_volume.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="81" column="21" lean-forward="true" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+        <state relative-caret-position="229">
+          <caret line="261" column="41" lean-forward="true" selection-start-line="261" selection-start-column="41" selection-end-line="261" selection-end-column="41" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="160" column="42" selection-start-line="160" selection-start-column="42" selection-end-line="160" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#1316#1537#0" />
-            <element signature="e#1593#1822#0" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="9">
+            <caret line="55" selection-start-line="55" selection-end-line="55" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

@@ -2,12 +2,12 @@ import SimpleITK as sitk
 import numpy as np
 from PIL import Image
 import cv2,os
-input_path='/mnt/data9/new_seg_set/raw_data/test3'
-input_mask='/mnt/data9/new_seg_set/raw_seg/test3'
+input_path='/mnt/data9/new_seg_set/raw_data/train1'
+input_mask='/mnt/data9/new_seg_set/raw_seg/train1'
 #input_path='/mnt/data7/resampled_data/train3'
 #input_mask='/mnt/data7/resampled_seg/train3'
-output_path_slices='/mnt/data9/nore/test_masked_jpgs3'
-output_path_raw='/mnt/data9/nore/test_raw_jpgs3'
+output_path_slices='/mnt/data9/new_seg_set/nore/train_masked_jpgs1'
+output_path_raw='/mnt/data9/new_seg_set/nore/train_raw_jpgs1'
 old_path='/mnt/data7/resampled_jpgs/masked_test3'
 #output_path_cropped='/mnt/data6/lung_resample_lungbox'
 #output_path_npy='/mnt/data6/lung_resample_npy'
@@ -26,8 +26,11 @@ for idx,name in enumerate(name_list):
     mask=sitk.ReadImage(os.path.join(input_mask,name))
     M=sitk.GetArrayFromImage(mask)
     V = sitk.GetArrayFromImage(volume)
+    M = M[:V.shape[0], :, :]
     sums=M.sum(1).sum(1)
     idd=np.where(sums>0)[0]
+
+
     M=M[idd,:,:]
     V=V[idd,:,:]
     #V = V[-300:-40,:,:]

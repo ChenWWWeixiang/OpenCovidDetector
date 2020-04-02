@@ -43,7 +43,7 @@ parser.add_argument("-e", "--exclude_list", help="A path to a txt file for exclu
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='saves/trained_model.pt')
+                    default='saves/model_plus.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='2')
 args = parser.parse_args()
@@ -74,10 +74,15 @@ class Validator():
             #f = open('data/txt/val_list.txt', 'r')
             f=f.readlines()
             f=[da.split('\t')[-1] for da in f]
-            self.validationdataset = NCPJPGtestDataset(datalist,
-                                                       masklist,
-                                                       options[mode]["padding"],
-                                                       f,1-args.invert_exclude)
+            if self.use_plus:
+                self.validationdataset = NCPJPGtestDataset(datalist,
+                                                           masklist,
+                                                           options[mode]["padding"],
+                                                           f,1-args.invert_exclude,'all_ages_genders.txt')
+            else:
+                self.validationdataset = NCPJPGtestDataset(datalist,
+                                                           masklist,
+                                                           options[mode]["padding"],)
         else:
             self.validationdataset = NCPJPGtestDataset(datalist,
                                                        masklist,
@@ -140,9 +145,12 @@ class Validator():
                     all_numpy=np.exp(outputs.cpu().numpy()[:,1]).tolist()
                     a=1
                 (vector, isacc,pos_count) = validator_function(outputs, labels,self.topk)
-                (gender_numpy, genderacc, _) = validator_function(out_gender, gender, self.topk)
-                output_gender_numpy=gender.cpu().numpy()
-                ages_mse=self.age_function(out_age, age)
+                if self.use_plus:
+                    _, maxindices_gender = out_gender.cpu().mean(0).max(0)
+                    genderacc = gender.cpu().numpy().reshape(gender.size(0)) == maxindices_gender.numpy()
+                    output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1]).mean()
+                    gender_numpy=gender.cpu().numpy()
+                    ages_mse,oa=self.age_function(out_age, age)
                 #_, maxindices = vector.cpu().max(1)  ##vector--outputs
 
                 output_numpy = vector
@@ -151,7 +159,10 @@ class Validator():
 
                 ####
                 LL.append([name[0],output_numpy, label_numpy])
-                print(name[0],isacc,vector)
+                if gender_numpy[0]>-1 and self.use_plus:
+                    print(name[0], isacc, vector, 'sex:', genderacc, 'age:', oa)
+                else:
+                    print(name[0],isacc,vector)
                 # argmax = (-vector.cpu().numpy()).argsort()
                 for i in range(labels.size(0)):
                     #if isacc[i]==0:
@@ -166,8 +177,8 @@ class Validator():
                         num_samples[1] += 1
 
                     if self.use_plus and gender_numpy[i]>-1:
-                        GG.append([output_gender_numpy[i],gender_numpy[i]])
-                        AA+=ages_mse[i]
+                        GG.append([output_gender_numpy,gender_numpy[i]])
+                        AA+=ages_mse
                         if genderacc[i]==1 and gender[i]==0 :
                             count[2] += 1
                         if genderacc[i]==1 and gender[i]==1 :
@@ -192,9 +203,9 @@ class Validator():
         return count / num_samples, count[:2].sum() / num_samples[:2].sum()
 
     def age_function(self, pre, label):
-        pre=pre.cpu().numpy().mean(1)* 90
+        pre=pre.cpu().numpy().mean()* 90
         label=label.cpu().numpy()
-        return np.mean(pre-label)
+        return np.mean(pre-label),pre
 
 
 print("Loading options...")

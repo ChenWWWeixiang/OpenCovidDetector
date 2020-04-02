@@ -15,7 +15,7 @@ Performance
 ----------
  A large dataset was constructed by collecting 970 CT volumes of 496 patients with confirmed COVID-19 and 260 negative cases from three hospitals in Wuhan, China, and 1,125 negative cases from two publicly available chest CT datasets. Trained using only 312 cases, our diagnosis system, which is based on deep convolutional neural network, is able to achieve an accuracy of 94.98%, an area under the receiver operating characteristic curve (AUC) of 97.91%, a sensitivity of 94.06%, and a specificity of 95.47% on an independent external verification dataset of 1,263 cases. In a reader study involving five radiologists, only one radiologist is slightly more accurate than the AI system.
  
- <img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/roc_reader.png" width =40% height = 40% div align = center />
+ <img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/roc_reader.png" width =50% height = 50% div align = center />
  
 
 Guidance to Use
@@ -50,7 +50,10 @@ xlrd==1.2.0
 
 2. __Download Trained Weight__: a trained model is available at <https://cloud.tsinghua.edu.cn/f/ba180ea9b2d44fdc9757/?dl=1>
 
-3. __Test__: run ```python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmentation> -i <list of paths for image data> -o <path to save record> -g <gpuid>``` 
+3. __Test__: run 
+```p
+ython testengine.py -p <path to trainedmodel> -m <list of paths for lung segmentation> -i <list of paths for image data> -o <path to save record> -g <gpuid>
+``` 
 ### Train on Your Own Data
 
 1. __Data Preparation__ : The datasets from Wuhan Union Hospital, Western Campus of Wuhan Union Hospital, and Jianghan Mobile Cabin Hospital were used under the license of the current study and are not publicly available. Applications for access to the LIDC-IDRI database can be made at <https://wiki.cancerimagingarchive.net/display/Public/LIDC-IDRI>. ILD-HUG database can be accessed at <http://medgift.hevs.ch/wordpress/databases/ild-database/>. 
@@ -60,24 +63,33 @@ xlrd==1.2.0
 3. __Lung Segmentation__ : using Deeplabv1 (https://github.com/DrSleep/tensorflow-deeplab-resnet)
  or any other segmentation method.
  
-4. __Split Dataset__: ```python data/get_set_seperate_jpg.py -p <list of paths to jpgs for seperate> -t <train list output path> -v <validation list output path>```
+4. __Split Dataset__: 
+```
+python data/get_set_seperate_jpg.py -p <list of paths to jpgs for seperate> -t <train list output path> -v <validation list output path>
+```
 
 5. __Begin Training__: training parameters are listed on _options_lip.toml_```python main.py ```
 
+### More Research Tools
+* __Model Visualization__:
+A script to show Grad-CAM/CAM result is available. Input images should be in jpg formats and should be concatenated with lung mask as Red channel:
+```
+python models/gradcam.py --image_path <raw jpg img path> --mask_path <jpg img with mask path> --model_path <path to trained model> --output_path <path to output>
+```
+You can also use our volume cam script, which demands raw data volumes and lung segmentation volumes as inputs.
+```
+python models/grad_volume.py --image_path <rraw data nii path> --mask_path <lung mask nii file path> --model_path <path to trained model> --output_path <path to output>
+```
 
-### Abmormal Slice Locating (TODO)
-
-fine-tune using main.py
-
-test in multi_period_scores/
-
-### Fractal Dimension Features (TODO)
+* __Fractal Dimension Features__:
 
 in fractal-dimension/
 
 
-### Radiomics and LASSO Analysis (TODO)
+* __Radiomics__:
+python get_r_features.py
 
-1. Extract features: python get_r_features.py
-2. LASSO analysis: python plot_lasso_mse.py
+* __LASSO Analysis__:
+python plot_lasso_mse.py
+
 
