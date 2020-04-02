@@ -7,7 +7,14 @@ from sklearn.model_selection import cross_val_score,train_test_split,KFold
 import matplotlib.pyplot as plt
 import pandas as pd
 import  numpy as np
-df = pd.read_csv("withfake_features.csv",error_bad_lines=False)
+import argparse
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-i", "--input_csv", help="input file's name", type=str,
+                    default='withfake_features.csv')
+
+args = parser.parse_args()
+df = pd.read_csv(args.input_csv,error_bad_lines=False)
 cls=df.pop('label')
 id=df.pop('id')
 #M=df.max()._values

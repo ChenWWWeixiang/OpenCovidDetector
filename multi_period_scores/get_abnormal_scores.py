@@ -20,7 +20,20 @@ def _validate(modelOutput, labels, topn=1):
     averageEnergies = np.mean(modelOutput[-topn:])
     iscorrect = labels.cpu().numpy()==(averageEnergies>0.5)
     return averageEnergies,iscorrect,pos_count
+import argparse
+parser = argparse.ArgumentParser()
 
+parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",  type=list,
+                    default=['/mnt/data7/slice_test_seg/mp_seg'])
+parser.add_argument("-i", "--imgpath", help="A list of paths for image data",  type=list,
+                    default=['/mnt/data7/slice_test_seg/mp_data'])
+parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
+                    default='scores_multipp_clsmodel.npy')
+parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
+                    default='../saves/model_ab_locate.pt')
+parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
+                    default='2')
+args = parser.parse_args()
 
 class Validator():
     def __init__(self, options, mode):
@@ -29,14 +42,12 @@ class Validator():
         self.use_lstm = options["general"]["use_lstm"]
         self.batchsize = options["input"]["batchsize"]
         self.use_slice = options['general']['use_slice']
-        datalist=['/mnt/data7/slice_test_seg/mp_data']
+        datalist=args.imgpath
         #datalist=[os.path.join('/mnt/data7/filtered_mp_CT/crop_images',da) for da in datalist]
-        masklist = ['/mnt/data7/slice_test_seg/mp_seg']
+        masklist = args.maskpath
         #masklist = [os.path.join('/mnt/data7/filtered_mp_CT/crop_lungsegs', da) for da in masklist]
-        self.savenpy = 'scores_multipp_clsmodel.npy'
-        #f=open('ipt_results/useable_list.txt','r')
-        #f = open('data/txt/val_list.txt', 'r')
-        #f=f.readlines()
+        self.savenpy = args.savenpy
+
         self.validationdataset = NCPJPGtestDataset_MHA(datalist,
                                                    masklist,
                                                    options[mode]["padding"],
@@ -142,14 +153,14 @@ if (options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):
     print("Running cudnn benchmark...")
     torch.backends.cudnn.benchmark = True
 
-os.environ['CUDA_VISIBLE_DEVICES'] = options["general"]['gpuid']
+os.environ['CUDA_VISIBLE_DEVICES'] = args.gpuid
 
 torch.manual_seed(options["general"]['random_seed'])
 
 # Create the model.
 model = resnet152(2)
 
-pretrained_dict = torch.load(options["general"]["pretrainedmodelpath"])
+pretrained_dict = torch.load(args.modelpath)
 # load only exists weights
 model_dict = model.state_dict()
 pretrained_dict = {k: v for k, v in pretrained_dict.items() if

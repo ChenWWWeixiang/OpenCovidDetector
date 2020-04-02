@@ -97,15 +97,14 @@ python models/gradcam.py --image_path <raw jpg img path> --mask_path <jpg img wi
 python models/grad_volume.py --image_path <raw data nii path> --mask_path <lung mask nii file path> --model_path <path to trained model> --output_path <path to output>
 ```
 
-* __Fractal Dimension Features__ (TODO):
+* __Fractal Dimension Features__ :
 
     - __Extract Fractal Dimension__: extract fractal dimension of a region.```python fractal-dimension/fractals.py -i <binary nii file determined regions> -o <output txt path>```
     - __Extract 3D mesh Fractal Dimension__: extract fractal dimension of gray level mesh. The input data and input region should be in pair.```python fractal-dimension/fractal.py -m <binary nii file determined regions> -r <nii file of raw data> -o <output txt path> ```
 
 * __Extract Radiomics Features__ : parameters of radiomics are listed in ```radiomics/RadiomicsParams.yaml```. Run ```python get_r_features.py m <binary nii file determined regions> -r <nii file of raw data> -o <output csv path>``` to get radiomics features of a region. The input data and input region should be in pair.
 
-* __LASSO Analysis__ :
-python plot_lasso_mse.py
+* __LASSO Analysis__ : this script analysis radiomics features using LASSO. ```python plot_lasso_mse.py -i <input csv file >```
 
-* __Abnormal Locating__ (TODO):
+* __Abnormal Locating__ : we fine-tune the trained model in slices from only COVID-19 positives in order to train a model to locate abnormal slices in COVID-19 positive volumes. Test the model using ```python multi_period_scores/get_abnormal_scores.py``` and visualize the results using ```python analysis_mp.py```. Some of our patients have multi-period CTs, the visualization of abnormal slices shows the changes of lesion with time.
 
