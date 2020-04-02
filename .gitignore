@@ -17,3 +17,6 @@ example
 saves
 ipt_results
 view_segs
+*.csv
+*.txt
+*.jpg

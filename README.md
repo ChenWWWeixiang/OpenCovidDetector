@@ -25,6 +25,9 @@ Performance
  
  <img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/roc_reader.png" width =50% height = 50% div align = center />
  
+ Visualization 
+----------
+ <img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/roc_reader.png" width =50% height = 50% div align = center />
 
 Guidance to Use
 -------
@@ -49,7 +52,6 @@ scikit_learn==0.22.2.post1
 seaborn==0.10.0
 SimpleITK==1.2.4
 skimage
-tensorboardX==2.0
 toml==0.10.0
 xlrd==1.2.0
 
