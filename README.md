@@ -76,20 +76,21 @@ A script to show Grad-CAM/CAM result is available. Input images should be in jpg
 ```
 python models/gradcam.py --image_path <raw jpg img path> --mask_path <jpg img with mask path> --model_path <path to trained model> --output_path <path to output>
 ```
-You can also use our volume cam script, which demands raw data volumes and lung segmentation volumes as inputs.
+   You can also use our volume cam script, which demands   raw data volumes and lung segmentation volumes as inputs.
 ```
-python models/grad_volume.py --image_path <rraw data nii path> --mask_path <lung mask nii file path> --model_path <path to trained model> --output_path <path to output>
+python models/grad_volume.py --image_path <raw data nii path> --mask_path <lung mask nii file path> --model_path <path to trained model> --output_path <path to output>
 ```
 
-* __Fractal Dimension Features__:
+* __Fractal Dimension Features__ (TODO):
 
-in fractal-dimension/
+    in fractal-dimension/
 
 
-* __Radiomics__:
+* __Radiomics__ (TODO):
 python get_r_features.py
 
-* __LASSO Analysis__:
+* __LASSO Analysis__ (TODO):
 python plot_lasso_mse.py
 
+* __Abnormal Locating__ (TODO):
 
