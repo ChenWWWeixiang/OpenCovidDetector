@@ -31,8 +31,8 @@ gt_dir='/mnt/data9/new_seg/'
 #OUTPUT_DIR = '/mnt/data6/test_set/'
 #OUTPUT_PRED_LUNG='/mnt/data7/LIDC/resampled_seg'
 #OUTPUT_RESAMPLE='/mnt/data7/LIDC/resampled_data'
-OUTPUT_PRED_LUNG='/mnt/data9/new_seg_set/resampled_seg/test3'
-OUTPUT_RESAMPLE='/mnt/data9/new_seg_set/resampled_data/test3'
+OUTPUT_PRED_LUNG='/mnt/data9/new_seg_set/raw_seg/test3'
+OUTPUT_RESAMPLE='/mnt/data9/new_seg_set/raw_data/test3'
 #os.makedirs(OUTPUT_RESAMPLE,exist_ok=True)
 os.makedirs(OUTPUT_RESAMPLE,exist_ok=True)
 os.makedirs(OUTPUT_PRED_LUNG,exist_ok=True)
@@ -65,23 +65,23 @@ for key in all_names:
         #image = reader.Execute()
         image = sitk.ReadImage(os.path.join(data_path,key), sitk.sitkFloat32)#data
         mask = sitk.ReadImage(mask_name, sitk.sitkFloat32)  ##pred
-        mask_new = get_resampled(mask, resampled_spacing=[1, 1, 1],l=False)
-        image_new = get_resampled(image, resampled_spacing=[1, 1, 1], l=False)
+        #mask_new = get_resampled(mask, resampled_spacing=[1, 1, 1],l=False)
+        #image_new = get_resampled(image, resampled_spacing=[1, 1, 1], l=False)
     except:
         print('e'+key)
         continue
 
-    resampled_data_ar = sitk.GetArrayFromImage(image_new)
-    resampled_mask_ar = sitk.GetArrayFromImage(mask_new)
+    #resampled_data_ar = sitk.GetArrayFromImage(image_new)
+    #resampled_mask_ar = sitk.GetArrayFromImage(mask_new)
 
-    xx, yy, zz = np.where(resampled_data_ar > 0)
+    #xx, yy, zz = np.where(resampled_data_ar > 0)
 
-    resampled_data_ar = resampled_data_ar[xx.min():xx.max(), yy.min():yy.max(), zz.min():zz.max()]
-    resampled_data = sitk.GetImageFromArray(resampled_data_ar)
-    resampled_mask_ar = resampled_mask_ar[xx.min():xx.max(), yy.min():yy.max(), zz.min():zz.max()]
-    resampled_mask = sitk.GetImageFromArray(resampled_mask_ar)
-    print(resampled_data_ar.shape)
+    #resampled_data_ar = resampled_data_ar[xx.min():xx.max(), yy.min():yy.max(), zz.min():zz.max()]
+    #resampled_data = sitk.GetImageFromArray(resampled_data_ar)
+    #resampled_mask_ar = resampled_mask_ar[xx.min():xx.max(), yy.min():yy.max(), zz.min():zz.max()]
+    #resampled_mask = sitk.GetImageFromArray(resampled_mask_ar)
+    print(mask.GetSize())
     #a=1
-    sitk.WriteImage(resampled_mask, os.path.join(OUTPUT_PRED_LUNG, key))
-    sitk.WriteImage(resampled_data, os.path.join(OUTPUT_RESAMPLE, key))
+    sitk.WriteImage(mask, os.path.join(OUTPUT_PRED_LUNG, key))
+    sitk.WriteImage(image, os.path.join(OUTPUT_RESAMPLE, key))
 

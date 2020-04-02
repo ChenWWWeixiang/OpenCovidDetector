@@ -158,4 +158,4 @@ class Trainer():
 
         print("Epoch "+str(epoch)+"completed, saving state...")
         print(self.use_3d)
-        torch.save(model.state_dict(), "{}_{:0>8}.pt".format(self.save_prefix, epoch))       
+        torch.save(model.state_dict(), "{}.pt".format(self.save_prefix))

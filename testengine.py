@@ -9,7 +9,7 @@ import torch.nn as nn
 from data.dataset import NCPDataset, NCP2DDataset, NCPJPGDataset,NCPJPGtestDataset
 import os, cv2
 import toml
-from models.net2d import densenet121,densenet161,resnet152
+from models.net2d import densenet121,densenet161,resnet152,resnet152_plus
 import numpy as np
 #from models.g_cam import GuidedPropo
 import matplotlib as plt
@@ -36,7 +36,7 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",  t
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
-                    default='re/test.npy')
+                    default='re/test_plus.npy')
 parser.add_argument("-e", "--exclude_list", help="A path to a txt file for excluded data list. If no file need to be excluded, "
                                                  "it should be 'none'.",  type=str,
                     default='ipt_results/answer.txt')
@@ -60,6 +60,7 @@ def _validate(modelOutput, labels, topn=1):
 
 class Validator():
     def __init__(self, options, mode):
+        self.use_plus=options['general']['use_plus']
         self.use_3d = options['general']['use_3d']
         self.usecudnn = options["general"]["usecudnn"]
         self.use_lstm = options["general"]["use_lstm"]
@@ -98,10 +99,12 @@ class Validator():
         self.epoch += 1
         with torch.no_grad():
             print("Starting {}...".format(self.mode))
-            count = np.zeros((2))
+            count = np.zeros((4))
             validator_function = _validate
             model.eval()
             LL = []
+            GG=[]
+            AA=0
             if (self.usecudnn):
                 net = nn.DataParallel(model).cuda()
             #error_dir = 'error/'
@@ -111,7 +114,7 @@ class Validator():
             cnt_for_lidc=0
             e_cnt_l=0
             e_cnt_w=0
-            num_samples = np.zeros((2))
+            num_samples = np.zeros((4))
             #elist=open('val_slices_count.txt','w+')
             #truth_list=truth_list.readlines()
             #names=[tl.split('\t')[0] for tl in truth_list]
@@ -120,17 +123,26 @@ class Validator():
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
+                if self.use_plus:
+                    age = Variable(sample_batched['age']).cuda()
+                    gender = Variable(sample_batched['gender']).cuda()
                 name =sample_batched['length'][0]
                 slice_idx=sample_batched['length'][1]
 
                 model = model.cuda()
                 input=input.squeeze(0)
                 input=input.permute(1,0,2,3)
-                outputs = net(input)
+                if not self.use_plus:
+                    outputs = net(input)
+                else:
+                    outputs, out_gender, out_age = net(input)
                 if KEEP_ALL:
                     all_numpy=np.exp(outputs.cpu().numpy()[:,1]).tolist()
                     a=1
                 (vector, isacc,pos_count) = validator_function(outputs, labels,self.topk)
+                (gender_numpy, genderacc, _) = validator_function(out_gender, gender, self.topk)
+                output_gender_numpy=gender.cpu().numpy()
+                ages_mse=self.age_function(out_age, age)
                 #_, maxindices = vector.cpu().max(1)  ##vector--outputs
 
                 output_numpy = vector
@@ -153,19 +165,37 @@ class Validator():
                     else:
                         num_samples[1] += 1
 
+                    if self.use_plus and gender_numpy[i]>-1:
+                        GG.append([output_gender_numpy[i],gender_numpy[i]])
+                        AA+=ages_mse[i]
+                        if genderacc[i]==1 and gender[i]==0 :
+                            count[2] += 1
+                        if genderacc[i]==1 and gender[i]==1 :
+                            count[3] += 1
+                        if gender[i]==0:
+                            num_samples[2] += 1
+                        else:
+                            num_samples[3] += 1
 
                 # print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                 #                                                                       count[0],len(self.validationdataset),
                 #                                                                       1.0*count[0]/num_samples))
-        print(count.sum() / num_samples.sum())
+        print(count[:2].sum() / num_samples[:2].sum())
         LL = np.array(LL)
+
         np.save(self.savenpy, LL)
+        if self.use_plus:
+            GG = np.array(GG)
+            np.save('gender.npy', GG)
         toc=time.time()
         print((toc-tic)/self.validationdataloader.dataset.__len__())
-        return count / num_samples, count.sum() / num_samples.sum()
+        return count / num_samples, count[:2].sum() / num_samples[:2].sum()
 
-    def validator_function(self, pre, label):
-        pass
+    def age_function(self, pre, label):
+        pre=pre.cpu().numpy().mean(1)* 90
+        label=label.cpu().numpy()
+        return np.mean(pre-label)
+
 
 print("Loading options...")
 with open('options_lip.toml', 'r') as optionsFile:
@@ -180,7 +210,10 @@ os.environ['CUDA_VISIBLE_DEVICES'] = args.gpuid
 torch.manual_seed(options["general"]['random_seed'])
 
 # Create the model.
-model = resnet152(2)
+if options['general']['use_plus']:
+    model = resnet152_plus(2)
+else:
+    model = resnet152(2)
 
 pretrained_dict = torch.load(args.model_path)
 # load only exists weights

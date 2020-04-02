@@ -2,12 +2,12 @@ import SimpleITK as sitk
 import numpy as np
 from PIL import Image
 import cv2,os
-input_path='/mnt/data9/new_seg_set/resampled_data/test3'
-input_mask='/mnt/data9/new_seg_set/resampled_seg/test3'
+input_path='/mnt/data9/new_seg_set/raw_data/test3'
+input_mask='/mnt/data9/new_seg_set/raw_seg/test3'
 #input_path='/mnt/data7/resampled_data/train3'
 #input_mask='/mnt/data7/resampled_seg/train3'
-output_path_slices='/mnt/data9/new_seg_set/test_masked_jpgs3'
-output_path_raw='/mnt/data9/new_seg_set/test_raw_jpgs3'
+output_path_slices='/mnt/data9/nore/test_masked_jpgs3'
+output_path_raw='/mnt/data9/nore/test_raw_jpgs3'
 old_path='/mnt/data7/resampled_jpgs/masked_test3'
 #output_path_cropped='/mnt/data6/lung_resample_lungbox'
 #output_path_npy='/mnt/data6/lung_resample_npy'
@@ -26,19 +26,24 @@ for idx,name in enumerate(name_list):
     mask=sitk.ReadImage(os.path.join(input_mask,name))
     M=sitk.GetArrayFromImage(mask)
     V = sitk.GetArrayFromImage(volume)
-    V = V[-300:-40,:,:]
-    M = M[-300:-40,:V.shape[1],:V.shape[2]]
+    sums=M.sum(1).sum(1)
+    idd=np.where(sums>0)[0]
+    M=M[idd,:,:]
+    V=V[idd,:,:]
+    #V = V[-300:-40,:,:]
+    #M = M[-300:-40,:V.shape[1],:V.shape[2]]
     V=V[:M.shape[0],:M.shape[1],:M.shape[2]]
     #volume_box=sitk.GetImageFromArray(V)
     #sitk.WriteImage(volume_box,os.path.join(output_path_cropped,name))
     V_set=[]
-    for idx, i in enumerate(range(V.shape[0] - 40, 45, -5)):
-        if not os.path.exists(os.path.join(old_path,name.split('.n')[0]+'_'+str(i)+'.jpg')):
-            continue
+    #for idx, i in enumerate(range(V.shape[0] - 40, 45, -5)):
+    for idx, i in enumerate(range(V.shape[0] - 2, 2, -1)):
+        #if not os.path.exists(os.path.join(old_path,name.split('.n')[0]+'_'+str(i)+'.jpg')):
+        #    continue
     #for idx,i in enumerate(range(V.shape[1]-100,70,-5)):
     #for idx,i in enumerate(range(V.shape[2]-40,40,-5)):
-        if idx>=60:
-            break
+        #if idx>=60:
+        #    break
         data=V[i-1:i+1,:,:]
         data[data>700]=700
         data[data<-1200]=-1200
