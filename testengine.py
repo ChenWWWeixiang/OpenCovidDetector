@@ -16,7 +16,7 @@ import matplotlib as plt
 KEEP_ALL=True
 import argparse
 parser = argparse.ArgumentParser()
-parser.description='please enter two parameters a and b ...'
+
 parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",  type=list,
                     default=['/mnt/data7/ILD/resampled_seg',
                             #'/mnt/data7/reader_ex/resampled_seg',

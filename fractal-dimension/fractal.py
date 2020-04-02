@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import argparse
 
 def fractal_dimension(array, max_box_size=None, min_box_size=1, n_samples=20, n_offsets=0, plot=False):
     """Calculates the fractal dimension of a 3D numpy array.
@@ -75,9 +75,18 @@ def fractal_dimension(array, max_box_size=None, min_box_size=1, n_samples=20, n_
 import os
 import SimpleITK as sitk
 def main():
-    filename = '../reader_study/cam/mask/'
-    raw='../reader_study/cam/img/'
-    f=open('../reader_study/HFD3D.txt','w')
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-o", "--outputfile", help="output file's name", type=str,
+                        default='../HFD3D.txt')
+    parser.add_argument("-m", "--inputmask", help="input mask root", type=str,
+                        default='../cam/mask/')
+    parser.add_argument("-r", "--inputimgs", help="input data root", type=str,
+                        default='../cam/img/')
+    args = parser.parse_args()
+    filename = args.inputmask
+    raw=args.inputimgs
+    f=open(args.outputfile,'w')
     for item in os.listdir(raw):
         if item[0]=='c':
             continue

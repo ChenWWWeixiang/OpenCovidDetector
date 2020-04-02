@@ -1,11 +1,24 @@
 from radiomics import featureextractor
 import os,csv,six
 import numpy as np
-o_img_nii = 'img'
-o_msk_nii = 'mask'
+import argparse
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-o", "--outputfile", help="output file's name", type=str,
+                    default='withfake_features.csv')
+parser.add_argument("-m", "--inputmask", help="input mask root", type=str,
+                    default='mask/')
+parser.add_argument("-r", "--inputimgs", help="input data root", type=str,
+                    default='img/')
+args = parser.parse_args()
+
+o_img_nii = args.inputimgs
+o_msk_nii = args.inputmask
 extractor = featureextractor.RadiomicsFeatureExtractor('RadiomicsParams.yaml')
 
-with open('withfake_features.csv', 'w', newline='') as f:
+
+
+with open(args.outputfile, 'w', newline='') as f:
     writer = csv.writer(f)
     for i,name in enumerate(os.listdir(o_img_nii)):
         #print(name)

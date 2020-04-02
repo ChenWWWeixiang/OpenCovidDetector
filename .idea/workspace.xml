@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/used_lis.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/withfake_features.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fractal-dimension/fractal.py" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/fractal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fractal-dimension/fractals.py" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/fractals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_roc.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_roc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/radiomics/get_r_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/radiomics/get_r_features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/testengine.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,10 +22,31 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="285">
-                <caret line="32" column="2" lean-forward="true" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+              <first_editor relative-caret-position="423">
+                <caret line="87" column="105" selection-start-line="87" selection-start-column="105" selection-end-line="87" selection-end-column="105" />
               </first_editor>
               <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot_roc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plot_roc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="447">
+              <caret line="76" column="47" lean-forward="true" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
+              <folding>
+                <element signature="e#1025#2839#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_r_features.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/radiomics/get_r_features.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="3" selection-start-line="3" selection-end-line="12" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -32,18 +56,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="207">
               <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testengine.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testengine.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="207" column="30" lean-forward="true" selection-start-line="207" selection-start-column="30" selection-end-line="207" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -100,8 +112,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/compute_acc_val_slice.py" />
-        <option value="$PROJECT_DIR$/data/count_lung_area.py" />
         <option value="$PROJECT_DIR$/ipt_results/show_z_hist.py" />
         <option value="$PROJECT_DIR$/data/get_slices_for_locate.py" />
         <option value="$PROJECT_DIR$/reader_study/check_results.py" />
@@ -110,7 +120,6 @@
         <option value="$PROJECT_DIR$/ipt_results/compute_multi_phase_acc.py" />
         <option value="$PROJECT_DIR$/ipt_results/compute_info_cases.py" />
         <option value="$PROJECT_DIR$/radiomics/find_s_d.py" />
-        <option value="$PROJECT_DIR$/radiomics/get_r_features.py" />
         <option value="$PROJECT_DIR$/radiomics/move_file.py" />
         <option value="$PROJECT_DIR$/radiomics/plot_lasso_mse.py" />
         <option value="$PROJECT_DIR$/ipt_results/npy_f/go.py" />
@@ -143,13 +152,16 @@
         <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
         <option value="$PROJECT_DIR$/data/resample.py" />
         <option value="$PROJECT_DIR$/training.py" />
-        <option value="$PROJECT_DIR$/testengine.py" />
         <option value="$PROJECT_DIR$/data/dataset.py" />
-        <option value="$PROJECT_DIR$/plot_roc.py" />
         <option value="$PROJECT_DIR$/data/test_hu.py" />
         <option value="$PROJECT_DIR$/models/grad_volume.py" />
         <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/testengine.py" />
+        <option value="$PROJECT_DIR$/fractal-dimension/fractals.py" />
+        <option value="$PROJECT_DIR$/fractal-dimension/fractal.py" />
+        <option value="$PROJECT_DIR$/radiomics/get_r_features.py" />
+        <option value="$PROJECT_DIR$/plot_roc.py" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -173,11 +185,6 @@
             <path>
               <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
-              <item name="saves" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -502,21 +509,28 @@
       <option name="project" value="LOCAL" />
       <updated>1585823941295</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="new pics">
+      <created>1585824021876</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1585824021876</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="28" width="1932" height="1034" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8171141" visible="true" weight="0.1889182" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8178752" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50079155" side_tool="true" weight="0.33145434" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32807216" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32807216" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32919955" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920845" weight="0.33145434" />
-      <window_info id="Structure" order="1" sideWeight="0.1828859" side_tool="true" visible="true" weight="0.1889182" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.33145434" />
+      <window_info id="Structure" order="1" sideWeight="0.1821248" side_tool="true" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32919955" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39233372" />
@@ -813,12 +827,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/model_3train.pt">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model.pt">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-770" />
@@ -858,9 +866,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/saves/test.npy">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/radiomics/get_r_features.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/radiomics/find_s_d.py">
@@ -1023,13 +1028,6 @@
     <entry file="file://$PROJECT_DIR$/saves/val_gender.npy">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/options_lip.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/SimpleITK/SimpleITK.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
@@ -1102,29 +1100,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_roc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/test_hu.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="859">
           <caret line="38" column="37" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testengine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="207" column="30" lean-forward="true" selection-start-line="207" selection-start-column="30" selection-end-line="207" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1165,11 +1146,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/fractals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="66" column="30" lean-forward="true" selection-start-line="60" selection-start-column="3" selection-end-line="66" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#282#439#0" />
+            <element signature="e#570#676#0" />
+            <element signature="e#777#888#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testengine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="48" selection-start-line="48" selection-end-line="48" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/options_lip.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/fractal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="81" column="27" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/radiomics/get_r_features.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="3" selection-start-line="3" selection-end-line="12" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_roc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="76" column="47" lean-forward="true" selection-start-line="76" selection-start-column="47" selection-end-line="76" selection-end-column="47" />
+          <folding>
+            <element signature="e#1025#2839#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="285">
-            <caret line="32" column="2" lean-forward="true" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          <first_editor relative-caret-position="423">
+            <caret line="87" column="105" selection-start-line="87" selection-start-column="105" selection-end-line="87" selection-end-column="105" />
           </first_editor>
           <second_editor />
         </state>

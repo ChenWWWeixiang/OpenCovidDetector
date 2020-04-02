@@ -12,10 +12,18 @@ def get_CI(value,res):
     confidence_upper = sorted_scores[int(0.95 * len(sorted_scores))]
     res.append(str(np.mean(value)) + ' (' + str(confidence_lower) + '-' + str(confidence_upper) + ')')
     return res
+import argparse
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.", type=list,
+                    default=['saves/test.npy','saves/test_plus.npy'])
+parser.add_argument("-o", "--output_file", help="Output file path", type=str,
+                    default='ipt_results/results.csv')
+args = parser.parse_args()
 
 #res=np.load('ipt_results/results/train.npy')
-ress=['saves/test.npy','saves/test_plus.npy']
-with open('ipt_results/results.csv','w') as f:
+ress=args.ress
+with open(args.output_file,'w') as f:
     f=csv.writer(f)
     f.writerow(['name','AUC','ACC','Specificity','Sensitivity','PPV','NPV','F1','Youden'])
     for a_res in ress:
@@ -61,7 +69,6 @@ with open('ipt_results/results.csv','w') as f:
         plt.plot(recall, precision,label=a_res.split('/')[-1].split('.npy')[0])
 
 plt.figure(1)
- ###¼ÙÕýÂÊÎªºá×ø±ê£¬ÕæÕýÂÊÎª×Ý×ø±ê×öÇúÏß
 #plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
 plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.0])

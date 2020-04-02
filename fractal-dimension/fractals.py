@@ -55,9 +55,18 @@ def hits_with_boxsize(arr, boxsize):
     return (hits, results) # why return two results when one is derived from the other?
 
 import os
-def main():    
-    filename = '../reader_study/cam/mask/'
-    f=open('..//reader_study/HFD.txt','w')
+import argparse
+def main():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-o", "--outputfile", help="output file's name", type=str,
+                        default='../HFD.txt')
+    parser.add_argument("-i", "--inputfile", help="inputfile root", type=str,
+                        default='../cam/mask/')
+    args = parser.parse_args()
+    filename = args.inputfile
+    f=open(args.outputfile,'w')
     for item in os.listdir(filename):
         if item[0]=='c':
             continue

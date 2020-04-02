@@ -64,7 +64,7 @@ xlrd==1.2.0
 
 2. __Download Trained Weight__: a trained model is available at <https://cloud.tsinghua.edu.cn/f/ba180ea9b2d44fdc9757/?dl=1>
 
-3. __Test__:  
+3. __Test__:  The input data files and input lung segmentation files should be in pair.
 ```
 python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmentation> -i <list of paths for image data> -o <path to save record> -g <gpuid>
 ``` 
@@ -82,11 +82,14 @@ python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmen
 python data/get_set_seperate_jpg.py -p <list of paths to jpgs for seperate> -t <train list output path> -v <validation list output path>
 ```
 
-5. __Begin Training__: training parameters are listed on _options_lip.toml_```python main.py ```
+5. __Begin Training__: training parameters are listed on ```options_lip.toml```. Run ```python main.py ``` to train the model.
+
+6.__Metrics__: to evaluate the performances, run ```python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmentation> -i <list of paths for image data> -o <path to save record> -g <gpuid>``` 
+ and then the script ```python ploc_roc.py -i <list of paths for recording npys> -o <path to save metrics>```
 
 ### More Research Tools
 * __Model Visualization__:
-A script to show Grad-CAM/CAM result is available. Input images should be in jpg formats and should be concatenated with lung mask as Red channel:
+A script to show Grad-CAM/CAM result is available. Input images should be in jpg formats and should be concatenated with lung mask as Red channel. The input raw jpgs and input masked jpgs should be in pair:
 ```
 python models/gradcam.py --image_path <raw jpg img path> --mask_path <jpg img with mask path> --model_path <path to trained model> --output_path <path to output>
 ```
@@ -97,13 +100,12 @@ python models/grad_volume.py --image_path <raw data nii path> --mask_path <lung 
 
 * __Fractal Dimension Features__ (TODO):
 
-    in fractal-dimension/
+    - __Extract Fractal Dimension__: extract fractal dimension of a region.```python fractal-dimension/fractals.py -i <binary nii file determined regions> -o <output txt path>```
+    - __Extract 3D mesh Fractal Dimension__: extract fractal dimension of gray level mesh. The input data and input region should be in pair.```python fractal-dimension/fractal.py -m <binary nii file determined regions> -r <nii file of raw data> -o <output txt path> ```
 
+* __Extract Radiomics Features__ : parameters of radiomics are listed in ```radiomics/RadiomicsParams.yaml```. Run ```python get_r_features.py m <binary nii file determined regions> -r <nii file of raw data> -o <output csv path>``` to get radiomics features of a region. The input data and input region should be in pair.
 
-* __Radiomics__ (TODO):
-python get_r_features.py
-
-* __LASSO Analysis__ (TODO):
+* __LASSO Analysis__ :
 python plot_lasso_mse.py
 
 * __Abnormal Locating__ (TODO):
