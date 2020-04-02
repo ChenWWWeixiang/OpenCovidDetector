@@ -69,7 +69,7 @@ python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmen
 2. __Volumes to Images__: We suggest that test data should be in ".nii" format (any formats that *SimpleITK* can work on is OK with small changes in codes) and training data should be in ".jpg" format (any formats that *opencv-python* can work on is OK with small changes in codes). A script "data/test_hu.py" is used to cut volumes into images. 
 
 3. __Lung Segmentation__ : using Deeplabv1 (https://github.com/DrSleep/tensorflow-deeplab-resnet)
- or any other segmentation method.
+ or any other segmentation methods.
  
 4. __Split Dataset__: 
 ```

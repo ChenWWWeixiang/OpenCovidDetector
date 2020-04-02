@@ -4,6 +4,7 @@
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/gradcam_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/gradcam_demo.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,33 +15,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="gradcam_demo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/gradcam_demo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="179" selection-start-line="179" selection-end-line="186" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-                <element signature="e#292#926#0" />
-                <element signature="e#953#1610#0" />
-                <element signature="e#1642#2148#0" />
-                <element signature="e#2169#3799#0" />
-                <element signature="e#3841#4640#0" />
-                <element signature="e#4676#5959#0" />
-                <element signature="e#6549#6817#0" />
-                <element signature="e#6868#7236#0" />
-                <element signature="e#7258#7716#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="308">
-                <caret line="62" selection-start-line="62" selection-end-line="62" />
+              <first_editor relative-caret-position="262">
+                <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
               </first_editor>
               <second_editor />
             </state>
@@ -168,9 +148,9 @@
         <option value="$PROJECT_DIR$/data/dataset.py" />
         <option value="$PROJECT_DIR$/plot_roc.py" />
         <option value="$PROJECT_DIR$/data/test_hu.py" />
-        <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
         <option value="$PROJECT_DIR$/models/grad_volume.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
       </list>
     </option>
   </component>
@@ -481,12 +461,18 @@
       <option name="project" value="LOCAL" />
       <updated>1585819364141</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="cite infomation">
+      <created>1585819403391</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1585819403391</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="28" width="1932" height="1034" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8178752" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -1114,10 +1100,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/grad_volume.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="261" column="41" lean-forward="true" selection-start-line="261" selection-start-column="41" selection-end-line="261" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/gradcam_demo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="179" selection-start-line="179" selection-end-line="186" selection-end-column="47" />
+        <state relative-caret-position="161">
+          <caret line="113" column="22" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="22" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#292#926#0" />
@@ -1133,21 +1129,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/grad_volume.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="261" column="41" lean-forward="true" selection-start-line="261" selection-start-column="41" selection-end-line="261" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="308">
-            <caret line="62" selection-start-line="62" selection-end-line="62" />
+          <first_editor relative-caret-position="262">
+            <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
           </first_editor>
           <second_editor />
         </state>

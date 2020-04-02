@@ -6,7 +6,7 @@ import  SimpleITK as sitk
 from torch.autograd import Function
 from torchvision import models
 from models.net2d import vgg19_bn,densenet161,vgg16,vgg19,resnet152
-os.environ['CUDA_VISIBLE_DEVICES']='1'
+os.environ['CUDA_VISIBLE_DEVICES']='2'
 class FeatureExtractor():
     """ Class for extracting activations and
     registering gradients from targetted intermediate layers """
@@ -177,13 +177,13 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--use-cuda', action='store_true', default=True,
                         help='Use NVIDIA GPU acceleration')
-    parser.add_argument('--image_path', type=str, default='/mnt/data9/new_seg_set/nore/test_raw_jpgs2',
+    parser.add_argument('--image_path', type=str, default='/mnt/data9/new_seg_set/nore/train_raw_jpgs2',
                         help='Input raw image path')
-    parser.add_argument('--mask_path', type=str, default='/mnt/data9/new_seg_set/nore/test_masked_jpgs2',
+    parser.add_argument('--mask_path', type=str, default='/mnt/data9/new_seg_set/nore/train_masked_jpgs2',
                         help='Input mask image path')
     parser.add_argument('--model_path', type=str, default='../saves/for_xzw.pt',
                         help='Model path')
-    parser.add_argument('--output_path', type=str, default='/mnt/data9/new_seg_set/cam/NCP_ill4',
+    parser.add_argument('--output_path', type=str, default='/mnt/data9/new_seg_set/cam/NCP_ill3',
                         help='Cam output path')
 
     args = parser.parse_args()
