@@ -1,9 +1,17 @@
 # OpenCovidDetector: Open source algorithm for detecting COVID-19 on Chest CT
-Cheng Jin, Weixiang Chen, Yukun Cao, Zhanwei Xu, Xin Zhang, Lei Deng, Chuansheng Zheng, Jie Zhou, Heshui Shi, Jianjiang Feng
 
-This project hosts the inference code for implementing for covid-19 diagnosis system, 
+
+OpenCovidDetector is a opensource covid-19 diagnosis system implementing on pytorch, which is also 
 as presented in our paper: Development and Evaluation of an AI System for COVID-19 Diagnosis
  (https://www.medrxiv.org/content/10.1101/2020.03.20.20039834v2)
+ 
+ If you find this project helpful, please cite our paper:
+```
+@article {OpenCovidDetector,
+	author = {Jin, Cheng and Chen, Weixiang and Cao, Yukun and Xu, Zhanwei and Zhang, Xin and Deng, Lei and Zheng, Chuansheng and Zhou, Jie and Shi, Heshui and Feng, Jianjiang},
+	title = {Development and Evaluation of an AI System for COVID-19 Diagnosis},
+	year = {2020}, doi = {10.1101/2020.03.20.20039834},journal = {medRxiv}}
+```
 
 About the Project
 ------
