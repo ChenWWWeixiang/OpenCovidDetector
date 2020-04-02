@@ -81,10 +81,9 @@ python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmen
 ```
 python data/get_set_seperate_jpg.py -p <list of paths to jpgs for seperate> -t <train list output path> -v <validation list output path>
 ```
-
 5. __Begin Training__: training parameters are listed on ```options_lip.toml```. Run ```python main.py ``` to train the model.
 
-6.__Metrics__: to evaluate the performances, run ```python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmentation> -i <list of paths for image data> -o <path to save record> -g <gpuid>``` 
+6. __Metrics__: to evaluate the performances, run ```python testengine.py -p <path to trainedmodel> -m <list of paths for lung segmentation> -i <list of paths for image data> -o <path to save record> -g <gpuid>``` 
  and then the script ```python ploc_roc.py -i <list of paths for recording npys> -o <path to save metrics>```
 
 ### More Research Tools

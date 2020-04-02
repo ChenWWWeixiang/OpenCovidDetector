@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fractal-dimension/fractal.py" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/fractal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fractal-dimension/fractals.py" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/fractals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_roc.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_roc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/radiomics/get_r_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/radiomics/get_r_features.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/testengine.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,8 +18,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="423">
-                <caret line="87" column="105" selection-start-line="87" selection-start-column="105" selection-end-line="87" selection-end-column="105" />
+              <first_editor relative-caret-position="285">
+                <caret line="85" column="3" selection-start-line="85" selection-start-column="3" selection-end-line="85" selection-end-column="3" />
               </first_editor>
               <second_editor />
             </state>
@@ -516,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585824021876</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="better readme">
+      <created>1585830940379</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1585830940379</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -558,7 +561,8 @@
     <MESSAGE value="readme better" />
     <MESSAGE value="cite infomation" />
     <MESSAGE value="new pics" />
-    <option name="LAST_COMMIT_MESSAGE" value="new pics" />
+    <MESSAGE value="better readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="better readme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1206,8 +1210,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="423">
-            <caret line="87" column="105" selection-start-line="87" selection-start-column="105" selection-end-line="87" selection-end-column="105" />
+          <first_editor relative-caret-position="285">
+            <caret line="85" column="3" selection-start-line="85" selection-start-column="3" selection-end-line="85" selection-end-column="3" />
           </first_editor>
           <second_editor />
         </state>
