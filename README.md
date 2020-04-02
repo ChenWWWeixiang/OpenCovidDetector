@@ -27,8 +27,12 @@ Performance
  
  Visualization 
 ----------
- <img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/roc_reader.png" width =50% height = 50% div align = center />
+ <img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/19_1-30_115_1.00.jpg" width =60% height = 60% div align = center />
 
+  <img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/9_1-31_95_1.00.jpg" width =60% height = 60% div align = center />
+  
+  <img src="https://github.com/ChenWWWeixiang/diagnosis_covid19/blob/master/pic/20_2-7_195_1.00.jpg" width =60% height = 60% div align = center />
+  
 Guidance to Use
 -------
 ###  Environment
