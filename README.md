@@ -1,4 +1,4 @@
-# CovidDetector: Open source algorithm for detecting COVID-19 on Chest CT
+# OpenCovidDetector: Open source algorithm for detecting COVID-19 on Chest CT
 Cheng Jin, Weixiang Chen, Yukun Cao, Zhanwei Xu, Xin Zhang, Lei Deng, Chuansheng Zheng, Jie Zhou, Heshui Shi, Jianjiang Feng
 
 This project hosts the inference code for implementing for covid-19 diagnosis system, 

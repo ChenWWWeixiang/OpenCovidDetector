@@ -222,13 +222,6 @@ def model_get():
     return model
 import glob
 if __name__ == '__main__':
-    """ python grad_cam.py <path_to_image>
-    1. Loads an image with opencv.
-    2. Preprocesses it for VGG19 and converts to a pytorch variable.
-    3. Makes a forward pass to find the category index with the highest score,
-    and computes intermediate activations.
-    Makes the visualization. """
-
     args = get_args()
 
     # Can work with any model, but it assumes that the model has a
@@ -237,17 +230,17 @@ if __name__ == '__main__':
     grad_cam = GradCam(model=model_get(), \
                        target_layer_names=["6"], use_cuda=args.use_cuda)
     gb_model = GuidedBackpropReLUModel(model=model_get(), use_cuda=args.use_cuda)
-    o_path = '../reader_study/cam/'
-    o_img_nii='../reader_study/cam/img'
-    o_msk_nii = '../reader_study/cam/mask'
-    o_lung_nii='../reader_study/cam/lung'
-    i_path = '../reader_study/mask_img'
-    i_path2 = '../reader_study/sig_img'
+    o_path = '/mnt/data9/new_seg_set/cam/'
+    #o_img_nii='../reader_study/cam/img'
+    #o_msk_nii = '../reader_study/cam/mask'
+    #o_lung_nii='../reader_study/cam/lung'
+    i_path = '/mnt/data9/new_seg_set/test_masked_jpgs1'
+    i_path2 = '/mnt/data9/new_seg_set/test_raw_jpgs1'
 
     os.makedirs(o_path,exist_ok=True)
-    os.makedirs(o_img_nii, exist_ok=True)
-    os.makedirs(o_msk_nii, exist_ok=True)
-    os.makedirs(o_lung_nii, exist_ok=True)
+    #os.makedirs(o_img_nii, exist_ok=True)
+    ##os.makedirs(o_msk_nii, exist_ok=True)
+    #os.makedirs(o_lung_nii, exist_ok=True)
     for names in os.listdir(i_path):
         if names[0]=='c':
             continue
@@ -257,6 +250,9 @@ if __name__ == '__main__':
         try:
             img = cv2.imread(os.path.join(i_path, names), 1)
             img_raw=cv2.imread(os.path.join(i_path2,names),1)
+            raw_shape=(img.shape[1],img.shape[0])
+
+            rate=raw_shape/np.array([224,224])
             img_raw=np.float32(cv2.resize(img_raw,(224,224)))/255
             img = np.float32(cv2.resize(img, (224, 224))) / 255
         except:
@@ -285,16 +281,19 @@ if __name__ == '__main__':
         attention_area=attention_area[:,:,0]+attention_area[:,:,1]+attention_area[:,:,2]
         attention_area=(attention_area>=1).astype(np.uint8)
         kernel = np.ones((5, 5), np.uint8)
-        attention_area = cv2.morphologyEx(attention_area, cv2.MORPH_CLOSE, kernel)
+        attention_area = cv2.erode(cv2.morphologyEx(attention_area, cv2.MORPH_CLOSE, kernel),kernel)
         lung_mask=cv2.erode(img[:,:,2],kernel)
         attention_area=attention_area*lung_mask
         attention_area = np.stack([attention_area, attention_area, attention_area], -1)
         #if np.sum(attention_area)<=10:
         #    continue
-        cam = show_cam_on_image(img_raw, mask,attention_area)
+        cam = show_cam_on_image(img_raw, mask)
         cam_gb = deprocess_image(cam_mask * gbt,attention_area)
-
-        I = np.concatenate([img_raw*255,cam,cam_gb],1)
+        img_raw=cv2.resize(img_raw,raw_shape)
+        cam=cv2.resize(cam,raw_shape)
+        cam_gb=cv2.resize(cam_gb,raw_shape)
+        attention_area=cv2.resize(attention_area,raw_shape)
+        I = np.concatenate([img_raw*255,cam,cam_gb,attention_area*255],1)
 
         output_name = names.split('.jpg')[0] + '_{:.2f}.jpg'.format(pred[0])
         output_path = os.path.join(o_path, output_name)
