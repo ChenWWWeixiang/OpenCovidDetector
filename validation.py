@@ -112,11 +112,17 @@ class Validator():
                 elif self.use_plus:
                     _, maxindices = outputs.cpu().max(1)
                     _, maxindices_gender = out_gender.cpu().max(1)
-                    pre_ages = out_age.cpu()*90
+                    _, maxindices_age = out_age.cpu().max(1)
+                    #pre_ages = out_age.cpu()*90
                     genderacc = gender.cpu().numpy().reshape(gender.size(0)) == maxindices_gender.numpy()
-                    ages_mse=np.abs(pre_ages.numpy()-age.cpu().numpy())
+                    ageacc = age.cpu().numpy().reshape(age.size(0)) == maxindices_age.numpy()
+                    #ages_mse=np.abs(pre_ages.numpy()-age.cpu().numpy())
                     output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1])
                     gender_numpy = gender.cpu().numpy()[:, 0]
+
+                    #out_age_numpy = np.exp(out_age.cpu().numpy()[:, 1])
+                    #age_numpy = age.cpu().numpy()[:, 0]
+
                 else:
                     _, maxindices = outputs.cpu().max(1)
                 isacc=labels.cpu().numpy().reshape(labels.size(0))==maxindices.numpy()
@@ -144,7 +150,7 @@ class Validator():
 
                     if self.use_plus and gender_numpy[i]>-1:
                         GG.append([output_gender_numpy[i],gender_numpy[i]])
-                        AA+=ages_mse[i]
+                        #AA.append()
                         if genderacc[i]==1 and gender[i]==0 :
                             count[2] += 1
                         if genderacc[i]==1 and gender[i]==1 :

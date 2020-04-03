@@ -238,8 +238,10 @@ class NCPJPGtestDataset(Dataset):
     def __init__(self, data_root, pre_lung_root,padding,lists=None,exlude_lists=True,age_list=None):
         self.padding = padding
         self.data = []
-        self.data_root = open(age_list, 'r').readlines()
-        self.text_book = [item.split('\t') for item in self.data_root]
+        self.text_book=None
+        if isinstance(age_list,str):
+            self.data_root = open(age_list, 'r').readlines()
+            self.text_book = [item.split('\t') for item in self.data_root]
         self.mask=[]
         if isinstance(lists,list):
             if  not exlude_lists:
@@ -315,21 +317,21 @@ class NCPJPGtestDataset(Dataset):
         temporalvolume,name = self.bbc(data, self.padding,M)
         age = -1
         gender = -1
+        if isinstance(self.text_book,list):
+            if data_path.split('/')[-1][0]=='c'or data_path.split('/')[-3]=='ILD' or\
+                  data_path.split('/')[-3] == 'LIDC' or\
+                  data_path.split('/')[-3] == 'reader_ex':
+                age = -1
+                gender = -1
 
-        if data_path.split('/')[-1][0]=='c'or data_path.split('/')[-3]=='ILD' or\
-              data_path.split('/')[-3] == 'LIDC' or\
-              data_path.split('/')[-3] == 'reader_ex':
-            age = -1
-            gender = -1
-
-        else:
-            temp = data_path.split('/')[-2].split('_')[-1] + '/' + data_path.split('/')[-1].split('_')[0] + '_' + \
-                   data_path.split('/')[-1].split('_')[1]
-            for line in self.text_book:
-                if line[0] == temp:
-                    age = int(line[1])
-                    gender = int(line[2][:-1] == 'M')  # m 1, f 0
-                    break
+            else:
+                temp = data_path.split('/')[-2].split('_')[-1] + '/' + data_path.split('/')[-1].split('_')[0] + '_' + \
+                       data_path.split('/')[-1].split('_')[1]
+                for line in self.text_book:
+                    if line[0] == temp:
+                        age = int(line[1])//20
+                        gender = int(line[2][:-1] == 'M')  # m 1, f 0
+                        break
 
         return {'temporalvolume': temporalvolume,
             'label': torch.LongTensor([cls]),

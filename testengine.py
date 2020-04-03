@@ -36,14 +36,14 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",  t
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
-                    default='re/test_plus.npy')
+                    default='saves/test_2.npy')
 parser.add_argument("-e", "--exclude_list", help="A path to a txt file for excluded data list. If no file need to be excluded, "
                                                  "it should be 'none'.",  type=str,
                     default='ipt_results/answer.txt')
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='saves/model_plus.pt')
+                    default='weights/model_again.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='2')
 args = parser.parse_args()
@@ -159,7 +159,7 @@ class Validator():
 
                 ####
                 LL.append([name[0],output_numpy, label_numpy])
-                if gender_numpy[0]>-1 and self.use_plus:
+                if self.use_plus and gender_numpy[0]>-1:
                     print(name[0], isacc, vector, 'sex:', genderacc, 'age:', oa)
                 else:
                     print(name[0],isacc,vector)

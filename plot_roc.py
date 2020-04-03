@@ -16,9 +16,9 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.", type=list,
-                    default=['saves/test.npy','saves/test_plus.npy'])
+                    default=['saves/test_2.npy','saves/test_plus.npy','gender.npy'])
 parser.add_argument("-o", "--output_file", help="Output file path", type=str,
-                    default='ipt_results/results.csv')
+                    default='saves/results.csv')
 args = parser.parse_args()
 
 #res=np.load('ipt_results/results/train.npy')
@@ -28,8 +28,12 @@ with open(args.output_file,'w') as f:
     f.writerow(['name','AUC','ACC','Specificity','Sensitivity','PPV','NPV','F1','Youden'])
     for a_res in ress:
         res = np.load(a_res)
-        pre=np.array(res[:,1],np.float)
-        gt=np.array(res[:,2],np.float)
+        if res.shape[1]==3:
+            pre=np.array(res[:,1],np.float)
+            gt=np.array(res[:,2],np.float)
+        else:
+            pre = np.array(res[:, 0], np.float)
+            gt = np.array(res[:, 1], np.float)
         AUC=[]
         ACC=[]
         TNR=[]

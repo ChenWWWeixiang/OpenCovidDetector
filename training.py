@@ -105,7 +105,7 @@ class Trainer():
             #criterion=nn.
             criterion =nn.NLLLoss(weight=torch.Tensor([0.3,0.7]).cuda())
             if self.use_plus:
-                criterion_age = nn.SmoothL1Loss(reduction='none').cuda()
+                criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
                 criterion_gender = nn.NLLLoss(ignore_index=-1).cuda()
         if self.use_lstm:
             criterion=NLLSequenceLoss()
@@ -141,9 +141,10 @@ class Trainer():
                 loss = criterion(outputs, length,labels.squeeze(1))
             elif self.use_plus:
                 l1 = criterion(outputs, labels.squeeze(1))
-                l2 = (criterion_age(out_age,age/90)*(age>0)).sum()/(age>0).sum()
+                #l2 = (criterion_age(out_age,age/90)*(age>0)).sum()/(age>0).sum()
+                l2 = criterion_age(out_age, age.squeeze(1))
                 l3 = criterion_gender(out_gender,gender.squeeze(1))
-                loss=l1+l2*0.01+l3*0.5
+                loss=l1+l2*0.5+l3*0.5
             else:
                 loss = criterion(outputs, labels.squeeze(1))
             loss.backward()

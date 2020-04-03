@@ -10,7 +10,7 @@ pretrainedmodelpath = 'saves/trained_model.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
-use_plus=false
+use_plus=true
 
 [input]
 batchsize = 32
@@ -35,7 +35,7 @@ padding = 35
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.005
-save_prefix = "weights/model_again"
+save_prefix = "weights/model_plusplus"
 
 [validation]
 validate = true
