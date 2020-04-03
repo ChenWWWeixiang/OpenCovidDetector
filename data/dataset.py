@@ -220,7 +220,7 @@ class NCPJPGDataset(Dataset):
                    data_path.split('/')[-1].split('_')[1]
             for line in self.text_book:
                 if line[0].split('.nii')[0] == temp:
-                    age = int(line[1])
+                    age = int(line[1])//20
                     gender = int(line[2][:-1] == 'M')  # m 1, f 0
                     break
         if self.augment:
@@ -231,7 +231,7 @@ class NCPJPGDataset(Dataset):
             'label': torch.LongTensor([cls]),
             'length':torch.LongTensor([1]),
             'gender':torch.LongTensor([gender]),
-            'age':torch.FloatTensor([age])
+            'age':torch.LongTensor([age])
             }
 
 class NCPJPGtestDataset(Dataset):
@@ -337,7 +337,7 @@ class NCPJPGtestDataset(Dataset):
             'label': torch.LongTensor([cls]),
             'length':[data_path,name],
             'gender': torch.LongTensor([gender]),
-            'age': torch.FloatTensor([age])
+            'age': torch.LongTensor([age])
 
             }
 

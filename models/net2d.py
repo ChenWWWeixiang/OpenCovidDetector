@@ -371,7 +371,7 @@ def modify_resnets_plus(model,num_of_cls):
     # Modify attributs
     model.classifier = torch.nn.Linear(2048,num_of_cls)
     model.classifier_gender = torch.nn.Linear(2048, 2)
-    model.classifier_age = torch.nn.Linear(2048, 4)
+    model.classifier_age = torch.nn.Linear(2048, 5)
 
     model.features=torch.nn.Sequential(model.conv1,model.bn1,model.relu,model.maxpool,
                                        model.layer1,model.layer2,model.layer3,model.layer4,model.avgpool)
