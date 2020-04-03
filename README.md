@@ -42,7 +42,7 @@ numpy==1.15.3
 opencv_python==4.1.1.26
 pandas==0.23.4
 torchvision==0.4.2
-Pillow==7.0.0
+Pillow==6.2.1
 pydicom==1.4.2
 pyradiomics
 scikit_learn==0.22.2.post1
