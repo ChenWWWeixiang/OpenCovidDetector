@@ -5,13 +5,6 @@ OpenCovidDetector is an opensource COVID-19 diagnosis system implementing on pyt
 as presented in our paper: Development and Evaluation of an AI System for COVID-19 Diagnosis
  (https://www.medrxiv.org/content/10.1101/2020.03.20.20039834v2)
  
- If you find this project helpful, please cite our paper:
-```
-@article {OpenCovidDetector,
-	author = {Jin, Cheng and Chen, Weixiang and Cao, Yukun and Xu, Zhanwei and Zhang, Xin and Deng, Lei and Zheng, Chuansheng and Zhou, Jie and Shi, Heshui and Feng, Jianjiang},
-	title = {Development and Evaluation of an AI System for COVID-19 Diagnosis},
-	year = {2020}, doi = {10.1101/2020.03.20.20039834},journal = {medRxiv}}
-```
 
 About the Project
 ------
@@ -108,3 +101,13 @@ python models/grad_volume.py --image_path <raw data nii path> --mask_path <lung 
 
 * __Abnormal Locating__ : we fine-tune the trained model in slices from only COVID-19 positives in order to train a model to locate abnormal slices in COVID-19 positive volumes. Test the model using ```python multi_period_scores/get_abnormal_scores.py``` and visualize the results using ```python analysis_mp.py```. Some of our patients have multi-period CTs, the visualization of abnormal slices shows the changes of lesion with time.
 
+Citation
+----
+
+If you find this project helpful, please cite our paper:
+```
+@article {OpenCovidDetector,
+	author = {Jin, Cheng and Chen, Weixiang and Cao, Yukun and Xu, Zhanwei and Zhang, Xin and Deng, Lei and Zheng, Chuansheng and Zhou, Jie and Shi, Heshui and Feng, Jianjiang},
+	title = {Development and Evaluation of an AI System for COVID-19 Diagnosis},
+	year = {2020}, doi = {10.1101/2020.03.20.20039834},journal = {medRxiv}}
+```
