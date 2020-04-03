@@ -29,9 +29,9 @@ Performance
 Guidance to Use
 -------
 ###  Environment
+The code has been succesfully run in Ubuntu 16.04, python 3.6.1,CUDA 10.0.
 
-Ubuntu==16.04
-python==3.6.1
+Packages requirements:
 matplotlib==3.1.2
 six==1.13.0
 torch==1.3.1
@@ -51,6 +51,8 @@ SimpleITK==1.2.4
 skimage
 toml==0.10.0
 xlrd==1.2.0
+
+run ```pip install -r requirements.txt``` to install all above packages.
 
 ### Use Trained Model for Inference
 1. __Data Preparation__ : A demo covid-19 data can be made at <https://cloud.tsinghua.edu.cn/f/365e7f81e4b443eb9fab/?dl=1>. When using your own data, make sure keeping the same format and naming scheme as our demo data)
