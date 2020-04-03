@@ -1,7 +1,7 @@
 # OpenCovidDetector: Open source algorithm for detecting COVID-19 on Chest CT
 
 
-OpenCovidDetector is a opensource covid-19 diagnosis system implementing on pytorch, which is also 
+OpenCovidDetector is an opensource COVID-19 diagnosis system implementing on pytorch, which is also 
 as presented in our paper: Development and Evaluation of an AI System for COVID-19 Diagnosis
  (https://www.medrxiv.org/content/10.1101/2020.03.20.20039834v2)
  
