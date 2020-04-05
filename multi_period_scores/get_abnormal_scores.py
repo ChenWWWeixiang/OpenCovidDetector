@@ -24,13 +24,25 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",  type=list,
-                    default=['/mnt/data7/slice_test_seg/mp_seg'])
+                    default=['/mnt/data7/NCP_mp_CTs/reg/lungsegs/NCP_ill1',
+                             '/mnt/data7/NCP_mp_CTs/reg/lungsegs/NCP_ill2',
+                             '/mnt/data7/NCP_mp_CTs/reg/lungsegs/NCP_ill3',
+                             '/mnt/data7/NCP_mp_CTs/reg/lungsegs/NCP_ill4',
+                             '/mnt/data7/NCP_mp_CTs/reg/lungsegs/NCP_ill5',
+                             '/mnt/data7/NCP_mp_CTs/reg/lungsegs/NCP_ill6',
+                             '/mnt/data7/NCP_mp_CTs/reg/lungsegs/NCP_ill7'])
 parser.add_argument("-i", "--imgpath", help="A list of paths for image data",  type=list,
-                    default=['/mnt/data7/slice_test_seg/mp_data'])
+                    default=['/mnt/data7/NCP_mp_CTs/reg/images/NCP_ill1',
+                             '/mnt/data7/NCP_mp_CTs/reg/images/NCP_ill2',
+                             '/mnt/data7/NCP_mp_CTs/reg/images/NCP_ill3',
+                             '/mnt/data7/NCP_mp_CTs/reg/images/NCP_ill4',
+                             '/mnt/data7/NCP_mp_CTs/reg/images/NCP_ill5',
+                             '/mnt/data7/NCP_mp_CTs/reg/images/NCP_ill6',
+                             '/mnt/data7/NCP_mp_CTs/reg/images/NCP_ill7'])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
-                    default='scores_multipp_clsmodel.npy')
-parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='../saves/model_ab_locate.pt')
+                    default='scores_mp.npy')
+parser.add_argument("-p", "--modelpath", help="Whether to invert exclude to include",  type=str,
+                    default='../saves/trained_model.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='2')
 args = parser.parse_args()

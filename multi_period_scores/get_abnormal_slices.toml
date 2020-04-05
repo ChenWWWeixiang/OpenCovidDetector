@@ -6,10 +6,11 @@ usecudnnbenchmark = true
 gpuid = "3"
 loadpretrainedmodel = true
 random_seed = true
-pretrainedmodelpath = '../model_3train.pt'
+pretrainedmodelpath = '../saves/trained_model.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
+use_plus=true
 
 [input]
 batchsize = 32
@@ -28,18 +29,18 @@ train = true
 epochs = 100
 startepoch = 0
 statsfrequency = 100
-data_root = '/mnt/data6/lung_jpgs_with_SEG'
-index_root = 'data/txt/locating_train2.txt'
+data_root = '../all_ages_genders.txt'
+index_root = '../data/txt/locating_train.txt'
 padding = 35
 learningrate = 5e-7
 momentum = 0.995
 weightdecay = 0.01
-save_prefix = "weights/locating"
+save_prefix = "../weights/locating"
 
 [validation]
 validate = true
-data_root = '/mnt/data6/lung_jpgs_with_SEG'
-index_root = 'data/txt/locating_test2.txt'
+data_root = '../all_ages_genders.txt'
+index_root = '../data/txt/locating_val.txt'
 padding = 35
 saveaccuracy = false
 
@@ -48,5 +49,5 @@ saveaccuracy = false
 test = false
 data_root = '/mnt/data6/lung_jpgs_with_SEG'
 index_root = 'data/txt/2train_lidc_ild_train.txt'
-padding = 200
+padding = 400
 saveaccuracy = false

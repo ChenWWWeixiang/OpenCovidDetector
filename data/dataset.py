@@ -209,15 +209,23 @@ class NCPJPGDataset(Dataset):
         data=Image.open(data_path)
         age = -1
         gender = -1
-        if data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-3] == 'ILD' or \
+        if  data_path.split('/')[-3] == 'ILD' or \
                 data_path.split('/')[-3] == 'LIDC' or \
                 data_path.split('/')[-3] == 'reader_ex':
             age = -1
             gender = -1
 
         else:
-            temp = data_path.split('/')[-2].split('_')[-1] + '/' + data_path.split('/')[-1].split('_')[0] + '_' + \
-                   data_path.split('/')[-1].split('_')[1]
+            if data_path.split('/')[-3]=='slice_test_seg':
+                if len(data_path.split('/')[-1].split('_')[1])>2:
+                    a=data_path.split('/')[-1].split('c--')[-1]
+                    temp='test1/'+a.split('_')[0]+'_'+a.split('_')[1]
+                else:
+                    a = data_path.split('/')[-1].split('c--')[-1]
+                    temp='train1/'+a.split('_')[0]+'_'+a.split('_')[1]
+            else:
+                temp = data_path.split('/')[-2].split('_')[-1] + '/' + data_path.split('/')[-1].split('_')[0] + '_' + \
+                       data_path.split('/')[-1].split('_')[1]
             for line in self.text_book:
                 if line[0].split('.nii')[0] == temp:
                     age = int(line[1])//20
@@ -318,7 +326,7 @@ class NCPJPGtestDataset(Dataset):
         age = -1
         gender = -1
         if isinstance(self.text_book,list):
-            if data_path.split('/')[-1][0]=='c'or data_path.split('/')[-3]=='ILD' or\
+            if data_path.split('/')[-3]=='ILD' or\
                   data_path.split('/')[-3] == 'LIDC' or\
                   data_path.split('/')[-3] == 'reader_ex':
                 age = -1
@@ -376,30 +384,32 @@ class NCPJPGtestDataset_MHA(Dataset):
         if isinstance(lists,list):
             if  not exlude_lists:
                 self.data=lists
-                self.mask=[item.split('_data')[0]+'_seg'+item.split('_data')[1][:-1] for item in self.data]
+                self.mask=[item.split('images')[0]+'lungsegs'+item.split('images')[1][:-1] for item in self.data]
                 self.data = [item[:-1] for item in self.data]
             else:
                 if isinstance(data_root, list):
                     for r1, r2 in zip(data_root, pre_lung_root):
-                        D= glob.glob(r1 + '/*.mha')
+                        D= glob.glob(r1 + '/*/*.mha')
                         D=[t for t in D if not (t+'\n') in lists]
-                        M= [item.split('_data')[0]+'_seg'+item.split('_data')[1] for item in D]
+                        M= [item.split('images')[0]+'lungsegs'+item.split('images')[1] for item in D]
                         self.data+=D
                         self.mask+=M
                 else:
-                    D = glob.glob(data_root + '/*.mha')
+                    D = glob.glob(data_root + '/*/*.mha')
                     D = [t for t in D if not (t+'\n') in lists]
-                    M = [item.split('_data')[0] + '_seg' + item.split('_data')[1] for item in D]
+                    M = [item.split('images')[0] + 'lungsegs' + item.split('images')[1] for item in D]
                     self.data += D
                     self.mask += M
         else:
             if isinstance (data_root,list):
                 for r1,r2 in zip(data_root,pre_lung_root):
-                    self.data+=glob.glob(r1+'/*.nii')
-                    self.mask+=glob.glob(r2+'/*.nii')
+                    self.data+=glob.glob(r1+'/*/*.mha')
+                    self.mask+=glob.glob(r2+'/*/*.mha')
             else:
                 self.data = glob.glob(data_root)
                 self.mask=glob.glob(pre_lung_root)
+        self.data=list(set(self.data))
+        self.mask = list(set(self.mask))
         self.pre_root=pre_lung_root
         self.data_root = data_root
         self.padding = padding
@@ -455,17 +465,17 @@ class NCPJPGtestDataset_MHA(Dataset):
         #croptransform = transforms.CenterCrop((224, 224))
         cnt=0
         name=[]
-        for cnt,i in enumerate(range(5,V.shape[0]-5,3)):
+        for cnt,i in enumerate(range(V.shape[0]-1)):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             #if cnt>=padding:
             #    break
-            data=V[i-1:i+1,:,:]
+            data=V[i:i+1,:,:]
             data[data > 700] = 700
             data[data < -1200] = -1200
             data = data * 255.0 / 1900
             name.append(i)
             data = data - data.min()
-            data = np.concatenate([pre[i:i + 1, :, :] * 255,data], 0)  # mask one channel
+            data = np.concatenate([pre[i:i + 1, :, :] * 255,data,data], 0)  # mask one channel
             data = data.astype(np.uint8)
             data=Image.fromarray(data.transpose(1,2,0))
             #data.save('temp.jpg')
