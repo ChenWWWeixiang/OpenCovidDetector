@@ -55,7 +55,9 @@ xlrd==1.2.0
 run ```pip install -r requirements.txt``` to install all above packages.
 
 ### Use Trained Model for Inference
-1. __Data Preparation__ : A demo covid-19 data can be made at <https://cloud.tsinghua.edu.cn/f/365e7f81e4b443eb9fab/?dl=1>. When using your own data, make sure keeping the same format and naming scheme as our demo data)
+1. __Data Preparation__ : A demo covid-19 data can be made at <https://cloud.tsinghua.edu.cn/f/365e7f81e4b443eb9fab/?dl=1>. When using your own data, make sure that
+    - Data and lung segmentations are in pair and in .nii format.
+    - Negative cases should named begin with 'c'. We use names to as classification groundtruths.
 
 2. __Download Trained Weight__: a trained model is available at <https://cloud.tsinghua.edu.cn/f/ba180ea9b2d44fdc9757/?dl=1>
 
