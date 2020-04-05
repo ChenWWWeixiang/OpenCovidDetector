@@ -17,21 +17,22 @@ KEEP_ALL=True
 import argparse
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",  type=list,
-                    default=['/mnt/data7/ILD/resampled_seg',
+parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",#  type=list,
+                    default=['/mnt/data7/examples/seg',
                             #'/mnt/data7/reader_ex/resampled_seg',
-                            '/mnt/data7/LIDC/resampled_seg',
-                            '/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
-                            '/mnt/data7/resampled_seg/test3'
+                            #'/mnt/data7/LIDC/resampled_seg',
+                            #'/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
+                            #'/mnt/data7/resampled_seg/test3'
                             #'/mnt/data7/slice_test_seg/mask_re',
                                    # '/mnt/data7/resampled_seg/test3']
                             ])
-parser.add_argument("-i", "--imgpath", help="A list of paths for image data",  type=list,
-                    default=['/mnt/data7/ILD/resampled_data',
+parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
+                    default=[#'/mnt/data7/ILD/resampled_data',
+                        '/mnt/data7/examples/data',
                         #'/mnt/data7/reader_ex/resampled_data',
-                        '/mnt/data7/LIDC/resampled_data',
-                        '/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
-                        '/mnt/data7/resampled_data/test3'
+                        #'/mnt/data7/LIDC/resampled_data',
+                        #'/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
+                        #'/mnt/data7/resampled_data/test3'
                         #'/mnt/data7/slice_test_seg/data_re',
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
@@ -43,7 +44,7 @@ parser.add_argument("-e", "--exclude_list", help="A path to a txt file for exclu
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='weights/model_plusplus.pt')
+                    default='saves/model_plus.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='2')
 args = parser.parse_args()
@@ -217,7 +218,8 @@ if (options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):
     torch.backends.cudnn.benchmark = True
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpuid
-
+args.imgpath=eval(args.imgpath)
+args.maskpath=eval(args.maskpath)
 torch.manual_seed(options["general"]['random_seed'])
 
 # Create the model.
