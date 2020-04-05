@@ -15,14 +15,14 @@ def get_CI(value,res):
 import argparse
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.", type=list,
+parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.", #type=list,
                     default=['saves/test_2.npy','saves/test_plus.npy','saves/test_pp.npy'])
 parser.add_argument("-o", "--output_file", help="Output file path", type=str,
                     default='saves/results.csv')
 args = parser.parse_args()
 
 #res=np.load('ipt_results/results/train.npy')
-ress=args.ress
+ress=eval(args.ress)
 with open(args.output_file,'w') as f:
     f=csv.writer(f)
     f.writerow(['name','AUC','ACC','Specificity','Sensitivity','PPV','NPV','F1','Youden'])

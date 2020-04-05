@@ -3,7 +3,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.description='please enter two parameters a and b ...'
 parser.add_argument("-p", "--path", help="A list of paths to jpgs for seperate",
-                    type=list,
+                    type=str,
                     default=['/mnt/data9/new_seg_set/masked_jpgs1','/mnt/data9/new_seg_set/masked_jpgs2',
       '/mnt/data7/resampled_jpgs/masked_train_lidc','/mnt/data7/resampled_jpgs/masked_train3',
       '/mnt/data7/resampled_jpgs/masked_ild'])
@@ -23,7 +23,7 @@ parser.add_argument("-v", "--val_txt",
 #      '/mnt/data7/resampled_jpgs/masked_train3',
 #      '/mnt/data7/resampled_jpgs/masked_ild']
 args = parser.parse_args()
-path=args.path
+path=eval(args.path)
 #path=['/mnt/data7/slice_test_seg/jpgs2']
 f1 = open(args.train_txt, 'w')
 f2 = open(args.val_txt, 'w')
