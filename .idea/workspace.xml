@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +28,8 @@
       <file leaf-file-name="dataset.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data/dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="303" column="51" selection-start-line="303" selection-start-column="51" selection-end-line="303" selection-end-column="51" />
+            <state relative-caret-position="321">
+              <caret line="308" column="63" lean-forward="true" selection-start-line="308" selection-start-column="63" selection-end-line="308" selection-end-column="63" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
                 <element signature="e#402#2994#0" />
@@ -622,7 +622,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586061045278</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="modify readme">
+      <created>1586073716617</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1586073716617</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1313,8 +1320,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/dataset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="303" column="51" selection-start-line="303" selection-start-column="51" selection-end-line="303" selection-end-column="51" />
+        <state relative-caret-position="321">
+          <caret line="308" column="63" lean-forward="true" selection-start-line="308" selection-start-column="63" selection-end-line="308" selection-end-column="63" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
             <element signature="e#402#2994#0" />
