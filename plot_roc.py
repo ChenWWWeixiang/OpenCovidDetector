@@ -16,7 +16,7 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.", type=list,
-                    default=['saves/test_2.npy','saves/test_plus.npy','gender.npy'])
+                    default=['saves/test_2.npy','saves/test_plus.npy','saves/test_pp.npy'])
 parser.add_argument("-o", "--output_file", help="Output file path", type=str,
                     default='saves/results.csv')
 args = parser.parse_args()
