@@ -301,7 +301,7 @@ class NCPJPGtestDataset(Dataset):
             data_path=data_path[:-1]
         cls=1-int(data_path.split('/')[-1][0]=='c'or
                   data_path.split('/')[-3]=='ILD' or
-                  data_path.split('/')[-3] == 'LIDC' or
+                  data_path.split('/')[-1][1] == '.' or
                   data_path.split('/')[-3] == 'reader_ex')
 
         #cls=0
