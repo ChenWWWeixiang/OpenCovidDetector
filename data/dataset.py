@@ -171,9 +171,9 @@ class NCPJPGDataset(Dataset):
                                                  transforms.RandomCrop(224),
                                                  #transforms.RandomRotation(45),
                                                  transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
-                                                 
+
                                                  transforms.ToTensor(),
-                                                 transforms.RandomErasing(p=0.2),
+                                                 transforms.RandomErasing(p=0.1),
                                                  transforms.Normalize([0, 0, 0], [1, 1, 1])
                                                  ])
         self.test_augmentation = transforms.Compose([transforms.Resize(256),

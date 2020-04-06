@@ -37,9 +37,9 @@ for ipath in path:
     names_id=[file.split('_')[0] for file in files]
     names_id=list(set(names_id))
     random.shuffle(names_id)
-    train=names_id[:-len(names_id)//3]
+    train=names_id[:-len(names_id)//4]
     #val=names_id[len(names_id)//2:-len(names_id)//4]
-    test=names_id[-len(names_id)//3:]
+    test=names_id[-len(names_id)//4:]
     for _,i in enumerate(train):
         if cnt >= train_count:
             break

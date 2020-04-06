@@ -103,7 +103,7 @@ class Trainer():
             criterion=model.loss()#TODO:2
         else:
             #criterion=nn.
-            criterion =nn.NLLLoss(weight=torch.Tensor([0.7,0.3]).cuda())#0.3,0.7
+            criterion =nn.NLLLoss(weight=torch.Tensor([0.5,0.5]).cuda())#0.3,0.7
             if self.use_plus:
                 criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
                 criterion_gender = nn.NLLLoss(ignore_index=-1,
