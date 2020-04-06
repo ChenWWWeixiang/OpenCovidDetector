@@ -3,14 +3,14 @@ title = "GetAbnormal PyTorch"
 [general]
 usecudnn = true
 usecudnnbenchmark = true
-gpuid = "3"
+gpuid = "2"
 loadpretrainedmodel = true
 random_seed = true
 pretrainedmodelpath = '../saves/trained_model.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
-use_plus=true
+use_plus=false
 
 [input]
 batchsize = 32
@@ -30,17 +30,17 @@ epochs = 100
 startepoch = 0
 statsfrequency = 100
 data_root = '../all_ages_genders.txt'
-index_root = '../data/txt/locating_train.txt'
+index_root = '../data/txt/locating_train2.txt'
 padding = 35
 learningrate = 5e-7
 momentum = 0.995
-weightdecay = 0.01
+weightdecay = 0.05
 save_prefix = "../weights/locating"
 
 [validation]
 validate = true
 data_root = '../all_ages_genders.txt'
-index_root = '../data/txt/locating_val.txt'
+index_root = '../data/txt/locating_val2.txt'
 padding = 35
 saveaccuracy = false
 

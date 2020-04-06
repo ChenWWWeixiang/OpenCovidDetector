@@ -103,10 +103,11 @@ class Trainer():
             criterion=model.loss()#TODO:2
         else:
             #criterion=nn.
-            criterion =nn.NLLLoss(weight=torch.Tensor([0.3,0.7]).cuda())
+            criterion =nn.NLLLoss(weight=torch.Tensor([0.7,0.3]).cuda())#0.3,0.7
             if self.use_plus:
                 criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
-                criterion_gender = nn.NLLLoss(ignore_index=-1).cuda()
+                criterion_gender = nn.NLLLoss(ignore_index=-1,
+                                              weight=torch.Tensor([0.3, 0.7]).cuda()).cuda()
         if self.use_lstm:
             criterion=NLLSequenceLoss()
         if(self.usecudnn):
@@ -144,7 +145,7 @@ class Trainer():
                 #l2 = (criterion_age(out_age,age/90)*(age>0)).sum()/(age>0).sum()
                 l2 = criterion_age(out_age, age.squeeze(1))
                 l3 = criterion_gender(out_gender,gender.squeeze(1))
-                loss=l1+l2*0.5+l3*0.5
+                loss=l1+l2*0.2+l3*0.2
             else:
                 loss = criterion(outputs, labels.squeeze(1))
             loss.backward()

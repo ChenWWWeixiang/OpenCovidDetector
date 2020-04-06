@@ -167,11 +167,13 @@ class NCPJPGDataset(Dataset):
         self.text_book=[item.split('\t') for item in self.data_root]
         self.padding = padding
         self.augment = augment
-        self.train_augmentation = transforms.Compose([transforms.Resize(256),
+        self.train_augmentation = transforms.Compose([transforms.Resize(256),##just for abnormal detector
                                                  transforms.RandomCrop(224),
-                                                 transforms.RandomRotation(30),
+                                                 #transforms.RandomRotation(45),
+                                                 transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
+                                                 
                                                  transforms.ToTensor(),
-                                                 transforms.RandomErasing(p=0.1),
+                                                 transforms.RandomErasing(p=0.2),
                                                  transforms.Normalize([0, 0, 0], [1, 1, 1])
                                                  ])
         self.test_augmentation = transforms.Compose([transforms.Resize(256),
