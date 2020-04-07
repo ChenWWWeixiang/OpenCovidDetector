@@ -4,7 +4,7 @@ parser = argparse.ArgumentParser()
 parser.description='please enter two parameters a and b ...'
 parser.add_argument("-p", "--path", help="A list of paths to jpgs for seperate",
                     type=str,
-                    default=['/mnt/data7/slice_test_seg/jpgs2'])
+                    default=['/mnt/data7/slice_test_seg/mask_jpgs_new'])
 parser.add_argument("-t", "--train_txt",
                     help="train list output path",
                     type=str,
@@ -34,7 +34,7 @@ c=0
 for ipath in path:
     cnt = 0
     files=os.listdir(ipath)
-    names_id=[file.split('_')[0] for file in files]
+    names_id=[file.split('_')[0].split('c--')[-1] for file in files]
     names_id=list(set(names_id))
     random.shuffle(names_id)
     train=names_id[:-len(names_id)//4]
@@ -50,8 +50,18 @@ for ipath in path:
             cnt+=1
             c+=1
             f1.writelines(name+'\n')
+        names=glob.glob(ipath+'/c--'+i+'_*')
+        for name in names:
+            if cnt>=train_count:
+                break
+            cnt+=1
+            c+=1
+            f1.writelines(name+'\n')
 #print(c)
     for i in test:
         names=glob.glob(ipath+'/'+i+'_*')
+        for name in names:
+            f2.writelines(name+'\n')
+        names=glob.glob(ipath+'/c--'+i+'_*')
         for name in names:
             f2.writelines(name+'\n')
