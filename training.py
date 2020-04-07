@@ -55,6 +55,7 @@ class Trainer():
     writer = SummaryWriter()    
     
     def __init__(self, options):
+        self.cls_num=options['general']['class_num']
         self.use_plus=options['general']['use_plus']
         self.use_slice = options['general']['use_slice']
         self.usecudnn = options["general"]["usecudnn"]
@@ -71,7 +72,7 @@ class Trainer():
             self.trainingdataset =NCPJPGDataset(options["training"]["data_root"],
                                                 options["training"]["index_root"],
                                                 options["training"]["padding"],
-                                                True)#
+                                                True,cls_num=self.cls_num)#
         else:
             if options['general']['use_3d']:
                 self.trainingdataset = NCPDataset(options["training"]["data_root"],
@@ -100,10 +101,10 @@ class Trainer():
         #set up the loss function.
         model.train()
         if self.use_3d:
-            criterion=model.loss()#TODO:2
+            criterion=model.loss()
         else:
             #criterion=nn.
-            criterion =nn.NLLLoss(weight=torch.Tensor([0.3,0.7]).cuda())#0.3,0.7
+            criterion =nn.NLLLoss(weight=torch.Tensor([0.5,0.5,0.5]).cuda())#0.3,0.7
             if self.use_plus:
                 criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
                 criterion_gender = nn.NLLLoss(ignore_index=-1,

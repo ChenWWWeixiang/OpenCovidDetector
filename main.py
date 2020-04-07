@@ -29,7 +29,7 @@ elif options['general']['use_slice']:
     if options['general']['use_plus']:
         model = resnet152_plus(2)
     else:
-        model = resnet152(2)#vgg19_bn(2)#squeezenet1_1(2)
+        model = resnet152(options['general']['class_num'])#vgg19_bn(2)#squeezenet1_1(2)
 else:
     model=densenet161(2)
 

@@ -160,13 +160,14 @@ class NCP2DDataset(Dataset):
         return temporalvolume,cnt
 
 class NCPJPGDataset(Dataset):
-    def __init__(self, data_root,index_root, padding, augment=False):
+    def __init__(self, data_root,index_root, padding, augment=False,cls_num=2):
         self.padding = padding
         self.data = []
         self.data_root = open(data_root,'r').readlines()
         self.text_book=[item.split('\t') for item in self.data_root]
         self.padding = padding
         self.augment = augment
+        self.cls_num=cls_num
         self.train_augmentation = transforms.Compose([transforms.Resize(256),##just for abnormal detector
                                                  transforms.RandomCrop(224),
                                                  #transforms.RandomRotation(45),
@@ -193,10 +194,19 @@ class NCPJPGDataset(Dataset):
         pa_id=list(set([st.split('/')[-1].split('_')[0] for st in self.data]))
         #pa_id_0=[id[0]=='c' or id[1]=='.' for id in pa_id]
         #print(np.sum(pa_id_0),len(pa_id)-np.sum(pa_id_0))
-        cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1]=='.' or
-                       data_path.split('/')[-2]=='masked_ild') for data_path in self.data]
+        if self.cls_num==2:
+            cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1]=='.' or
+                           data_path.split('/')[-2]=='masked_ild') for data_path in self.data]
+        else:
+            for data_path in self.data:
+                if data_path.split('/')[-1][0] == 'c':
+                    cls=0
+                elif data_path.split('/')[-1][1]=='.' or data_path.split('/')[-2]=='masked_ild':
+                    cls=1
+                else:
+                    cls=2#covid
 
-        print(np.sum(np.array(cls)==0),np.sum(np.array(cls)==1))
+        print(np.sum(np.array(cls)==0),np.sum(np.array(cls)==1),np.sum(np.array(cls)==2))
 
     def __len__(self):
         return len(self.data)
@@ -206,8 +216,16 @@ class NCPJPGDataset(Dataset):
         data_path = self.data[idx]
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
-        cls=1-int(data_path.split('/')[-1][0]=='c' or data_path.split('/')[-1][1]=='.' or
-                  data_path.split('/')[-2]=='masked_ild')
+        if self.cls_num==2:
+            cls=1-int(data_path.split('/')[-1][0]=='c' or data_path.split('/')[-1][1]=='.' or
+                      data_path.split('/')[-2]=='masked_ild')
+        else:
+            if data_path.split('/')[-1][0] == 'c':
+                cls = 0
+            elif data_path.split('/')[-1][1] == '.' or data_path.split('/')[-2] == 'masked_ild':
+                cls = 1
+            else:
+                cls = 2  # covid
         data=Image.open(data_path)
         age = -1
         gender = -1
@@ -216,7 +234,6 @@ class NCPJPGDataset(Dataset):
                 data_path.split('/')[-3] == 'reader_ex':
             age = -1
             gender = -1
-
         else:
             if data_path.split('/')[-3]=='slice_test_seg':
                 if len(data_path.split('/')[-1].split('_')[1])>2:

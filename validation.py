@@ -40,6 +40,7 @@ def _validate(modelOutput, length, labels, total=None, wrong=None):
 
 class Validator():
     def __init__(self, options, mode):
+        self.cls_num=options['general']['class_num']
         self.use_plus = options['general']['use_plus']
         self.use_3d=options['general']['use_3d']
         self.usecudnn = options["general"]["usecudnn"]
@@ -50,7 +51,7 @@ class Validator():
             self.validationdataset = NCPJPGDataset(options[mode]["data_root"],
                                                     options[mode]["index_root"],
                                                     options[mode]["padding"],
-                                                    False)
+                                                    False,cls_num=self.cls_num)
         else:
             if options['general']['use_3d']:
                 self.validationdataset = NCPDataset(options[mode]["data_root"],
@@ -78,7 +79,7 @@ class Validator():
         self.epoch+=1
         with torch.no_grad():
             print("Starting {}...".format(self.mode))
-            count = np.zeros((4))
+            count = np.zeros((3))
             if self.use_3d:
                 validator_function = model.validator_function()##TODO:
             if self.use_lstm:
@@ -92,7 +93,7 @@ class Validator():
             error_dir='error/'
             os.makedirs(error_dir,exist_ok=True)
             cnt=0
-            num_samples = np.zeros((4))
+            num_samples = np.zeros((3))
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
@@ -126,20 +127,15 @@ class Validator():
                 else:
                     _, maxindices = outputs.cpu().max(1)
                 isacc=labels.cpu().numpy().reshape(labels.size(0))==maxindices.numpy()
-                output_numpy=np.exp(outputs.cpu().numpy()[:,1])
+                output_numpy=np.exp(outputs.cpu().numpy())
                 label_numpy=labels.cpu().numpy()[:,0]
 
                # argmax = (-vector.cpu().numpy()).argsort()
                 for i in range(labels.size(0)):
-                    LL.append([output_numpy[i], label_numpy[i]])
-                    if isacc[i]==1 and labels[i]==0 :
-                        count[0] += 1
-                    if isacc[i]==1 and labels[i]==1 :
-                        count[1] += 1
-                    if labels[i]==0:
-                        num_samples[0] += 1
-                    else:
-                        num_samples[1] += 1
+                    LL.append([output_numpy[i], label_numpy[i,:]])
+                    if isacc[i]==1 :
+                        count[labels[i]] += 1
+                    num_samples[labels[i]]+=1
                     if isacc[i]==0 and False:
                         input=input.cpu().numpy()
                         for b in range(input.shape[2]):
@@ -147,7 +143,6 @@ class Validator():
                             cv2.imwrite(os.path.join(error_dir,'error'+str(cnt)+'_truecls:'+str(label_numpy)+'_slice:'+str(b)+'.jpg'
                                                      ),I)
                         cnt+=1
-
                     if self.use_plus and gender_numpy[i]>-1:
                         GG.append([output_gender_numpy[i],gender_numpy[i]])
                         #AA.append()
@@ -164,7 +159,7 @@ class Validator():
                 #print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                 #                                                                       count[0],len(self.validationdataset),
                 #                                                                       1.0*count[0]/num_samples))
-        print(count[:2].sum()/num_samples[:2].sum(),AA/(num_samples[2]+num_samples[3]))
+        print(count[:3].sum()/num_samples[:3].sum())
         LL=np.array(LL)
         np.save('re/' + self.mode + 'records' + str(self.epoch) + '.npy', LL)
         if self.use_plus:

@@ -3,7 +3,7 @@ title = "covid19 PyTorch"
 [general]
 usecudnn = true
 usecudnnbenchmark = true
-gpuid = "3"
+gpuid = "1"
 loadpretrainedmodel = true
 random_seed = true
 pretrainedmodelpath = 'saves/trained_model.pt'
@@ -11,6 +11,7 @@ use_3d = false
 use_lstm=false
 use_slice=true
 use_plus=false
+class_num=3
 
 [input]
 batchsize = 32
@@ -35,7 +36,7 @@ padding = 35
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.005
-save_prefix = "weights/model_plusplus"
+save_prefix = "weights/model_3cls"
 
 [validation]
 validate = true
