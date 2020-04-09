@@ -170,8 +170,8 @@ class NCPJPGDataset(Dataset):
         self.cls_num=cls_num
         self.train_augmentation = transforms.Compose([transforms.Resize(256),##just for abnormal detector
                                                  transforms.RandomCrop(224),
-                                                 #transforms.RandomRotation(45),
-                                                 transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
+                                                 transforms.RandomRotation(45),
+                                                 #transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
 
                                                  transforms.ToTensor(),
                                                  transforms.RandomErasing(p=0.1),
@@ -197,16 +197,19 @@ class NCPJPGDataset(Dataset):
         if self.cls_num==2:
             cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1]=='.' or
                            data_path.split('/')[-2]=='masked_ild') for data_path in self.data]
-        else:
+        elif self.cls_num==4:
+            cls=[]
             for data_path in self.data:
                 if data_path.split('/')[-1][0] == 'c':
-                    cls=0
-                elif data_path.split('/')[-1][1]=='.' or data_path.split('/')[-2]=='masked_ild':
-                    cls=1
+                    cls.append(0)
+                elif data_path.split('/')[-1][1]=='.':
+                    cls.append(1)
+                elif data_path.split('/')[-2]=='masked_ild':
+                    cls.append(2)
                 else:
-                    cls=2#covid
-
-        print(np.sum(np.array(cls)==0),np.sum(np.array(cls)==1),np.sum(np.array(cls)==2))
+                    cls.append(3)#covid
+        nums=[np.sum(np.array(cls)==i) for i in range(max(cls)+1)]
+        print(nums)
 
     def __len__(self):
         return len(self.data)
@@ -219,13 +222,23 @@ class NCPJPGDataset(Dataset):
         if self.cls_num==2:
             cls=1-int(data_path.split('/')[-1][0]=='c' or data_path.split('/')[-1][1]=='.' or
                       data_path.split('/')[-2]=='masked_ild')
-        else:
+        elif self.cls_num==3:
             if data_path.split('/')[-1][0] == 'c':
                 cls = 0
             elif data_path.split('/')[-1][1] == '.' or data_path.split('/')[-2] == 'masked_ild':
                 cls = 1
             else:
                 cls = 2  # covid
+        else:
+            if data_path.split('/')[-1][0] == 'c':
+                cls = 0
+            elif data_path.split('/')[-1][1] == '.':
+                cls = 1
+            elif  data_path.split('/')[-2] == 'masked_ild':
+
+                cls = 2  # covid
+            else:
+                cls=3
         data=Image.open(data_path)
         age = -1
         gender = -1
@@ -247,7 +260,7 @@ class NCPJPGDataset(Dataset):
                        data_path.split('/')[-1].split('_')[1]
             for line in self.text_book:
                 if line[0].split('.nii')[0] == temp:
-                    age = int(line[1])//20
+                    age = int(line[1])
                     gender = int(line[2][:-1] == 'M')  # m 1, f 0
                     break
         if self.augment:
@@ -262,8 +275,9 @@ class NCPJPGDataset(Dataset):
             }
 
 class NCPJPGtestDataset(Dataset):
-    def __init__(self, data_root, pre_lung_root,padding,lists=None,exlude_lists=True,age_list=None):
+    def __init__(self, data_root, pre_lung_root,padding,lists=None,exlude_lists=True,age_list=None,cls_num=2):
         self.padding = padding
+        self.cls_num=cls_num
         self.data = []
         self.text_book=None
         if isinstance(age_list,str):
@@ -310,11 +324,23 @@ class NCPJPGtestDataset(Dataset):
                                          ])
         print('num of data:', len(self.data))
 
-        cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1] == '.'
-                       or data_path.split('/')[-3]=='ILD' or data_path.split('/')[-3]=='reader_ex') for
-               data_path in self.data]
+        if self.cls_num == 2:
+            cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1] == '.' or
+                           data_path.split('/')[-2] == 'masked_ild') for data_path in self.data]
+        elif self.cls_num == 4:
+            cls = []
+            for data_path in self.data:
+                if data_path.split('/')[-1][0] == 'c':
+                    cls.append(0)
+                elif data_path.split('/')[-1][1] == '.':
+                    cls.append(1)
+                elif data_path.split('/')[-2] == 'masked_ild':
+                    cls.append(2)
+                else:
+                    cls.append(3)  # covid
         #cls=0
-        print(np.sum(np.array(cls) == 0), np.sum(np.array(cls) == 1))
+        nums = [np.sum(np.array(cls) == i) for i in range(max(cls) + 1)]
+        print(nums)
 
 
     def __len__(self):
@@ -326,10 +352,25 @@ class NCPJPGtestDataset(Dataset):
         mask_path=self.mask[idx]
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
-        cls=1-int(data_path.split('/')[-1][0]=='c'or
-                  data_path.split('/')[-3]=='ILD' or
-                  data_path.split('/')[-1][1] == '.' or
-                  data_path.split('/')[-3] == 'reader_ex')
+        if self.cls_num == 2:
+            cls = 1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1] == '.' or
+                          data_path.split('/')[-2] == 'masked_ild')
+        elif self.cls_num == 3:
+            if data_path.split('/')[-1][0] == 'c':
+                cls = 0
+            elif data_path.split('/')[-1][1] == '.' or data_path.split('/')[-2] == 'masked_ild':
+                cls = 1
+            else:
+                cls = 2  # covid
+        else:
+            if data_path.split('/')[-1][0] == 'c':
+                cls = 0
+            elif data_path.split('/')[-1][1] == '.':
+                cls = 1
+            elif data_path.split('/')[-2] == 'masked_ild':
+                cls = 2  # covid
+            else:
+                cls = 3
 
         #cls=0
         #cls=0
@@ -356,7 +397,7 @@ class NCPJPGtestDataset(Dataset):
                        data_path.split('/')[-1].split('_')[1]
                 for line in self.text_book:
                     if line[0] == temp:
-                        age = int(line[1])//20
+                        age = int(line[1])
                         gender = int(line[2][:-1] == 'M')  # m 1, f 0
                         break
 

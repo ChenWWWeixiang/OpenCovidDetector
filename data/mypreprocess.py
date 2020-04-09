@@ -5,8 +5,9 @@ import sys
 import argparse
 parser = argparse.ArgumentParser()
 parser.description='please enter two parameters a and b ...'
-parser.add_argument("-o", "--input_path", help="path to input dicom files",  type=str, default='/mnt/data6/lung_data/lung_5th')
-parser.add_argument("-i", "--output_path", help="path to output nii files",  type=str, default='/home/cwx/extra/NCP_CTs/NCP_control/control1')
+parser.add_argument("-o", "--output_path", help="path to output nii files",  type=str, default='/mnt/data6/NCP_CTs/NCP_controls')
+parser.add_argument("-i", "--input_path", help="path to input dicom files",  type=str,
+                    default='/home/cwx/extra/NCP_CTs/NCP_control/control')
 args = parser.parse_args()
 
 output_path=args.output_path
@@ -15,9 +16,9 @@ os.makedirs(output_path,exist_ok=True)
 #input_c='/home/cwx/extra/new_control/control/control'
 #input_c='/home/cwx/extra/3rd/control/control '
 input_path=args.input_path
-for i in range(3):
+for i in range(1,14):
     #
-    path=input_path+str(i+1)
+    path=input_path+str(i)
     #path=input_path
     all_id = os.listdir(path)
     for id in all_id:
@@ -31,8 +32,8 @@ for i in range(3):
                 for iinn_item in iinner:
                     if iinn_item=='VERSION':
                         continue
-                    cid = 200+int(id) + i * 20
-                    output_name = os.path.join(output_path, 'c'+str(cid) + '_' + phase + '.nii')
+                    #cid = int(id) + (i-1) * 20
+                    output_name = os.path.join(output_path, 'c'+str(i)+'_'+str(id) + '_' + phase + '.nii')
                     #output_name = os.path.join(output_path, str(id) + '_' + phase + '.nii')
                     print(output_name)
                     case_path=os.path.join(path,id,phase,itemsinnner,iinn_item)

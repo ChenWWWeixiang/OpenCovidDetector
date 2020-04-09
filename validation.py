@@ -79,7 +79,8 @@ class Validator():
         self.epoch+=1
         with torch.no_grad():
             print("Starting {}...".format(self.mode))
-            count = np.zeros((3))
+            count = np.zeros((self.cls_num+self.use_plus*2))
+            Matrix=np.zeros((self.cls_num,self.cls_num))
             if self.use_3d:
                 validator_function = model.validator_function()##TODO:
             if self.use_lstm:
@@ -87,13 +88,13 @@ class Validator():
             model.eval()
             LL=[]
             GG=[]
-            AA=0
+            AA=[]
             if(self.usecudnn):
                 net = nn.DataParallel(model).cuda()
             error_dir='error/'
             os.makedirs(error_dir,exist_ok=True)
             cnt=0
-            num_samples = np.zeros((3))
+            num_samples = np.zeros((self.cls_num+self.use_plus*2))
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
@@ -116,8 +117,10 @@ class Validator():
                     _, maxindices_age = out_age.cpu().max(1)
                     #pre_ages = out_age.cpu()*90
                     genderacc = gender.cpu().numpy().reshape(gender.size(0)) == maxindices_gender.numpy()
-                    ageacc = age.cpu().numpy().reshape(age.size(0)) == maxindices_age.numpy()
+                    #ageacc =  == maxindices_age.numpy()
                     #ages_mse=np.abs(pre_ages.numpy()-age.cpu().numpy())
+                    age_numpy=age.cpu().numpy().reshape(age.size(0))
+                    pre_age_numpy=(np.exp(out_age.cpu().numpy())*np.array([10,30,50,70,90])).sum(1)
                     output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1])
                     gender_numpy = gender.cpu().numpy()[:, 0]
 
@@ -132,7 +135,8 @@ class Validator():
 
                # argmax = (-vector.cpu().numpy()).argsort()
                 for i in range(labels.size(0)):
-                    LL.append([output_numpy[i], label_numpy[i,:]])
+                    LL.append([output_numpy[i,:], label_numpy[i]])
+                    Matrix[label_numpy[i],maxindices[i].numpy()]+=1
                     if isacc[i]==1 :
                         count[labels[i]] += 1
                     num_samples[labels[i]]+=1
@@ -145,27 +149,22 @@ class Validator():
                         cnt+=1
                     if self.use_plus and gender_numpy[i]>-1:
                         GG.append([output_gender_numpy[i],gender_numpy[i]])
-                        #AA.append()
-                        if genderacc[i]==1 and gender[i]==0 :
-                            count[2] += 1
-                        if genderacc[i]==1 and gender[i]==1 :
-                            count[3] += 1
-                        if gender[i]==0:
-                            num_samples[2] += 1
-                        else:
-                            num_samples[3] += 1
+                        AA.append(np.abs(pre_age_numpy[i]-age_numpy[i]))
+                        if genderacc[i]==1 :
+                            count[gender[i]+self.cls_num] += 1
+                        num_samples[gender[i]+self.cls_num] += 1
 
 
                 #print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                 #                                                                       count[0],len(self.validationdataset),
                 #                                                                       1.0*count[0]/num_samples))
-        print(count[:3].sum()/num_samples[:3].sum())
+        print(count[:self.cls_num].sum()/num_samples[:self.cls_num].sum(),np.mean(AA))
         LL=np.array(LL)
         np.save('re/' + self.mode + 'records' + str(self.epoch) + '.npy', LL)
         if self.use_plus:
             GG=np.array(GG)
             np.save('re/' + self.mode + 'gender_records' + str(self.epoch) + '.npy', GG)
-
-        return count/num_samples,count[:2].sum()/num_samples[:2].sum()
+        print(Matrix)
+        return count/num_samples,count[:self.cls_num].sum()/num_samples[:self.cls_num].sum()
     def validator_function(self,pre,label):
         pass

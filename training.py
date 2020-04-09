@@ -94,8 +94,8 @@ class Trainer():
         
 
     def learningRate(self, epoch):
-        decay = math.floor((epoch - 1) / 10)
-        return self.learningrate * pow(0.5, decay)
+        decay = math.floor((epoch) / 10)
+        return self.learningrate * pow(0.1, decay)
 
     def __call__(self, model, epoch):
         #set up the loss function.
@@ -104,7 +104,8 @@ class Trainer():
             criterion=model.loss()
         else:
             #criterion=nn.
-            criterion =nn.NLLLoss(weight=torch.Tensor([0.5,0.5,0.5]).cuda())#0.3,0.7
+            w=torch.Tensor([0.8,0.8,0.5,0.8]).cuda()
+            criterion =nn.NLLLoss()#0.3,0.7
             if self.use_plus:
                 criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
                 criterion_gender = nn.NLLLoss(ignore_index=-1,
@@ -144,9 +145,9 @@ class Trainer():
             elif self.use_plus:
                 l1 = criterion(outputs, labels.squeeze(1))
                 #l2 = (criterion_age(out_age,age/90)*(age>0)).sum()/(age>0).sum()
-                l2 = criterion_age(out_age, age.squeeze(1))
+                l2 = criterion_age(out_age, (age//20).squeeze(1))
                 l3 = criterion_gender(out_gender,gender.squeeze(1))
-                loss=l1+l2*0.2+l3*0.2
+                loss=l1+l2*0.4+l3*0.4
             else:
                 loss = criterion(outputs, labels.squeeze(1))
             loss.backward()

@@ -20,28 +20,25 @@ def get_resampled(input,resampled_spacing=[1,1,1],l=False):
 
     return  moving_resampled
 
-data_path='/mnt/data6/lung_data/lung_5th'
+data_path='/mnt/data7/ILD/raw'
 #data_path='/mnt/data7/'
 
 all_names=os.listdir(data_path)
-gt_dir='/mnt/data9/new_seg/'
+gt_dir='/home/xzw/lung_seg'
 
 #all_names=os.listdir(data_path)
 
 #OUTPUT_DIR = '/mnt/data6/test_set/'
 #OUTPUT_PRED_LUNG='/mnt/data7/LIDC/resampled_seg'
 #OUTPUT_RESAMPLE='/mnt/data7/LIDC/resampled_data'
-OUTPUT_PRED_LUNG='/mnt/data9/new_seg_set/raw_seg/test3'
-OUTPUT_RESAMPLE='/mnt/data9/new_seg_set/raw_data/test3'
+OUTPUT_PRED_LUNG='/mnt/data7/ILD/resampled_seg'
+OUTPUT_RESAMPLE='/mnt/data7/ILD/resampled_data'
 #os.makedirs(OUTPUT_RESAMPLE,exist_ok=True)
 os.makedirs(OUTPUT_RESAMPLE,exist_ok=True)
 os.makedirs(OUTPUT_PRED_LUNG,exist_ok=True)
 
 
 for key in all_names:
-    #if os.path.exists(os.path.join(OUTPUT_PRED_LUNG, key)):
-    #    continue
-    #mask_name=key
     if key[0]=='c':
         cset=(int(key[1:].split('_')[0]))//20+1
         cid=(int(key[1:].split('_')[0]))%20
@@ -51,37 +48,33 @@ for key in all_names:
         mask_name='control'+str(cset)+'_'+str(cid)+'_1_label.nii'
         mask_name = os.path.join(gt_dir, mask_name)
     else:
-        mask_name='NCP_ill5_'+key.split('.nii')[0]+'_label.nii'
-        #if int(key.split('_')[0])<40:
-        #    mask_name = key.split('.nii')[0] + '-mask-label.nii'
-        #else:
-        #    mask_name = '1'+key.split('.nii')[0]+ '-mask-label.nii'
+        mask_name='ILD_DB_txtROIs_'+key+'_1_label.nii'
         mask_name = os.path.join(gt_dir, mask_name)
     try:
 
-        #reader = sitk.ImageSeriesReader()
-        #dicom_names = reader.GetGDCMSeriesFileNames(os.path.join(data_path,key))
-        #reader.SetFileNames(dicom_names)
-        #image = reader.Execute()
-        image = sitk.ReadImage(os.path.join(data_path,key), sitk.sitkFloat32)#data
+        reader = sitk.ImageSeriesReader()
+        dicom_names = reader.GetGDCMSeriesFileNames(os.path.join(data_path,key))
+        reader.SetFileNames(dicom_names)
+        image = reader.Execute()
+        #image = sitk.ReadImage(os.path.join(data_path,key), sitk.sitkFloat32)#data
         mask = sitk.ReadImage(mask_name, sitk.sitkFloat32)  ##pred
-        #mask_new = get_resampled(mask, resampled_spacing=[1, 1, 1],l=False)
-        #image_new = get_resampled(image, resampled_spacing=[1, 1, 1], l=False)
+        mask_new = get_resampled(mask, resampled_spacing=[1, 1, 1],l=False)
+        image_new = get_resampled(image, resampled_spacing=[1, 1, 1], l=True)
     except:
         print('e'+key)
         continue
 
-    #resampled_data_ar = sitk.GetArrayFromImage(image_new)
-    #resampled_mask_ar = sitk.GetArrayFromImage(mask_new)
+    resampled_data_ar = sitk.GetArrayFromImage(image_new)
+    resampled_mask_ar = sitk.GetArrayFromImage(mask_new)
 
-    #xx, yy, zz = np.where(resampled_data_ar > 0)
+    xx, yy, zz = np.where(resampled_data_ar > 0)
 
-    #resampled_data_ar = resampled_data_ar[xx.min():xx.max(), yy.min():yy.max(), zz.min():zz.max()]
-    #resampled_data = sitk.GetImageFromArray(resampled_data_ar)
-    #resampled_mask_ar = resampled_mask_ar[xx.min():xx.max(), yy.min():yy.max(), zz.min():zz.max()]
-    #resampled_mask = sitk.GetImageFromArray(resampled_mask_ar)
-    print(mask.GetSize())
+    resampled_data_ar = resampled_data_ar[xx.min():xx.max(), yy.min():yy.max(), zz.min():zz.max()]
+    resampled_data = sitk.GetImageFromArray(resampled_data_ar)
+    resampled_mask_ar = resampled_mask_ar[xx.min():xx.max(), yy.min():yy.max(), zz.min():zz.max()]
+    resampled_mask = sitk.GetImageFromArray(resampled_mask_ar)
+    print(resampled_mask.GetSize())
     #a=1
-    sitk.WriteImage(mask, os.path.join(OUTPUT_PRED_LUNG, key))
-    sitk.WriteImage(image, os.path.join(OUTPUT_RESAMPLE, key))
+    sitk.WriteImage(resampled_mask, os.path.join(OUTPUT_PRED_LUNG, key+'.nii'))
+    sitk.WriteImage(resampled_data, os.path.join(OUTPUT_RESAMPLE, key+'.nii'))
 

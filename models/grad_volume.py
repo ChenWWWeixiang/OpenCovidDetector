@@ -191,9 +191,9 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--use-cuda', action='store_true', default=True,
                         help='Use NVIDIA GPU acceleration')
-    parser.add_argument('--image_path', type=str, default='/mnt/data9/new_seg_set/nore/test_raw_jpgs2',
+    parser.add_argument('--image_path', type=str, default='/mnt/data7/examples/data',
                         help='Input raw image path')
-    parser.add_argument('--mask_path', type=str, default='/mnt/data9/new_seg_set/nore/test_masked_jpgs2',
+    parser.add_argument('--mask_path', type=str, default='/mnt/data7/examples/seg',
                         help='Input mask image path')
     parser.add_argument('--model_path', type=str, default='../saves/for_xzw.pt',
                         help='Model path')
@@ -283,23 +283,23 @@ if __name__ == '__main__':
 
         M = M[:V.shape[0], :, :]
         sums = M.sum(1).sum(1)
-        idd = np.where(sums > 0)[0]
+        idd = np.where(sums > 10)[0]
         M = M[idd, :, :]
         V = V[idd, :, :]
         V = V[:M.shape[0], :M.shape[1], :M.shape[2]]
 
         CAM_V = []
         for idx, i in enumerate(range(0,V.shape[0])):
-            data = V[i:i + 1, :, :]
+            data = V[i, :, :]
             data[data > 700] = 700
             data[data < -1200] = -1200
             data = data * 255.0 / 1900
             data = data - data.min()
-            img_raw = np.concatenate([data[0:1, :, :], data[0:1, :, :], data[0:1, :, :]], 0)
-            img_raw = img_raw.astype(np.uint8).transpose(1, 2, 0)
+            img_raw = np.stack([data,data,data], -1)
+            img_raw = img_raw.astype(np.uint8)
             # data=data/data.max()
-            img = np.concatenate([data, M[i:i + 1, :, :] * 255], 0)  # mask one channel
-            img = img.astype(np.uint8).transpose(1, 2, 0)
+            img = np.stack([data,data, M[i, :, :] * 255], -1)  # mask one channel
+            img = img.astype(np.uint8)
             raw_shape = (img.shape[1], img.shape[0])
 
             img_raw = np.float32(cv2.resize(img_raw, (224, 224))) / 255

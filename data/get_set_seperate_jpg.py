@@ -4,15 +4,19 @@ parser = argparse.ArgumentParser()
 parser.description='please enter two parameters a and b ...'
 parser.add_argument("-p", "--path", help="A list of paths to jpgs for seperate",
                     type=str,
-                    default=['/mnt/data7/slice_test_seg/mask_jpgs_new'])
+                    default=['/mnt/data7/resampled_jpgs/masked_train1',
+      '/mnt/data7/resampled_jpgs/masked_train2',
+      '/mnt/data7/resampled_jpgs/masked_train_lidc',
+      '/mnt/data7/resampled_jpgs/masked_train3',
+      '/mnt/data7/resampled_jpgs/masked_ild'])
 parser.add_argument("-t", "--train_txt",
                     help="train list output path",
                     type=str,
-                    default='txt/locating_train.txt')
+                    default='txt/train4cls.txt')
 parser.add_argument("-v", "--val_txt",
                     help="validation list output path",
                     type=str,
-                    default='txt/locating_val.txt')
+                    default='txt/test4cls.txt')
 
 #path='/mnt/data7/lung_jpgs_with_SEG'
 #path=['/mnt/data7/resampled_jpgs/masked_train1',

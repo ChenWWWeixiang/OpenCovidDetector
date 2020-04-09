@@ -27,7 +27,7 @@ if options['general']['use_3d']:
     model = Dense3D(options)##TODO:1
 elif options['general']['use_slice']:
     if options['general']['use_plus']:
-        model = resnet152_plus(2)
+        model = resnet152_plus(options['general']['class_num'])
     else:
         model = resnet152(options['general']['class_num'])#vgg19_bn(2)#squeezenet1_1(2)
 else:
@@ -62,6 +62,7 @@ for epoch in range(options["training"]["startepoch"], options["training"]["epoch
         trainer(model, epoch)
     if(options["validation"]["validate"]):        
         result,re_all = validator(model)
+        print(options['training']['save_prefix'])
         print('-'*21)
         print('All acc:'+str(re_all))
         print('{:<10}|{:>10}'.format('Cls #', 'Accuracy'))

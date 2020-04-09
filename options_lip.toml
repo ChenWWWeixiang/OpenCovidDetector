@@ -11,7 +11,7 @@ use_3d = false
 use_lstm=false
 use_slice=true
 use_plus=false
-class_num=3
+class_num=4
 
 [input]
 batchsize = 32
@@ -27,21 +27,21 @@ numlstms = 2
 
 [training]
 train = true
-epochs = 100
+epochs = 50
 startepoch = 0
-statsfrequency = 100
+statsfrequency = 1000
 data_root = 'all_ages_genders.txt'#useless and used as ages_gender.txt path
-index_root = 'data/txt/train.txt'
+index_root = 'data/txt/train4cls.txt'
 padding = 35
 learningrate = 1e-5
 momentum = 0.95
-weightdecay = 0.005
-save_prefix = "weights/model_3cls"
+weightdecay = 0.05
+save_prefix = "weights/model_4cls"
 
 [validation]
 validate = true
 data_root = 'all_ages_genders.txt'
-index_root = 'data/txt/test.txt'
+index_root = 'data/txt/test4cls.txt'
 padding = 35
 saveaccuracy = false
 

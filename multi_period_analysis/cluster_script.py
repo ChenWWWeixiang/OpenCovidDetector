@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from sklearn.cluster import KMeans
+
 import seaborn as sb
 import matplotlib.pyplot as plt
 l=35
@@ -14,10 +15,10 @@ for item in os.listdir(inpath):
     Name.append(item.split('.npy')[0])
 if mod=='kmeans':
     estimator = KMeans(n_clusters=6)
+
     estimator.fit(X)
     y_kmeans = estimator.predict(X)
     centroids = estimator.cluster_centers_
-
 else:
     AGE=[]
     AGE_M=[]
@@ -51,7 +52,6 @@ else:
     centroids=np.zeros((np.max(CLS),X.shape[1]))
     for i in range(np.max(CLS)):
         centroids[i]=X[CLS==i].mean(0)
-
 centroids=[centroids[i,:].reshape((50,l))for i in range(centroids.shape[0])]
 for i,c in enumerate(centroids):
     plt.figure()
