@@ -283,13 +283,13 @@ if __name__ == '__main__':
 
         M = M[:V.shape[0], :, :]
         sums = M.sum(1).sum(1)
-        idd = np.where(sums > 10)[0]
+        idd = np.where(sums > 100)[0]
         M = M[idd, :, :]
         V = V[idd, :, :]
         V = V[:M.shape[0], :M.shape[1], :M.shape[2]]
 
         CAM_V = []
-        for idx, i in enumerate(range(0,V.shape[0])):
+        for idx, i in enumerate(range(0,V.shape[0],5)):
             data = V[i, :, :]
             data[data > 700] = 700
             data[data < -1200] = -1200

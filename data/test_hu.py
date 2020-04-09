@@ -2,7 +2,7 @@ import SimpleITK as sitk
 import numpy as np
 from PIL import Image
 import cv2,os
-input_path='/mnt/data6/NCP_CTs/NCP_controls'
+input_path='/home/cwx/extra/NCP_CTs/NCP_control/control1'
 input_mask='/home/xzw/lung_seg_new'
 #input_path='/mnt/data7/resampled_data/train3'
 #input_mask='/mnt/data7/resampled_seg/train3'
@@ -19,26 +19,37 @@ os.makedirs(output_path_raw,exist_ok=True)
 cnt=0
 name_list=os.listdir(input_path)
 for idx,name in enumerate(name_list):
-
+    #fl = name.split('.nii')[0][1:]
+    cid = 1
+    iid = int(name)
+    if cid > 5:
+        continue  # 1-5training. at total 100 cases
     #if idx>=100:
     #    break
-    #reader = sitk.ImageSeriesReader()
-    #dicom_names = reader.GetGDCMSeriesFileNames(os.path.join(input_path, name))
-    #reader.SetFileNames(dicom_names)
-    #volume = reader.Execute()
+    reader = sitk.ImageSeriesReader()
+    for case in os.listdir(os.path.join(input_path, name)):
+        if not os.path.isdir(os.path.join(input_path, name, case)):
+            continue
+        for phase in os.listdir(os.path.join(input_path, name, case)):
+            if not os.path.isdir(os.path.join(input_path, name, case, phase)):
+                continue
+            for inner in os.listdir(os.path.join(input_path, name, case, phase)):
+                if not os.path.isdir(os.path.join(input_path, name, case, phase, inner)):
+                    continue
+                dicom_names = reader.GetGDCMSeriesFileNames(os.path.join(input_path, name, case, phase, inner))
+                reader.SetFileNames(dicom_names)
+                volume = reader.Execute()
+                break
+            break
+        break
+
     volume = sitk.ReadImage(os.path.join(input_path,name))
-    fl=name.split('.nii')[0][1:]
-    cid=int(fl.split('_')[0])//20+1
-    iid=int(fl.split('_')[0])%20
-    if iid==0:
-        iid=20
-        cid-=1
-    if cid>5:
-        continue#1-5training. at total 100 cases
+
     mask_name =  'control'+str(cid)+'_'+str(iid)+'_1_label.nii'
     try:
         mask=sitk.ReadImage(os.path.join(input_mask,mask_name))
     except:
+        print('e')
         continue
     M=sitk.GetArrayFromImage(mask)
     V = sitk.GetArrayFromImage(volume)

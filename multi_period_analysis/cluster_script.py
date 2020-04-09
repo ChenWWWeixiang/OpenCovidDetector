@@ -1,24 +1,43 @@
 import os
 import numpy as np
 from sklearn.cluster import KMeans
-
+from Bio.Cluster import kcluster
+from Bio.Cluster import clustercentroids
+from sklearn.metrics import silhouette_score
 import seaborn as sb
 import matplotlib.pyplot as plt
-l=35
-inpath='/mnt/data9/mp_NCPs/mp_analysis-'+str(l)
+l=70
+inpath='/mnt/data9/mp_NCPs/mp_analysis-x/gallary'
+outpath='/mnt/data9/mp_NCPs/mp_analysis-x/cluster'
+os.makedirs(outpath,exist_ok=True)
 X=[]
 Name=[]
-mod='info'
+mod='kmeans'
 for item in os.listdir(inpath):
     data=np.load(os.path.join(inpath,item)).reshape((50*l))
     X.append(data)
     Name.append(item.split('.npy')[0])
 if mod=='kmeans':
-    estimator = KMeans(n_clusters=6)
+    #estimator = KMeans(n_clusters=6)
 
-    estimator.fit(X)
-    y_kmeans = estimator.predict(X)
-    centroids = estimator.cluster_centers_
+    #estimator.fit(X)
+    #y_kmeans = estimator.predict(X)
+    #centroids = estimator.cluster_centers_
+    coef=[]
+    x=range(3,20)
+    for clusters in x:
+        centroids, error, nfound = kcluster(X, clusters, dist='u', npass=100)
+        silhouette_avg = silhouette_score(X, centroids, metric='cosine')
+        coef.append(silhouette_avg)
+    k=np.argmax(coef)+3
+    print(k)
+    centroids, error, nfound = kcluster(X, k, dist='u', npass=100)
+    C=[]
+    X=np.array(X)
+    for i in range(k):
+        C.append(X[centroids==i,:].mean(0))
+    centroids=np.array(C)
+
 else:
     AGE=[]
     AGE_M=[]
@@ -59,7 +78,8 @@ for i,c in enumerate(centroids):
     plt.xlabel('Days after First Period')
     plt.ylabel('Nomalized Position along Z direction')
     plt.title('Heatmap for Typical Lesion Progress Patterns')
-    plt.savefig(str(i) + '.jpg')
-    np.save('cluster'+str(i)+'.npy',c)
+    plt.savefig(outpath+'/'+str(i) + '.jpg')
+    plt.close()
+    np.save(outpath+'/cluster'+str(i)+'.npy',c)
 
 a=1

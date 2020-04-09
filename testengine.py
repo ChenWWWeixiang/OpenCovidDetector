@@ -20,19 +20,19 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",#  type=list,
                     default=['/mnt/data7/examples/seg',
                             #'/mnt/data7/reader_ex/resampled_seg',
-                            #'/mnt/data7/LIDC/resampled_seg',
-                            #'/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
-                            #'/mnt/data7/resampled_seg/test3'
+                            '/mnt/data7/LIDC/resampled_seg',
+                            '/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
+                            '/mnt/data7/resampled_seg/test3'
                             #'/mnt/data7/slice_test_seg/mask_re',
                                    # '/mnt/data7/resampled_seg/test3']
                             ])
 parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
-                    default=[#'/mnt/data7/ILD/resampled_data',
+                    default=['/mnt/data7/ILD/resampled_data',
                         '/mnt/data7/examples/data',
                         #'/mnt/data7/reader_ex/resampled_data',
-                        #'/mnt/data7/LIDC/resampled_data',
-                        #'/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
-                        #'/mnt/data7/resampled_data/test3'
+                        '/mnt/data7/LIDC/resampled_data',
+                        '/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
+                        '/mnt/data7/resampled_data/test3'
                         #'/mnt/data7/slice_test_seg/data_re',
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
@@ -44,23 +44,35 @@ parser.add_argument("-e", "--exclude_list", help="A path to a txt file for exclu
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='saves/model_plus.pt')
+                    default='weights/model_4cls.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='2')
 args = parser.parse_args()
 
 
 def _validate(modelOutput, labels, topn=1):
-    modelOutput=list(np.exp(modelOutput.cpu().numpy())[:,1])
+    modelOutput=list(np.exp(modelOutput.cpu().numpy())[:,-1])#for covid19
     pos_count=np.sum(np.array(modelOutput)>0.5)
     modelOutput.sort()
     averageEnergies = np.mean(modelOutput[-topn:])
     iscorrect = labels.cpu().numpy()==(averageEnergies>0.5)
     return averageEnergies,iscorrect,pos_count
 
+def _validate_multicls(modelOutput, labels, topn=1):
+    averageEnergies=[]
+    for i in range(1,options['general']['cls_num']):
+        modelOutput = list(np.exp(modelOutput.cpu().numpy())[:, i])  # for covid19
+        #pos_count = np.sum(np.array(modelOutput) > 0.5)
+        modelOutput.sort()
+        averageEnergies.append(np.mean(modelOutput[-topn:]))
+
+    iscorrect = labels.cpu().numpy() == np.argmax(averageEnergies)+1
+    return averageEnergies, iscorrect,-1
+
 
 class Validator():
     def __init__(self, options, mode):
+        self.cls_num=options['general']['class_num']
         self.use_plus=options['general']['use_plus']
         self.use_3d = options['general']['use_3d']
         self.usecudnn = options["general"]["usecudnn"]
@@ -79,15 +91,16 @@ class Validator():
                 self.validationdataset = NCPJPGtestDataset(datalist,
                                                            masklist,
                                                            options[mode]["padding"],
-                                                           f,1-args.invert_exclude,'all_ages_genders.txt')
+                                                           f,1-args.invert_exclude,'all_ages_genders.txt',
+                                                           cls_num=self.cls_num)
             else:
                 self.validationdataset = NCPJPGtestDataset(datalist,
                                                            masklist,
-                                                           options[mode]["padding"],)
+                                                           options[mode]["padding"],cls_num=self.cls_num)
         else:
             self.validationdataset = NCPJPGtestDataset(datalist,
                                                        masklist,
-                                                       options[mode]["padding"],
+                                                       options[mode]["padding"],cls_num=self.cls_num
                                                        )
         self.topk=3
         self.tot_data = len(self.validationdataset)
@@ -105,12 +118,16 @@ class Validator():
         self.epoch += 1
         with torch.no_grad():
             print("Starting {}...".format(self.mode))
-            count = np.zeros((4))
-            validator_function = _validate
+            count = np.zeros((self.cls_num + self.use_plus * 2))
+            Matrix = np.zeros((self.cls_num, self.cls_num))
+            if self.cls_num>2:
+                validator_function=_validate_multicls
+            else:
+                validator_function = _validate
             model.eval()
             LL = []
             GG=[]
-            AA=0
+            AA=[]
             if (self.usecudnn):
                 net = nn.DataParallel(model).cuda()
             #error_dir = 'error/'
@@ -120,7 +137,7 @@ class Validator():
             cnt_for_lidc=0
             e_cnt_l=0
             e_cnt_w=0
-            num_samples = np.zeros((4))
+            num_samples = np.zeros((self.cls_num + self.use_plus * 2))
             #elist=open('val_slices_count.txt','w+')
             #truth_list=truth_list.readlines()
             #names=[tl.split('\t')[0] for tl in truth_list]
@@ -145,12 +162,15 @@ class Validator():
                 if KEEP_ALL:
                     all_numpy=np.exp(outputs.cpu().numpy()[:,1]).tolist()
                     a=1
-                (vector, isacc,pos_count) = validator_function(outputs, labels,self.topk)
+                (vector, isacc,pos_count) = validator_function(outputs, labels,-1,self.topk)
+                _, maxindices = outputs.cpu().max(1)
                 if self.use_plus:
                     _, maxindices_gender = out_gender.cpu().mean(0).max(0)
                     genderacc = gender.cpu().numpy().reshape(gender.size(0)) == maxindices_gender.numpy()
                     output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1]).mean()
                     gender_numpy=gender.cpu().numpy()
+                    age_numpy = age.cpu().numpy().reshape(age.size(0))
+                    pre_age_numpy = (np.exp(out_age.cpu().numpy()) * np.array([10, 30, 50, 70, 90])).sum
                     #ages_mse,oa=self.age_function(out_age, age)
                 #_, maxindices = vector.cpu().max(1)  ##vector--outputs
 
@@ -159,36 +179,28 @@ class Validator():
                 ####
 
                 ####
-                LL.append([name[0],output_numpy, label_numpy])
+                #LL.append([name[0],output_numpy, label_numpy])
+
                 if self.use_plus and gender_numpy[0]>-1:
                     print(name[0], isacc, vector, 'sex:', genderacc)
                 else:
                     print(name[0],isacc,vector)
                 # argmax = (-vector.cpu().numpy()).argsort()
                 for i in range(labels.size(0)):
+                    LL.append([name[0], output_numpy[i,:], label_numpy[i]])
+                    Matrix[label_numpy, maxindices.numpy()] += 1
                     #if isacc[i]==0:
                     #elist.writelines(name[0]+'\t'+str(all_numpy)+'\t'+str(pos_count)+'\t'+str(np.array(slice_idx).tolist())+'\n')
-                    if isacc[i] == 1 and labels[i] == 0:
-                        count[0] += 1
-                    if isacc[i] == 1 and labels[i] == 1:
-                        count[1] += 1
-                    if labels[i] == 0:
-                        num_samples[0] += 1
-                    else:
-                        num_samples[1] += 1
+                    if isacc[i] == 1:
+                        count[labels[i]] += 1
+                    num_samples[labels[i]] += 1
 
                     if self.use_plus and gender_numpy[i]>-1:
-                        GG.append([output_gender_numpy,gender_numpy[i]])
-                        #AA+=ages_mse
-                        if genderacc[i]==1 and gender[i]==0 :
-                            count[2] += 1
-                        if genderacc[i]==1 and gender[i]==1 :
-                            count[3] += 1
-                        if gender[i]==0:
-                            num_samples[2] += 1
-                        else:
-                            num_samples[3] += 1
-
+                        GG.append([output_gender_numpy[i],gender_numpy[i]])
+                        AA.append(np.abs(pre_age_numpy[i]-age_numpy[i]))
+                        if genderacc[i]==1 :
+                            count[gender[i]+self.cls_num] += 1
+                        num_samples[gender[i]+self.cls_num] += 1
                 # print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                 #                                                                       count[0],len(self.validationdataset),
                 #                                                                       1.0*count[0]/num_samples))
@@ -218,15 +230,16 @@ if (options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):
     torch.backends.cudnn.benchmark = True
 
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpuid
-args.imgpath=eval(args.imgpath)
-args.maskpath=eval(args.maskpath)
+if isinstance(args.imgpath,str):
+    args.imgpath=eval(args.imgpath)
+    args.maskpath=eval(args.maskpath)
 torch.manual_seed(options["general"]['random_seed'])
 
 # Create the model.
 if options['general']['use_plus']:
-    model = resnet152_plus(2)
+    model = resnet152_plus(options['general']['class_num'])
 else:
-    model = resnet152(2)
+    model = resnet152(options['general']['class_num'])
 
 pretrained_dict = torch.load(args.model_path)
 # load only exists weights
