@@ -18,33 +18,34 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",#  type=list,
-                    default=['/mnt/data7/examples/seg',
+                    default=[#'/mnt/data7/ILD/resampled_seg',
+                            '/mnt/data7/examples/seg',
                             #'/mnt/data7/reader_ex/resampled_seg',
-                            '/mnt/data7/LIDC/resampled_seg',
-                            '/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
-                            '/mnt/data7/resampled_seg/test3'
+                            #'/mnt/data7/LIDC/resampled_seg',
+                            #'/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
+                            #'/mnt/data7/resampled_seg/test3'
                             #'/mnt/data7/slice_test_seg/mask_re',
                                    # '/mnt/data7/resampled_seg/test3']
                             ])
 parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
-                    default=['/mnt/data7/ILD/resampled_data',
+                    default=[#'/mnt/data7/ILD/resampled_data',
                         '/mnt/data7/examples/data',
                         #'/mnt/data7/reader_ex/resampled_data',
-                        '/mnt/data7/LIDC/resampled_data',
-                        '/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
-                        '/mnt/data7/resampled_data/test3'
+                        #'/mnt/data7/LIDC/resampled_data',
+                        #'/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
+                        #'/mnt/data7/resampled_data/test3'
                         #'/mnt/data7/slice_test_seg/data_re',
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
-                    default='saves/test_pp.npy')
+                    default='re/exsample.npy')
 parser.add_argument("-e", "--exclude_list", help="A path to a txt file for excluded data list. If no file need to be excluded, "
                                                  "it should be 'none'.",  type=str,
-                    default='ipt_results/answer.txt')
+                    default='none')
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='weights/model_4cls.pt')
+                    default='saves/trained_model.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='2')
 args = parser.parse_args()
@@ -58,15 +59,15 @@ def _validate(modelOutput, labels, topn=1):
     iscorrect = labels.cpu().numpy()==(averageEnergies>0.5)
     return averageEnergies,iscorrect,pos_count
 
-def _validate_multicls(modelOutput, labels, topn=1):
+def _validate_multicls(modelOutput, labels, topn=3):
     averageEnergies=[]
-    for i in range(1,options['general']['cls_num']):
-        modelOutput = list(np.exp(modelOutput.cpu().numpy())[:, i])  # for covid19
+    for i in range(0,options['general']['class_num']):
+        t = np.exp(modelOutput.cpu().numpy())[:, i].tolist() # for covid19
         #pos_count = np.sum(np.array(modelOutput) > 0.5)
-        modelOutput.sort()
-        averageEnergies.append(np.mean(modelOutput[-topn:]))
+        t.sort()
+        averageEnergies.append(np.mean(t[-topn:]))
 
-    iscorrect = labels.cpu().numpy() == np.argmax(averageEnergies)+1
+    iscorrect = labels.cpu().numpy() == np.argmax(averageEnergies)
     return averageEnergies, iscorrect,-1
 
 
@@ -91,17 +92,24 @@ class Validator():
                 self.validationdataset = NCPJPGtestDataset(datalist,
                                                            masklist,
                                                            options[mode]["padding"],
-                                                           f,1-args.invert_exclude,'all_ages_genders.txt',
+                                                           f,1-args.invert_exclude,age_list='all_ages_genders.txt',
                                                            cls_num=self.cls_num)
             else:
                 self.validationdataset = NCPJPGtestDataset(datalist,
                                                            masklist,
-                                                           options[mode]["padding"],cls_num=self.cls_num)
+                                                           options[mode]["padding"],f,1-args.invert_exclude,
+                                                           cls_num=self.cls_num)
         else:
-            self.validationdataset = NCPJPGtestDataset(datalist,
-                                                       masklist,
-                                                       options[mode]["padding"],cls_num=self.cls_num
-                                                       )
+            if self.use_plus:
+                self.validationdataset = NCPJPGtestDataset(datalist,
+                                                           masklist,
+                                                           options[mode]["padding"],cls_num=self.cls_num,age_list='all_ages_genders.txt',
+                                                           )
+            else:
+                self.validationdataset = NCPJPGtestDataset(datalist,
+                                                           masklist,
+                                                           options[mode]["padding"],cls_num=self.cls_num
+                                                           )
         self.topk=3
         self.tot_data = len(self.validationdataset)
         self.validationdataloader = DataLoader(
@@ -162,7 +170,7 @@ class Validator():
                 if KEEP_ALL:
                     all_numpy=np.exp(outputs.cpu().numpy()[:,1]).tolist()
                     a=1
-                (vector, isacc,pos_count) = validator_function(outputs, labels,-1,self.topk)
+                (vector, isacc,pos_count) = validator_function(outputs, labels,self.topk)
                 _, maxindices = outputs.cpu().max(1)
                 if self.use_plus:
                     _, maxindices_gender = out_gender.cpu().mean(0).max(0)
@@ -170,7 +178,7 @@ class Validator():
                     output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1]).mean()
                     gender_numpy=gender.cpu().numpy()
                     age_numpy = age.cpu().numpy().reshape(age.size(0))
-                    pre_age_numpy = (np.exp(out_age.cpu().numpy()) * np.array([10, 30, 50, 70, 90])).sum
+                    pre_age_numpy = (np.exp(out_age.cpu().numpy()) * np.array([10, 30, 50, 70, 90])).sum(1).mean()
                     #ages_mse,oa=self.age_function(out_age, age)
                 #_, maxindices = vector.cpu().max(1)  ##vector--outputs
 
@@ -187,8 +195,11 @@ class Validator():
                     print(name[0],isacc,vector)
                 # argmax = (-vector.cpu().numpy()).argsort()
                 for i in range(labels.size(0)):
-                    LL.append([name[0], output_numpy[i,:], label_numpy[i]])
-                    Matrix[label_numpy, maxindices.numpy()] += 1
+                    if self.cls_num>2:
+                        LL.append([name[0]]+ output_numpy+[label_numpy])
+                    else:
+                        LL.append([name[0],output_numpy,label_numpy])
+                    Matrix[label_numpy, np.argmax(output_numpy)] += 1
                     #if isacc[i]==0:
                     #elist.writelines(name[0]+'\t'+str(all_numpy)+'\t'+str(pos_count)+'\t'+str(np.array(slice_idx).tolist())+'\n')
                     if isacc[i] == 1:
@@ -196,24 +207,26 @@ class Validator():
                     num_samples[labels[i]] += 1
 
                     if self.use_plus and gender_numpy[i]>-1:
-                        GG.append([output_gender_numpy[i],gender_numpy[i]])
-                        AA.append(np.abs(pre_age_numpy[i]-age_numpy[i]))
+                        GG.append([output_gender_numpy,gender_numpy])
+                        AA.append(np.abs(pre_age_numpy-age_numpy))
                         if genderacc[i]==1 :
                             count[gender[i]+self.cls_num] += 1
                         num_samples[gender[i]+self.cls_num] += 1
                 # print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                 #                                                                       count[0],len(self.validationdataset),
                 #                                                                       1.0*count[0]/num_samples))
-        print(count[:2].sum() / num_samples[:2].sum())
+        print(count[:self.cls_num].sum() / num_samples[:self.cls_num].sum(),np.mean(AA))
         LL = np.array(LL)
-
+        print(Matrix)
         np.save(self.savenpy, LL)
         if self.use_plus:
             GG = np.array(GG)
+            AA=np.array(AA)
             np.save('gender.npy', GG)
+            np.save('age.npy', AA)
         toc=time.time()
         print((toc-tic)/self.validationdataloader.dataset.__len__())
-        return count / num_samples, count[:2].sum() / num_samples[:2].sum()
+        return count / num_samples, count[:self.cls_num].sum() / num_samples[:self.cls_num].sum()
 
     def age_function(self, pre, label):
         pre=pre.cpu().numpy().mean()* 90
@@ -257,7 +270,7 @@ print (tester.savenpy)
 print('-' * 21)
 print('All acc:' + str(re_all))
 print('{:<10}|{:>10}'.format('Cls #', 'Accuracy'))
-for i in range(2):
+for i in range(result.shape[0]):
     print('{:<10}|{:>10}'.format(i, result[i]))
 print('-' * 21)
 

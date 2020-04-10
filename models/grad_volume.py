@@ -262,22 +262,22 @@ if __name__ == '__main__':
     # o_img_nii='../reader_study/cam/img'
     # o_msk_nii = '../reader_study/cam/mask'
     # o_lung_nii='../reader_study/cam/lung'
-    i_path = args.mask_path
-    i_path2 = args.image_path
+    i_path_mask = args.mask_path
+    i_path_img = args.image_path
 
     os.makedirs(o_path, exist_ok=True)
     # os.makedirs(o_img_nii, exist_ok=True)
     ##os.makedirs(o_msk_nii, exist_ok=True)
     # os.makedirs(o_lung_nii, exist_ok=True)
-    for names in os.listdir(i_path):
+    for names in os.listdir(i_path_img):
         if names[0] == 'c':
             continue
         # exlist=glob.glob('../ipt_results/cam_good/'+names.split('.jpg')[0]+'*')
         # if len(exlist)==0 and False:
         #    continue
 
-        img = sitk.ReadImage(os.path.join(i_path, names))
-        seg = sitk.ReadImage(os.path.join(i_path2, names))
+        img = sitk.ReadImage(os.path.join(i_path_img, names))
+        seg = sitk.ReadImage(os.path.join(i_path_mask, names))
         V=sitk.GetArrayFromImage(img)
         M = sitk.GetArrayFromImage(seg)
 

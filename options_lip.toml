@@ -10,8 +10,8 @@ pretrainedmodelpath = 'saves/trained_model.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
-use_plus=true
-class_num=4
+use_plus=false
+class_num=2
 
 [input]
 batchsize = 32

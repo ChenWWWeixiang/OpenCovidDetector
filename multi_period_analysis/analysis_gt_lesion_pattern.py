@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import SimpleITK as sitk
 inpath='/mnt/data9/mp_NCPs/lesions'
-outpath='/mnt/data9/mp_NCPs/mp_analysis-x/gallary'
-outpath2='/mnt/data9/mp_NCPs/mp_analysis-x/query'
+outpath='/mnt/data9/mp_NCPs/mp_analysis-sum/gallary'
+outpath2='/mnt/data9/mp_NCPs/mp_analysis-sum/query'
 os.makedirs(outpath,exist_ok=True)
 os.makedirs(outpath2,exist_ok=True)
 def inter_vecter(v):
@@ -44,7 +44,8 @@ for patient in gallary:
     Data=Data[idx]
     Del.append(delta.max())
     #print(patient,delta.max(),delta.min())
-    this_pred = np.stack([inter_vecter(da) for da in Data])
+    #this_pred = np.stack([inter_vecter(da) for da in Data])
+    this_pred = np.stack([np.mean(da,keepdims=True) for da in Data])
     x = np.stack([inter_vecter_time(this_pred[:,i],delta) for i in range(this_pred.shape[1])])
     print(patient, x.shape,(delta).max())
     np.save(outpath+'/'+patient+'_'+'.npy',x)
@@ -66,7 +67,7 @@ for patient in query:
     Data=Data[idx]
     Del.append(delta.max())
     #print(patient,delta.max(),delta.min())
-    this_pred = np.stack([inter_vecter(da) for da in Data])
+    this_pred = np.stack([np.mean(da,keepdims=True) for da in Data])
     this_pred = np.stack([inter_vecter_time(this_pred[:,i],delta) for i in range(this_pred.shape[1])])
     #this_pred=np.concatenate([delta,this_pred],1)
     print(patient, this_pred.shape,delta.max())

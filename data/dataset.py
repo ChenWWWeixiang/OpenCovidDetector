@@ -326,7 +326,7 @@ class NCPJPGtestDataset(Dataset):
 
         if self.cls_num == 2:
             cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1] == '.' or
-                           data_path.split('/')[-2] == 'masked_ild') for data_path in self.data]
+                           data_path.split('/')[-3] == 'ILD') for data_path in self.data]
         elif self.cls_num == 4:
             cls = []
             for data_path in self.data:
@@ -334,7 +334,7 @@ class NCPJPGtestDataset(Dataset):
                     cls.append(0)
                 elif data_path.split('/')[-1][1] == '.':
                     cls.append(1)
-                elif data_path.split('/')[-2] == 'masked_ild':
+                elif data_path.split('/')[-3] == 'ILD':
                     cls.append(2)
                 else:
                     cls.append(3)  # covid
@@ -354,11 +354,11 @@ class NCPJPGtestDataset(Dataset):
             data_path=data_path[:-1]
         if self.cls_num == 2:
             cls = 1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1] == '.' or
-                          data_path.split('/')[-2] == 'masked_ild')
+                          data_path.split('/')[-3] == 'ILD')
         elif self.cls_num == 3:
             if data_path.split('/')[-1][0] == 'c':
                 cls = 0
-            elif data_path.split('/')[-1][1] == '.' or data_path.split('/')[-2] == 'masked_ild':
+            elif data_path.split('/')[-1][1] == '.' or data_path.split('/')[-3] == 'ILD':
                 cls = 1
             else:
                 cls = 2  # covid
@@ -367,7 +367,7 @@ class NCPJPGtestDataset(Dataset):
                 cls = 0
             elif data_path.split('/')[-1][1] == '.':
                 cls = 1
-            elif data_path.split('/')[-2] == 'masked_ild':
+            elif data_path.split('/')[-3] == 'ILD':
                 cls = 2  # covid
             else:
                 cls = 3

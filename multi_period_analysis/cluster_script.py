@@ -74,7 +74,7 @@ else:
 centroids=[centroids[i,:].reshape((50,l))for i in range(centroids.shape[0])]
 for i,c in enumerate(centroids):
     plt.figure()
-    sb.heatmap(c, vmin=0, vmax=0.05, cmap='jet')
+    sb.heatmap(c, vmin=-0.01, vmax=0.07, cmap='jet')
     plt.xlabel('Days after First Period')
     plt.ylabel('Nomalized Position along Z direction')
     plt.title('Heatmap for Typical Lesion Progress Patterns')

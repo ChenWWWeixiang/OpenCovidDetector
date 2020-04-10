@@ -27,7 +27,7 @@ def get_feature_day(path):
     delta = np.array([(Date[i] - Date[0]).days for i in range(len(Data))])
     Data = np.array(Data)
     Data = Data[idx]
-    this_pred = np.stack([inter_vecter(da) for da in Data])
+    this_pred = np.stack([np.mean(da,keepdims=True) for da in Data])
     return this_pred,delta
 def distance(gallary,query_data,query_delta,need_length=None):
     g=gallary[:,query_delta]
@@ -37,13 +37,13 @@ def distance(gallary,query_data,query_delta,need_length=None):
             return 1
         if gallary[0,need_length]==-1:
             return 1
-    cosV12 = 1-np.abs(np.dot(g.T, q.T) / (linalg.norm(g) * linalg.norm(q)+1e-5))
-    #cosV12 = np.abs(g.T,q)
+    #cosV12 = 1-np.abs(np.dot(g.T, q.T) / (linalg.norm(g) * linalg.norm(q)+1e-5))
+    cosV12 = np.abs(g.T-q)
     return np.diagonal(cosV12).mean()
 def similar_score(g,q,q_d,need_length=None):
     if need_length:
         if g[0,need_length]==-1:
-            return 0,0
+            return 1,0
     al=np.where(g[0,:]==-1)
     al=np.min(al[0])
     S=[]
@@ -51,20 +51,22 @@ def similar_score(g,q,q_d,need_length=None):
     for i in range(al-np.max(q_d)):
         S.append(distance(g[:,i:], q, q_d,need_length))
         d.append(i)
-    return np.max(S),np.argmax(S)
+    return np.min(S),np.argmin(S)
 
 
 l='x'
-inpath_train='/mnt/data9/mp_NCPs/mp_analysis-x/gallary'
-inpath_query='/mnt/data9/mp_NCPs/mp_analysis-x/query'
+inpath_train='/mnt/data9/mp_NCPs/mp_analysis-sum/gallary'
+#inpath_train='/mnt/data9/mp_NCPs/mp_analysis-x/cluster'
+inpath_query='/mnt/data9/mp_NCPs/mp_analysis-sum/query'
 img_path='/mnt/data9/mp_NCPs/images'
 lesion_path='/mnt/data9/mp_NCPs/lesions'
 all_files=os.listdir(inpath_train)
+all_files=[a for a in all_files if a.split('.')[-1]=='npy']
 random.seed(2020)
 random.shuffle(all_files)
 query_file=os.listdir(inpath_query)
 ll=[714]
-klist=[1,3,5,7,10,20,40,80,-1]
+klist=[1,3,5,10,20,30,40,-1]#,7,10,20,40,80,-1]
 LLLL=[]
 for k in klist:
     LLL = []
@@ -75,10 +77,10 @@ for k in klist:
         for item in query:
             name=os.path.join(lesion_path,item.split('.npy')[0])
             data,delta=get_feature_day(name)
-            x=data[:-2,:]
-            d_x=delta[:-2]
-            y=data[-2,:]
-            d_y=delta[-2]
+            x=data[:-1,:]
+            d_x=delta[:-1]
+            y=data[-1,:]
+            d_y=delta[-1]
             D=[]
             M=[]
             for to_find in gallary:
