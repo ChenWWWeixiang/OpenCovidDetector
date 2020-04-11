@@ -242,11 +242,17 @@ class NCPJPGDataset(Dataset):
         data=Image.open(data_path)
         age = -1
         gender = -1
-        if  data_path.split('/')[-3] == 'ILD' or \
-                data_path.split('/')[-3] == 'LIDC' or \
+        if  data_path.split('/')[-3] == 'LIDC' or \
                 data_path.split('/')[-3] == 'reader_ex':
             age = -1
             gender = -1
+        elif data_path.split('/')[-2].split('_')[-1] == 'ild' :
+            temp = 'ILD/' + data_path.split('/')[-1].split('_')[0]
+            for line in self.text_book:
+                if line[0].split('.nii')[0] == temp:
+                    age = int(line[1])
+                    gender = int(line[2][:-1] == 'M')  # m 1, f 0
+                    break
         else:
             if data_path.split('/')[-3]=='slice_test_seg':
                 if len(data_path.split('/')[-1].split('_')[1])>2:
@@ -385,6 +391,7 @@ class NCPJPGtestDataset(Dataset):
         temporalvolume,name = self.bbc(data, self.padding,M)
         age = -1
         gender = -1
+
         if isinstance(self.text_book,list):
             if data_path.split('/')[-3]=='ILD' or\
                   data_path.split('/')[-3] == 'LIDC' or\

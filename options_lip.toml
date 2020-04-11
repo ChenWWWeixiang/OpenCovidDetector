@@ -10,8 +10,8 @@ pretrainedmodelpath = 'saves/trained_model.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
-use_plus=false
-class_num=2
+use_plus=true
+class_num=4
 
 [input]
 batchsize = 32
@@ -36,7 +36,7 @@ padding = 35
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.05
-save_prefix = "weights/model_4cls_gender"
+save_prefix = "weights/model_4cs_gender2"
 
 [validation]
 validate = true
