@@ -8,7 +8,7 @@ import scipy
 import SimpleITK as sitk
 def inter_vecter(v):
     length=v.shape[0]
-    x=np.linspace(0, 1, 50)
+    x=np.linspace(0, 1, 100)
     xp = np.linspace(0, 1, length)
     new_v=np.interp(x, xp, v)
     return new_v
@@ -27,7 +27,7 @@ def get_feature_day(path):
     delta = np.array([(Date[i] - Date[0]).days for i in range(len(Data))])
     Data = np.array(Data)
     Data = Data[idx]
-    this_pred = np.stack([np.mean(da,keepdims=True) for da in Data])
+    this_pred = np.stack([inter_vecter(da) for da in Data])
     return this_pred,delta
 def distance(gallary,query_data,query_delta,need_length=None):
     g=gallary[:,query_delta]
@@ -55,11 +55,11 @@ def similar_score(g,q,q_d,need_length=None):
 
 
 l='x'
-inpath_train='/mnt/data9/mp_NCPs/mp_analysis-sum/gallary'
+inpath_train='/mnt/data9/mp_NCPs/reg_pt/gallary'
 #inpath_train='/mnt/data9/mp_NCPs/mp_analysis-x/cluster'
-inpath_query='/mnt/data9/mp_NCPs/mp_analysis-sum/query'
-img_path='/mnt/data9/mp_NCPs/images'
-lesion_path='/mnt/data9/mp_NCPs/lesions'
+inpath_query='/mnt/data9/mp_NCPs/reg_pt/query'
+img_path='/mnt/data9/mp_NCPs/reg/images'
+lesion_path='/mnt/data9/mp_NCPs/reg/lesions'
 all_files=os.listdir(inpath_train)
 all_files=[a for a in all_files if a.split('.')[-1]=='npy']
 random.seed(2020)

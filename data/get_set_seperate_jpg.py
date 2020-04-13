@@ -8,22 +8,16 @@ parser.add_argument("-p", "--path", help="A list of paths to jpgs for seperate",
       '/mnt/data7/resampled_jpgs/masked_train2',
       '/mnt/data7/resampled_jpgs/masked_train_lidc',
       '/mnt/data7/resampled_jpgs/masked_train3',
-      '/mnt/data7/resampled_jpgs/masked_ild'])
+      '/mnt/data7/resampled_jpgs/masked_ild',
+                             '/mnt/data7/resampled_jpgs/masked_CAP'])
 parser.add_argument("-t", "--train_txt",
                     help="train list output path",
-                    type=str,
-                    default='txt/train4cls.txt')
+                    type=str,                    default='txt/train5cls.txt')
 parser.add_argument("-v", "--val_txt",
                     help="validation list output path",
                     type=str,
-                    default='txt/test4cls.txt')
+                    default='txt/test5cls.txt')
 
-#path='/mnt/data7/lung_jpgs_with_SEG'
-#path=['/mnt/data7/resampled_jpgs/masked_train1',
-#      '/mnt/data7/resampled_jpgs/masked_train2',
-#      '/mnt/data7/resampled_jpgs/masked_train_lidc',
-#      '/mnt/data7/resampled_jpgs/masked_train3',
-#      '/mnt/data7/resampled_jpgs/masked_ild']
 args = parser.parse_args()
 if isinstance(args.path,str):
     path=eval(args.path)

@@ -208,6 +208,19 @@ class NCPJPGDataset(Dataset):
                     cls.append(2)
                 else:
                     cls.append(3)#covid
+        elif self.cls_num==5:
+            cls=[]
+            for data_path in self.data:
+                if data_path.split('/')[-1][0] == 'c':
+                    cls.append(0)
+                elif 'lidc' in data_path:
+                    cls.append(1)
+                elif 'ild' in data_path:
+                    cls.append(2)
+                elif 'CAP' in data_path:
+                    cls.append(3)#covid
+                else:
+                    cls.append(4)
         nums=[np.sum(np.array(cls)==i) for i in range(max(cls)+1)]
         print(nums)
 
@@ -229,25 +242,41 @@ class NCPJPGDataset(Dataset):
                 cls = 1
             else:
                 cls = 2  # covid
-        else:
+        elif self.cls_num==4:
             if data_path.split('/')[-1][0] == 'c':
                 cls = 0
             elif data_path.split('/')[-1][1] == '.':
                 cls = 1
             elif  data_path.split('/')[-2] == 'masked_ild':
-
                 cls = 2  # covid
             else:
                 cls=3
+        elif self.cls_num==5:
+            if data_path.split('/')[-1][0] == 'c':
+                cls = 0
+            elif 'lidc'in data_path:
+                cls = 1
+            elif 'ild'in data_path:
+                cls = 2
+            elif 'CAP'in data_path:
+                cls=3
+            else:
+                cls=4 # covid
         data=Image.open(data_path)
         age = -1
         gender = -1
-        if  data_path.split('/')[-3] == 'LIDC' or \
-                data_path.split('/')[-3] == 'reader_ex':
+        if  'lidc'in data_path or data_path.split('/')[-3] == 'reader_ex':
             age = -1
             gender = -1
         elif data_path.split('/')[-2].split('_')[-1] == 'ild' :
             temp = 'ILD/' + data_path.split('/')[-1].split('_')[0]
+            for line in self.text_book:
+                if line[0].split('.nii')[0] == temp:
+                    age = int(line[1])
+                    gender = int(line[2][:-1] == 'M')  # m 1, f 0
+                    break
+        elif 'CAP' in data_path :
+            temp = 'CAP/' + data_path.split('/')[-1].split('_')[0]
             for line in self.text_book:
                 if line[0].split('.nii')[0] == temp:
                     age = int(line[1])
@@ -310,7 +339,6 @@ class NCPJPGtestDataset(Dataset):
                     self.data += D
                     self.mask += M
         else:
-
             if isinstance (data_root,list):
                 for r1,r2 in zip(data_root,pre_lung_root):
                     self.data+=glob.glob(r1+'/*.n*')
@@ -331,8 +359,8 @@ class NCPJPGtestDataset(Dataset):
         print('num of data:', len(self.data))
 
         if self.cls_num == 2:
-            cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1] == '.' or
-                           data_path.split('/')[-3] == 'ILD') for data_path in self.data]
+            cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.index('LIDC')>-1 or
+                           data_path.index('ILD')>-1) for data_path in self.data]
         elif self.cls_num == 4:
             cls = []
             for data_path in self.data:
@@ -340,15 +368,26 @@ class NCPJPGtestDataset(Dataset):
                     cls.append(0)
                 elif data_path.split('/')[-1][1] == '.':
                     cls.append(1)
-                elif data_path.split('/')[-3] == 'ILD':
+                elif 'ILD' in data_path:
                     cls.append(2)
                 else:
                     cls.append(3)  # covid
         #cls=0
-        nums = [np.sum(np.array(cls) == i) for i in range(max(cls) + 1)]
+        elif self.cls_num==5:
+            cls = []
+            for data_path in self.data:
+                if data_path.split('/')[-1][0] == 'c':
+                    cls.append(0)
+                elif 'LIDC' in data_path:
+                    cls.append(1)
+                elif 'ILD' in data_path:
+                    cls.append(2)
+                elif 'CAP' in data_path:
+                    cls.append(3)
+                else:
+                    cls.append(4)  # covid
+        nums = [np.sum(np.array(cls) == i) for i in range(np.max(cls) + 1)]
         print(nums)
-
-
     def __len__(self):
         return len(self.data)
 
@@ -356,6 +395,7 @@ class NCPJPGtestDataset(Dataset):
         #load video into a tensor
         data_path = self.data[idx]
         mask_path=self.mask[idx]
+        #print(data_path,mask_path)
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
         if self.cls_num == 2:
@@ -368,37 +408,59 @@ class NCPJPGtestDataset(Dataset):
                 cls = 1
             else:
                 cls = 2  # covid
-        else:
+        elif self.cls_num==4:
             if data_path.split('/')[-1][0] == 'c':
                 cls = 0
-            elif data_path.split('/')[-1][1] == '.':
+            elif 'LIDC' in data_path:
                 cls = 1
-            elif data_path.split('/')[-3] == 'ILD':
+            elif 'ILD' in data_path:
                 cls = 2  # covid
             else:
                 cls = 3
+        elif self.cls_num==5:
+            if data_path.split('/')[-1][0] == 'c':
+                cls = 0
+            elif 'LIDC' in data_path:
+                cls = 1
+            elif 'ILD' in data_path:
+                cls = 2
+            elif 'CAP' in data_path:
+                cls = 3
+            else:
+                cls = 4# covid
 
-        #cls=0
-        #cls=0
-        #volume = sitk.ReadImage(os.path.join(input_path, name))
         mask = sitk.ReadImage(mask_path)
         M = sitk.GetArrayFromImage(mask)
         volume=sitk.ReadImage(data_path)
         data=sitk.GetArrayFromImage(volume)
-        data = data[-300:-40, :, :]
-        M = M[-300:-40, :data.shape[1], :data.shape[2]]
+        M=M[:data.shape[0],:,:]
+        valid=np.where(M.sum(1).sum(1)>100)
+        data = data[valid[0], :, :]
+        M = M[valid[0], :data.shape[1], :data.shape[2]]
         data=data[:M.shape[0],:M.shape[1],:M.shape[2]]
         temporalvolume,name = self.bbc(data, self.padding,M)
         age = -1
         gender = -1
 
         if isinstance(self.text_book,list):
-            if data_path.split('/')[-3]=='ILD' or\
-                  data_path.split('/')[-3] == 'LIDC' or\
+            if 'LIDC' in data_path or\
                   data_path.split('/')[-3] == 'reader_ex':
                 age = -1
                 gender = -1
-
+            elif 'ILD' in data_path:
+                temp = 'ILD/' + data_path.split('/')[-1].split('_')[0]
+                for line in self.text_book:
+                    if line[0].split('.nii')[0] == temp:
+                        age = int(line[1])
+                        gender = int(line[2][:-1] == 'M')  # m 1, f 0
+                        break
+            elif 'CAP' in data_path:
+                temp = 'CAP/' + data_path.split('/')[-1].split('_')[1]
+                for line in self.text_book:
+                    if line[0].split('.nii')[0] == temp:
+                        age = int(line[1])
+                        gender = int(line[2][:-1] == 'M')  # m 1, f 0
+                        break
             else:
                 temp = data_path.split('/')[-2].split('_')[-1] + '/' + data_path.split('/')[-1].split('_')[0] + '_' + \
                        data_path.split('/')[-1].split('_')[1]
@@ -421,7 +483,7 @@ class NCPJPGtestDataset(Dataset):
         #croptransform = transforms.CenterCrop((224, 224))
         cnt=0
         name=[]
-        for cnt,i in enumerate(range(V.shape[0]-40,45,-5 )):
+        for cnt,i in enumerate(range(1,V.shape[0]-1,5 )):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             if cnt>=padding:
                 break

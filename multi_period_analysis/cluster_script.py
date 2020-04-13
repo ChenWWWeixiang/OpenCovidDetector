@@ -7,14 +7,14 @@ from sklearn.metrics import silhouette_score
 import seaborn as sb
 import matplotlib.pyplot as plt
 l=70
-inpath='/mnt/data9/mp_NCPs/mp_analysis-x/gallary'
-outpath='/mnt/data9/mp_NCPs/mp_analysis-x/cluster'
+inpath='/mnt/data9/mp_NCPs/reg_pt/gallary'
+outpath='/mnt/data9/mp_NCPs/reg_pt/cluster'
 os.makedirs(outpath,exist_ok=True)
 X=[]
 Name=[]
 mod='kmeans'
 for item in os.listdir(inpath):
-    data=np.load(os.path.join(inpath,item)).reshape((50*l))
+    data=np.load(os.path.join(inpath,item)).reshape((100*l))
     X.append(data)
     Name.append(item.split('.npy')[0])
 if mod=='kmeans':
@@ -26,12 +26,12 @@ if mod=='kmeans':
     coef=[]
     x=range(3,20)
     for clusters in x:
-        centroids, error, nfound = kcluster(X, clusters, dist='u', npass=100)
+        centroids, error, nfound = kcluster(X, clusters, dist='e', npass=100)
         silhouette_avg = silhouette_score(X, centroids, metric='cosine')
         coef.append(silhouette_avg)
     k=np.argmax(coef)+3
     print(k)
-    centroids, error, nfound = kcluster(X, k, dist='u', npass=100)
+    centroids, error, nfound = kcluster(X, k, dist='e', npass=100)
     C=[]
     X=np.array(X)
     for i in range(k):
@@ -71,15 +71,15 @@ else:
     centroids=np.zeros((np.max(CLS),X.shape[1]))
     for i in range(np.max(CLS)):
         centroids[i]=X[CLS==i].mean(0)
-centroids=[centroids[i,:].reshape((50,l))for i in range(centroids.shape[0])]
+centroids=[centroids[i,:].reshape((100,l))for i in range(centroids.shape[0])]
+plt.figure()
 for i,c in enumerate(centroids):
-    plt.figure()
-    sb.heatmap(c, vmin=-0.01, vmax=0.07, cmap='jet')
-    plt.xlabel('Days after First Period')
-    plt.ylabel('Nomalized Position along Z direction')
-    plt.title('Heatmap for Typical Lesion Progress Patterns')
-    plt.savefig(outpath+'/'+str(i) + '.jpg')
-    plt.close()
+    plt.subplot(4, 5, i+1)
+    sb.heatmap(c, vmin=-0.01, vmax=0.05, cmap='jet',xticklabels=[])
     np.save(outpath+'/cluster'+str(i)+'.npy',c)
 
-a=1
+#plt.xlabel('Days after First Period')
+#plt.ylabel('Nomalized Position along Z direction')
+#plt.title('Heatmap for Typical Lesion Progress Patterns')
+plt.savefig(outpath+'/cluster'+str(i)+'.jpg')
+plt.close()

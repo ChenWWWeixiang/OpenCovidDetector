@@ -18,7 +18,8 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",#  type=list,
-                    default=['/mnt/data7/ILD/resampled_seg',
+                    default=['/mnt/data6/CAP/seg_test',
+                             '/mnt/data7/ILD/resampled_seg',
                             #'/mnt/data7/examples/seg',
                             #'/mnt/data7/reader_ex/resampled_seg',
                             '/mnt/data7/LIDC/resampled_seg',
@@ -28,7 +29,8 @@ parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentat
                                    # '/mnt/data7/resampled_seg/test3']
                             ])
 parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
-                    default=['/mnt/data7/ILD/resampled_data',
+                    default=['/mnt/data6/CAP/data_test',
+                        '/mnt/data7/ILD/resampled_data',
                         #'/mnt/data7/examples/data',
                         #'/mnt/data7/reader_ex/resampled_data',
                         '/mnt/data7/LIDC/resampled_data',
@@ -38,14 +40,14 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
-                    default='re/4cls_gender_2.npy')
+                    default='re/5cls.npy')
 parser.add_argument("-e", "--exclude_list", help="A path to a txt file for excluded data list. If no file need to be excluded, "
                                                  "it should be 'none'.",  type=str,
                     default='none')
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='weights/model_4cs_gender2.pt')
+                    default='weights/model_5cls.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='2')
 args = parser.parse_args()
@@ -65,10 +67,27 @@ def _validate_multicls(modelOutput, labels, topn=3):
         t = np.exp(modelOutput.cpu().numpy())[:, i].tolist() # for covid19
         #pos_count = np.sum(np.array(modelOutput) > 0.5)
         t.sort()
-        averageEnergies.append(np.mean(t[-topn:]))
+        if i==0:
+            averageEnergies.append(np.mean(t))
+        else:
+            averageEnergies.append(np.mean(t[-topn:]))
+    pred=np.argmax(averageEnergies)
+    iscorrect = labels.cpu().numpy() == pred
 
-    iscorrect = labels.cpu().numpy() == np.argmax(averageEnergies)
-    return averageEnergies, iscorrect,-1
+    return averageEnergies, iscorrect,pred
+def _voting_validate_multicls(modelOutput, labels, topn=3):
+    averageEnergies=np.exp(modelOutput.cpu().numpy()).mean(0)
+    #cnt=np.zeros([options['general']['class_num']])
+    idx_max=np.argmax(modelOutput.cpu().numpy(),axis=1)
+    cnt=np.bincount(idx_max)
+    pred=np.argmax(cnt)
+    if pred==0:
+        if cnt[0]>0.9*idx_max.shape[0]:
+            pred=0
+        else:
+            pred=np.argmax(cnt[1:])+1
+    iscorrect = labels.cpu().numpy() == pred
+    return averageEnergies.tolist(), iscorrect,pred
 
 
 class Validator():
@@ -199,7 +218,7 @@ class Validator():
                         LL.append([name[0]]+ output_numpy+[label_numpy])
                     else:
                         LL.append([name[0],output_numpy,label_numpy])
-                    Matrix[label_numpy, np.argmax(output_numpy)] += 1
+                    Matrix[label_numpy, pos_count] += 1
                     #if isacc[i]==0:
                     #elist.writelines(name[0]+'\t'+str(all_numpy)+'\t'+str(pos_count)+'\t'+str(np.array(slice_idx).tolist())+'\n')
                     if isacc[i] == 1:
@@ -235,7 +254,7 @@ class Validator():
 
 
 print("Loading options...")
-with open('options_lip.toml', 'r') as optionsFile:
+with open('test.toml', 'r') as optionsFile:
     options = toml.loads(optionsFile.read())
 
 if (options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):

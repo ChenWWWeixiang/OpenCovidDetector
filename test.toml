@@ -1,16 +1,15 @@
-title = "covid19 PyTorch"
+title = "covid19 PyTorch test"
 
 [general]
 usecudnn = true
 usecudnnbenchmark = true
-gpuid = "1"
+gpuid = "2"
 loadpretrainedmodel = true
 random_seed = true
-pretrainedmodelpath = 'saves/trained_model.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
-use_plus=true
+use_plus=false
 class_num=5
 
 [input]
@@ -36,7 +35,7 @@ padding = 35
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.05
-save_prefix = "weights/model_5cls_gender"
+save_prefix = "weights/model_5cls"
 
 [validation]
 validate = true
