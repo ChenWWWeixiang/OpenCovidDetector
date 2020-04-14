@@ -55,8 +55,8 @@ def similar_score(g,q,q_d,need_length=None):
 
 
 l='x'
-inpath_train='/mnt/data9/mp_NCPs/reg_pt/gallary'
-#inpath_train='/mnt/data9/mp_NCPs/mp_analysis-x/cluster'
+#inpath_train='/mnt/data9/mp_NCPs/reg_pt/gallary'
+inpath_train='/mnt/data9/mp_NCPs/reg_pt/cluster'
 inpath_query='/mnt/data9/mp_NCPs/reg_pt/query'
 img_path='/mnt/data9/mp_NCPs/reg/images'
 lesion_path='/mnt/data9/mp_NCPs/reg/lesions'

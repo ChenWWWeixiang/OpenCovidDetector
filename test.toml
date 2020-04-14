@@ -9,7 +9,7 @@ random_seed = true
 use_3d = false
 use_lstm=false
 use_slice=true
-use_plus=false
+use_plus=true
 class_num=5
 
 [input]

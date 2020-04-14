@@ -12,11 +12,12 @@ parser.add_argument("-p", "--path", help="A list of paths to jpgs for seperate",
                              '/mnt/data7/resampled_jpgs/masked_CAP'])
 parser.add_argument("-t", "--train_txt",
                     help="train list output path",
-                    type=str,                    default='txt/train5cls.txt')
+                    type=str,                    
+                    default='txt/train5cls1000.txt')
 parser.add_argument("-v", "--val_txt",
                     help="validation list output path",
                     type=str,
-                    default='txt/test5cls.txt')
+                    default='txt/test5cls1000.txt')
 
 args = parser.parse_args()
 if isinstance(args.path,str):
@@ -27,7 +28,7 @@ else:
 f1 = open(args.train_txt, 'w')
 f2 = open(args.val_txt, 'w')
 
-train_count=50000
+train_count=1000
 c=0
 for ipath in path:
     cnt = 0

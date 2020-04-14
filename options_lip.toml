@@ -27,7 +27,7 @@ numlstms = 2
 
 [training]
 train = true
-epochs = 50
+epochs = 80
 startepoch = 0
 statsfrequency = 1000
 data_root = 'all_ages_genders.txt'#useless and used as ages_gender.txt path
@@ -36,7 +36,7 @@ padding = 35
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.05
-save_prefix = "weights/model_5cls_gender"
+save_prefix = "weights/model_5cls_gender_2"
 
 [validation]
 validate = true

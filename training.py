@@ -104,7 +104,8 @@ class Trainer():
             criterion=model.loss()
         else:
             #criterion=nn.
-            w=torch.Tensor([0.5,0.5,0.8,0.1,0.5]).cuda()
+            w=torch.Tensor(self.trainingdataset.get_w()).cuda()
+
             criterion =nn.NLLLoss(w)#0.3,0.7
             if self.use_plus:
                 criterion_age = nn.NLLLoss(ignore_index=-1).cuda()

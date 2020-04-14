@@ -223,6 +223,12 @@ class NCPJPGDataset(Dataset):
                     cls.append(4)
         nums=[np.sum(np.array(cls)==i) for i in range(max(cls)+1)]
         print(nums)
+        self.nums=nums
+    def get_w(self):
+        S=np.sum(self.nums)
+        nums=S/(self.nums)
+        w=nums/np.sum(nums)
+        return w
 
     def __len__(self):
         return len(self.data)
