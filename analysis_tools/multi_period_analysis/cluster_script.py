@@ -72,14 +72,18 @@ else:
     for i in range(np.max(CLS)):
         centroids[i]=X[CLS==i].mean(0)
 centroids=[centroids[i,:].reshape((100,l))for i in range(centroids.shape[0])]
-plt.figure()
+plt.figure(figsize=(20,14))
 for i,c in enumerate(centroids):
     plt.subplot(4, 5, i+1)
     sb.heatmap(c, vmin=-0.01, vmax=0.05, cmap='jet',xticklabels=[])
     np.save(outpath+'/cluster'+str(i)+'.npy',c)
+    plt.xlabel('')
 
 #plt.xlabel('Days after First Period')
 #plt.ylabel('Nomalized Position along Z direction')
-#plt.title('Heatmap for Typical Lesion Progress Patterns')
-plt.savefig(outpath+'/cluster'+str(i)+'.jpg')
+    plt.tight_layout()
+plt.suptitle('Heatmap for Typical Lesion Progress Patterns')
+plt.subplots_adjust(top=0.95)
+plt.savefig('cluster'+str(i)+'.jpg')
+plt.show()
 plt.close()

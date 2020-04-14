@@ -40,14 +40,14 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
-                    default='re/5cls_gender2.npy')
+                    default='re/5cls_gender_weighted.npy')
 parser.add_argument("-e", "--exclude_list", help="A path to a txt file for excluded data list. If no file need to be excluded, "
                                                  "it should be 'none'.",  type=str,
                     default='none')
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='weights/model_5cls_gender2.pt')
+                    default='weights/model_5cls_gender_2.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='1')
 args = parser.parse_args()
