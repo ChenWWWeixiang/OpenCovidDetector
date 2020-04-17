@@ -22,7 +22,7 @@ parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentat
                              '/mnt/data7/ILD/resampled_seg',
                             #'/mnt/data7/examples/seg',
                             #'/mnt/data7/reader_ex/resampled_seg',
-                            '/mnt/data7/LIDC/resampled_seg',
+                            #'/mnt/data7/LIDC/resampled_seg',
                             '/mnt/data7/resampled_seg/test1', '/mnt/data7/resampled_seg/test2',
                             '/mnt/data7/resampled_seg/test3'
                             #'/mnt/data7/slice_test_seg/mask_re',
@@ -33,23 +33,23 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
                         '/mnt/data7/ILD/resampled_data',
                         #'/mnt/data7/examples/data',
                         #'/mnt/data7/reader_ex/resampled_data',
-                        '/mnt/data7/LIDC/resampled_data',
+                        #'/mnt/data7/LIDC/resampled_data',
                         '/mnt/data7/resampled_data/test1','/mnt/data7/resampled_data/test2',
                         '/mnt/data7/resampled_data/test3'
                         #'/mnt/data7/slice_test_seg/data_re',
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
-                    default='re/5cls_gender_weighted.npy')
+                    default='re/4cls_gender.npy')
 parser.add_argument("-e", "--exclude_list", help="A path to a txt file for excluded data list. If no file need to be excluded, "
                                                  "it should be 'none'.",  type=str,
                     default='none')
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='weights/model_5cls_gender_2.pt')
+                    default='weights/model_4cls_gender.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
-                    default='1')
+                    default='4')
 args = parser.parse_args()
 
 
@@ -68,7 +68,7 @@ def _validate_multicls(modelOutput, labels, topn=3):
         #pos_count = np.sum(np.array(modelOutput) > 0.5)
         t.sort()
         if i==0:
-            averageEnergies.append(np.mean(t))
+            averageEnergies.append(np.mean(t[topn*4:]))
         else:
             averageEnergies.append(np.mean(t[-topn:]))
     pred=np.argmax(averageEnergies)
@@ -129,7 +129,7 @@ class Validator():
                                                            masklist,
                                                            options[mode]["padding"],cls_num=self.cls_num
                                                            )
-        self.topk=3
+        self.topk=5
         self.tot_data = len(self.validationdataset)
         self.validationdataloader = DataLoader(
             self.validationdataset,
@@ -148,7 +148,8 @@ class Validator():
             count = np.zeros((self.cls_num + self.use_plus * 2))
             Matrix = np.zeros((self.cls_num, self.cls_num))
             if self.cls_num>2:
-                validator_function=_voting_validate_multicls
+                #validator_function=_voting_validate_multicls
+                validator_function=_validate_multicls
             else:
                 validator_function = _validate
             model.eval()

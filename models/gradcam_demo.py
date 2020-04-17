@@ -5,7 +5,7 @@ import torch
 import  SimpleITK as sitk
 from torch.autograd import Function
 from torchvision import models
-from models.net2d import vgg19_bn,densenet161,vgg16,vgg19,resnet152
+from models.net2d import vgg19_bn,densenet161,vgg16,vgg19,resnet152,resnet152_plus
 os.environ['CUDA_VISIBLE_DEVICES']='2'
 class FeatureExtractor():
     """ Class for extracting activations and
@@ -34,17 +34,23 @@ class ModelOutputs():
     2. Activations from intermeddiate targetted layers.
     3. Gradients from intermeddiate targetted layers. """
 
-    def __init__(self, model, target_layers):
+    def __init__(self, model, target_layers,use_plus=False):
         self.model = model
         self.feature_extractor = FeatureExtractor(self.model.features, target_layers)
-
+        self.use_plus=use_plus
     def get_gradients(self):
         return self.feature_extractor.gradients
 
     def __call__(self, x):
         target_activations, output = self.feature_extractor(x)
         output = output.view(output.size(0), -1)
-        output = self.model.classifier(output)
+        if self.use_plus:
+            gender = self.model.classifier_gender(x)
+            age = self.model.classifier_age(x)
+            cc = torch.cat([gender.relu(), age.relu(), x], -1)
+            output = self.model.classifier(cc)
+        else:
+            output = self.model.classifier(output)
         return target_activations, output
 def preprocess_image(img):
     means = [0,0,0]
@@ -62,14 +68,14 @@ def preprocess_image(img):
     return input
 
 class GradCam:
-    def __init__(self, model, target_layer_names, use_cuda):
+    def __init__(self, model, target_layer_names, use_cuda,use_plus=False):
         self.model = model
         self.model.eval()
         self.cuda = use_cuda
         if self.cuda:
             self.model = model.cuda()
 
-        self.extractor = ModelOutputs(self.model, target_layer_names)
+        self.extractor = ModelOutputs(self.model, target_layer_names,use_plus)
 
     def forward(self, input):
         return self.model(input)
@@ -133,13 +139,13 @@ class GuidedBackpropReLU(Function):
 
         return grad_input
 class GuidedBackpropReLUModel:
-    def __init__(self, model, use_cuda):
+    def __init__(self, model, use_cuda,use_plus=False):
         self.model = model
         self.model.eval()
         self.cuda = use_cuda
         if self.cuda:
             self.model = model.cuda()
-
+        self.use_plus=use_plus
         # replace ReLU with GuidedBackpropReLU
         for idx, module in self.model.features._modules.items():
             if module.__class__.__name__ == 'ReLU':
@@ -216,7 +222,7 @@ def show_cam_on_image(img, mask,extral=None):
     #cv2.imwrite("cam.jpg", np.uint8(255 * cam))
     return np.uint8(255 * cam)
 def model_get(path):
-    model = resnet152(2)
+    model = resnet152_plus(4)
 
     pretrained_dict = torch.load(path)
     # load only exists weights
@@ -235,8 +241,8 @@ if __name__ == '__main__':
     # feature method, and a classifier method,
     # as in the VGG models in torchvision.
     grad_cam = GradCam(model=model_get(args.model_path), \
-                       target_layer_names=["6"], use_cuda=args.use_cuda)
-    gb_model = GuidedBackpropReLUModel(model=model_get(args.model_path), use_cuda=args.use_cuda)
+                       target_layer_names=["6"], use_cuda=args.use_cuda,use_plus=True)
+    gb_model = GuidedBackpropReLUModel(model=model_get(args.model_path), use_cuda=args.use_cuda,use_plus=True)
     o_path = args.output_path
     #o_img_nii='../reader_study/cam/img'
     #o_msk_nii = '../reader_study/cam/mask'

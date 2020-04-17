@@ -19,8 +19,8 @@ def command_iteration(method):
 
 if __name__ == "__main__":
     assert f"{REFER}" in KEYS and f"{MASK}" in KEYS
-    prefix = "/mnt/data9/mp_NCPs"
-
+    prefix = "/mnt/data7/NCP_mp_CTs"
+    flag=0
     # regristration parameters settings
     R = sitk.ImageRegistrationMethod()
     R.SetMetricAsJointHistogramMutualInformation()
@@ -53,19 +53,21 @@ if __name__ == "__main__":
 
         # copy the first image, as fixed image
         for key in KEYS:
-            tar_name = phase_lst[0].replace(PR, "reg").replace(REFER, key)
+            tar_name = phase_lst[0].replace(PR, "reg_to_one").replace(REFER, key)
             os.makedirs(os.path.dirname(tar_name),exist_ok=True)
             #shutil.copyfile(phase_lst[0].replace(REFER, key), tar_name)
 
-        reg_succed = np.ones(len(phase_lst) - 1).astype(np.bool)
+        reg_succed = np.ones(len(phase_lst)).astype(np.bool)
         # registration for the second and other images
-        fix_img = sitk.ReadImage(phase_lst[0], sitk.sitkFloat32)
-        fix_msk = sitk.ReadImage(phase_lst[0].replace(REFER, MASK), sitk.sitkFloat32)
-        fix_origin = fix_img.GetOrigin()
-        for move_idx, move_name in enumerate(phase_lst[1:]):
+        if flag==0:##reg all to this
+            flag=1
+            fix_img = sitk.ReadImage(phase_lst[0], sitk.sitkFloat32)
+            fix_msk = sitk.ReadImage(phase_lst[0].replace(REFER, MASK), sitk.sitkFloat32)
+            fix_origin = fix_img.GetOrigin()
+        for move_idx, move_name in enumerate(phase_lst):
             print(f"=> processing {move_name}")
 
-            tx_name = move_name.replace(f"{PR}/{REFER}", "txs").replace(".mha", ".txt")
+            tx_name = move_name.replace(f"{PR}/{REFER}", "txs_to_one").replace(".mha", ".txt")
             if os.path.exists(tx_name):
                 # already have map parameters
                 outTx = sitk.ReadTransform(tx_name)
@@ -101,7 +103,7 @@ if __name__ == "__main__":
                 resampler.SetDefaultPixelValue(0)
                 resampler.SetTransform(outTx)
 
-                tar_name = move_name.replace(PR, "reg").replace(REFER, key)
+                tar_name = move_name.replace(PR, "reg_to_one").replace(REFER, key)
                 if not os.path.exists(tar_name):
                     dtype = sitk.sitkUInt8 if key in TYPE_U else sitk.sitkInt16
                     move_img = sitk.ReadImage(move_name.replace(REFER, key))

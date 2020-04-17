@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="try 5 cls">
-      <change afterPath="$PROJECT_DIR$/analysis_tools/analysis_lesion_size.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analysis_tools/analysis_size_period.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analysis_tools/cluster_tend.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analysis_tools/get_age_sex.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analysis_tools/reg_to_one.py" afterDir="false" />
+    <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/analysis_tools/analysis_lesion_pos.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/analysis_tools/analysis_zs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/get_test_list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/options_3d.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi_period_analysis/analysis_gt_lesion_pattern.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/analysis_gt_lesion_pattern.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi_period_analysis/cluster_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi_period_analysis/get_mp_infomation.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/get_mp_infomation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi_period_analysis/get_multiperiod.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/get_multiperiod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi_period_analysis/knn_predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi_period_analysis/moving_4period.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/moving_4period.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multi_period_analysis/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/registration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis_tools/reg_to_one.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/reg_to_one.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/filter_img.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/filter_img.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_set_seperate.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_set_seperate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_hu.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/test_hu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Dense3D.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Dense3D.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/gradcam_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/gradcam_demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/options_lip.toml" beforeDir="false" afterPath="$PROJECT_DIR$/options_lip.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pr.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roc.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.toml" beforeDir="false" afterPath="$PROJECT_DIR$/test.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/testengine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/validation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,26 +36,62 @@
       <file leaf-file-name="options_lip.toml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/options_lip.toml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+            <state>
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.toml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.toml">
+      <file leaf-file-name="dataset.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="44" column="20" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
+            <state relative-caret-position="23">
+              <caret line="733" column="48" selection-start-line="733" selection-start-column="48" selection-end-line="733" selection-end-column="48" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testengine.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testengine.py">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="50" column="61" selection-start-line="50" selection-start-column="61" selection-end-line="50" selection-end-column="61" />
+            <state relative-caret-position="529">
+              <caret line="26" column="36" lean-forward="true" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_hu.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/test_hu.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="529">
+              <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="52" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_test_list.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/data/get_test_list.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="training.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/training.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3036">
+              <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -56,57 +99,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cluster_script.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster_script.py">
+      <file leaf-file-name="validation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/validation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="75" column="32" lean-forward="true" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+            <state relative-caret-position="943">
+              <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
-                <element signature="e#1175#2127#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="registration.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/registration.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="58" lean-forward="true" selection-end-line="142" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reg_to_one.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/analysis_tools/reg_to_one.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="89" column="52" selection-start-line="89" selection-start-column="52" selection-end-line="89" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cluster_tend.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analysis_tools/cluster_tend.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="90" column="67" lean-forward="true" selection-start-line="90" selection-start-column="67" selection-end-line="90" selection-end-column="67" />
-              <folding>
-                <element signature="e#242#1377#0" />
-                <element signature="e#1393#2400#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="analysis_lesion_size.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/analysis_tools/analysis_lesion_size.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="42" column="14" lean-forward="true" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -123,36 +122,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>topk</find>
-      <find>net</find>
-      <find>data_root</find>
-      <find>num_samples</find>
-      <find>model</find>
-      <find>i_path</find>
-      <find>save_prefix</find>
-      <find>lists</find>
-      <find>isacc</find>
-      <find>gender_numpy</find>
-      <find>cam_gb</find>
-      <find>mask</find>
-      <find>names</find>
-      <find>cam_mask</find>
-      <find>model_get</find>
-      <find>maxindices</find>
-      <find>precompute_distances</find>
-      <find>raw_shape</find>
-      <find>_validate</find>
-      <find>vector</find>
       <find>output_numpy</find>
       <find>inter_vecter</find>
       <find>mask_path</find>
       <find>person</find>
       <find>50</find>
-      <find>CAP</find>
       <find>data_path</find>
       <find>id</find>
       <find>c</find>
       <find>validator_function</find>
+      <find>txs</find>
+      <find>reg_succed</find>
+      <find>inter_vecter_time</find>
+      <find>model</find>
+      <find>ILD</find>
+      <find>CAP</find>
+      <find>_validate_multicls</find>
+      <find>_validate</find>
+      <find>use_slice</find>
+      <find>use_lstm</find>
+      <find>starting</find>
+      <find>data_root</find>
+      <find>topk</find>
+      <find>maxindices</find>
+      <find>_auto_collation</find>
+      <find>rate</find>
+      <find>outputs</find>
+      <find>input_mask</find>
+      <find>Dense3D</find>
+      <find>length</find>
+      <find>transform</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -169,15 +168,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/get_all_infomation.py" />
-        <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/fractal-dimension/fractals.py" />
-        <option value="$PROJECT_DIR$/fractal-dimension/fractal.py" />
-        <option value="$PROJECT_DIR$/radiomics/get_r_features.py" />
-        <option value="$PROJECT_DIR$/radiomics/plot_lasso_mse.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py" />
         <option value="$PROJECT_DIR$/plot_roc.py" />
         <option value="$PROJECT_DIR$/saves/results.csv" />
@@ -188,9 +178,7 @@
         <option value="$PROJECT_DIR$/multi_period_analysis/moving_4period.py" />
         <option value="$PROJECT_DIR$/data/extract_abnormal_Set.py" />
         <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/models/net2d.py" />
-        <option value="$PROJECT_DIR$/validation.py" />
         <option value="$PROJECT_DIR$/data/resample.py" />
         <option value="$PROJECT_DIR$/multi_period_analysis/registration.py" />
         <option value="$PROJECT_DIR$/models/grad_volume.py" />
@@ -199,27 +187,38 @@
         <option value="$PROJECT_DIR$/multi_period_analysis/analysis_gt_lesion_pattern.py" />
         <option value="$PROJECT_DIR$/multi_period_analysis/cluster_script.py" />
         <option value="$PROJECT_DIR$/all_ages_genders.txt" />
-        <option value="$PROJECT_DIR$/data/test_hu.py" />
         <option value="$PROJECT_DIR$/ild_preprocess.py" />
         <option value="$PROJECT_DIR$/data/lidcpreprocess.py" />
         <option value="$PROJECT_DIR$/data/mypreprocess.py" />
-        <option value="$PROJECT_DIR$/test.toml" />
-        <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
         <option value="$PROJECT_DIR$/multi_period_analysis/knn_predict.py" />
         <option value="$PROJECT_DIR$/analysis_tools/all_ages_genders.txt" />
         <option value="$PROJECT_DIR$/analysis_tools/age_sex.csv" />
         <option value="$PROJECT_DIR$/analysis_tools/analysis_hist.py" />
-        <option value="$PROJECT_DIR$/data/dataset.py" />
-        <option value="$PROJECT_DIR$/training.py" />
-        <option value="$PROJECT_DIR$/options_lip.toml" />
-        <option value="$PROJECT_DIR$/testengine.py" />
         <option value="$PROJECT_DIR$/analysis_tools/get_age_sex.py" />
         <option value="$PROJECT_DIR$/analysis_tools/raw_ages.txt" />
         <option value="$PROJECT_DIR$/analysis_tools/analysis_size_period.py" />
         <option value="$PROJECT_DIR$/analysis_tools/analysis_lesion_size.py" />
         <option value="$PROJECT_DIR$/analysis_tools/cluster_tend.py" />
         <option value="$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster_script.py" />
+        <option value="$PROJECT_DIR$/analysis_tools/analysis_lesion_pos.py" />
         <option value="$PROJECT_DIR$/analysis_tools/reg_to_one.py" />
+        <option value="$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py" />
+        <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
+        <option value="$PROJECT_DIR$/data/filter_img.py" />
+        <option value="$PROJECT_DIR$/test.toml" />
+        <option value="$PROJECT_DIR$/analysis_tools/analysis_zs.py" />
+        <option value="$PROJECT_DIR$/testengine.py" />
+        <option value="$PROJECT_DIR$/models/Dense3D.py" />
+        <option value="$PROJECT_DIR$/data/get_set_seperate.py" />
+        <option value="$PROJECT_DIR$/options_3d.toml" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/validation.py" />
+        <option value="$PROJECT_DIR$/data/test_hu.py" />
+        <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
+        <option value="$PROJECT_DIR$/training.py" />
+        <option value="$PROJECT_DIR$/options_lip.toml" />
+        <option value="$PROJECT_DIR$/data/dataset.py" />
+        <option value="$PROJECT_DIR$/data/get_test_list.py" />
       </list>
     </option>
   </component>
@@ -235,7 +234,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -246,12 +244,13 @@
             <path>
               <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
-              <item name="analysis_tools" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -260,17 +259,17 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/analysis_tools" />
-      <recent name="$PROJECT_DIR$/saves" />
-      <recent name="$PROJECT_DIR$/data/txt" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/analysis_tools" />
       <recent name="$PROJECT_DIR$/saves" />
       <recent name="$PROJECT_DIR$/ipt_results" />
       <recent name="$PROJECT_DIR$/multi_period_analysis" />
-      <recent name="$PROJECT_DIR$/multi_period_scores" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/analysis_tools" />
+      <recent name="$PROJECT_DIR$/saves" />
+      <recent name="$PROJECT_DIR$/data/txt" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -285,8 +284,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.cluster_script">
-    <configuration name="analysis_lesion_size" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.get_test_list">
+    <configuration name="get_set_seperate" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -294,17 +293,17 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analysis_tools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analysis_tools/analysis_lesion_size.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/get_set_seperate.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="analysis_size_period" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="get_set_seperate_jpg" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -312,17 +311,17 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analysis_tools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analysis_tools/analysis_size_period.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="cluster_script" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="get_test_list" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -330,17 +329,17 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analysis_tools/multi_period_analysis" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster_script.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/get_test_list.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="cluster_tend" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -348,17 +347,17 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analysis_tools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analysis_tools/cluster_tend.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="get_age_sex" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="test_hu" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -366,30 +365,30 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/analysis_tools" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/analysis_tools/get_age_sex.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/test_hu.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
-      <item itemvalue="Python.get_age_sex" />
-      <item itemvalue="Python.analysis_lesion_size" />
-      <item itemvalue="Python.analysis_size_period" />
-      <item itemvalue="Python.cluster_tend" />
-      <item itemvalue="Python.cluster_script" />
+      <item itemvalue="Python.get_set_seperate" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.test_hu" />
+      <item itemvalue="Python.get_set_seperate_jpg" />
+      <item itemvalue="Python.get_test_list" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.cluster_script" />
-        <item itemvalue="Python.cluster_tend" />
-        <item itemvalue="Python.analysis_lesion_size" />
-        <item itemvalue="Python.analysis_size_period" />
-        <item itemvalue="Python.get_age_sex" />
+        <item itemvalue="Python.get_test_list" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.get_set_seperate_jpg" />
+        <item itemvalue="Python.get_set_seperate" />
+        <item itemvalue="Python.test_hu" />
       </list>
     </recent_temporary>
   </component>
@@ -403,13 +402,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1582022748789</updated>
-    </task>
-    <task id="LOCAL-00004" summary="daily update0330">
-      <created>1585745797860</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1585745797860</updated>
     </task>
     <task id="LOCAL-00005" summary="pictures">
       <created>1585745844596</created>
@@ -747,23 +739,30 @@
       <option name="project" value="LOCAL" />
       <updated>1586826977322</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="ana_tools">
+      <created>1586845620955</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1586845620955</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="28" width="1932" height="1034" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8043143" visible="true" weight="0.1889182" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.79877114" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50079155" side_tool="true" weight="0.33145434" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32919955" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.26832017" />
-      <window_info id="Structure" order="1" sideWeight="0.19568567" side_tool="true" visible="true" weight="0.1889182" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.65388954" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.2660654" />
+      <window_info id="Structure" order="1" sideWeight="0.20122887" side_tool="true" visible="true" weight="0.1889182" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.421646" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.36302143" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.41826382" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -801,25 +800,16 @@
     <MESSAGE value="cap data script" />
     <MESSAGE value="try 5 cls" />
     <MESSAGE value="0414" />
-    <option name="LAST_COMMIT_MESSAGE" value="0414" />
+    <MESSAGE value="ana_tools" />
+    <option name="LAST_COMMIT_MESSAGE" value="ana_tools" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>52</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/Dense3D.py</url>
           <line>19</line>
           <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/filter_img.py</url>
-          <line>8</line>
-          <option name="timeStamp" value="224" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/fractal/fractaldimension.py</url>
@@ -878,7 +868,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>154</line>
+          <line>161</line>
           <option name="timeStamp" value="510" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -903,7 +893,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/validation.py</url>
-          <line>170</line>
+          <line>172</line>
           <option name="timeStamp" value="581" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -973,17 +963,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>250</line>
+          <line>251</line>
           <option name="timeStamp" value="745" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/gradcam_demo.py</url>
-          <line>309</line>
+          <line>315</line>
           <option name="timeStamp" value="749" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>547</line>
+          <line>559</line>
           <option name="timeStamp" value="754" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -998,23 +988,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>242</line>
+          <line>251</line>
           <option name="timeStamp" value="778" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/test_hu.py</url>
-          <line>49</line>
-          <option name="timeStamp" value="839" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py</url>
-          <line>100</line>
-          <option name="timeStamp" value="866" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py</url>
-          <line>39</line>
-          <option name="timeStamp" value="868" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/grad_volume.py</url>
@@ -1027,13 +1002,8 @@
           <option name="timeStamp" value="906" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/analysis_gt_lesion_pattern.py</url>
-          <line>38</line>
-          <option name="timeStamp" value="909" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>193</line>
+          <line>194</line>
           <option name="timeStamp" value="931" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1045,11 +1015,6 @@
           <url>file://$PROJECT_DIR$/analysis_tools/analysis_hist.py</url>
           <line>27</line>
           <option name="timeStamp" value="958" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/training.py</url>
-          <line>109</line>
-          <option name="timeStamp" value="959" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/analysis_tools/get_age_sex.py</url>
@@ -1066,6 +1031,61 @@
           <line>71</line>
           <option name="timeStamp" value="973" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/analysis_tools/analysis_lesion_pos.py</url>
+          <line>19</line>
+          <option name="timeStamp" value="984" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/analysis_tools/analysis_lesion_pos.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="985" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/analysis_tools/analysis_lesion_pos.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="986" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/test_hu.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="1009" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/dataset.py</url>
+          <line>734</line>
+          <option name="timeStamp" value="1010" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/analysis_tools/analysis_zs.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="1011" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/get_set_seperate.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="1012" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/validation.py</url>
+          <line>114</line>
+          <option name="timeStamp" value="1028" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/training.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="1033" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/test_hu.py</url>
+          <line>84</line>
+          <option name="timeStamp" value="1041" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/training.py</url>
+          <line>137</line>
+          <option name="timeStamp" value="1042" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -1077,300 +1097,80 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="984" />
+      <option name="time" value="1043" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="sns.distplot(df['tend_cls'][idx],label='male',kde=False,bins=np.arange(-0.5,8.5,1),hist=True,norm_hist=True)" language="Python" />
+        <watch expression="age.max()" language="Python" />
+        <watch expression="age" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
       <expression>
-        <expression-string>sns.distplot(df['tend_cls'][idx],label='male',kde=False,bins=np.arange(-0.5,8.5,1),hist=True,norm_hist=True)</expression-string>
+        <expression-string>age</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.sum((cluster_cnt==8)._values)</expression-string>
+        <expression-string>age.max()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.sum((cluster_cnt==0)._values)</expression-string>
+        <expression-string>sums.max()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>(cluster_cnt==8)._values</expression-string>
+        <expression-string>sums</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>cluster_cnt==8</expression-string>
+        <expression-string>idd</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ss['name']</expression-string>
+        <expression-string>L.shape[0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>columns=('name','age','sex','tend_cls')['name']</expression-string>
+        <expression-string>M.shape[0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>cluster_cnt</expression-string>
+        <expression-string>V.shape[0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>cluster_cnt['name']</expression-string>
+        <expression-string>L.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ss</expression-string>
+        <expression-string>L.max()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/roc.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file:///mnt/data7/NCP_mp_CTs/registration.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="43" column="9" lean-forward="true" selection-end-line="151" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/grad_volume.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="245" column="38" selection-start-line="245" selection-start-column="38" selection-end-line="245" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/ill_ages_genders.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2351">
-          <caret selection-end-line="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/txt/test4cls.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="138" selection-start-line="138" selection-end-line="138" />
-          <folding>
-            <element signature="e#6578#6968#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ipt_results/all_ages_genders.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/get_CAP_infomaion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/analysis_gt_lesion_pattern.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="46" column="42" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <element signature="e#502#662#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/Bio/Cluster/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="124" column="19" selection-start-line="124" selection-start-column="18" selection-end-line="124" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cap_ages_genders.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="185" column="13" lean-forward="true" selection-end-line="202" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/resample.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="36" column="42" lean-forward="true" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/txt/test5cls.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="3328" column="36" selection-start-line="3328" selection-start-column="33" selection-end-line="3328" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/test_hu.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1725">
-          <caret line="78" column="33" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/read_infomation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="28" column="94" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="28" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/get_ild_infomation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="20" selection-start-line="20" selection-end-line="25" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ild_preprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="48" column="26" lean-forward="true" selection-end-line="54" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/lidcpreprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="805">
-          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/mypreprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saves/model_4cls.pt">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1058">
-          <caret line="54" column="41" selection-start-line="54" selection-start-column="41" selection-end-line="54" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/get_set_seperate_jpg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multi_period_scores/analysis_mp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
-          <folding>
-            <element signature="e#197#325#0" />
-            <element signature="e#357#960#0" />
-            <element signature="e#1028#1359#0" />
-            <element signature="e#1409#1693#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/all_ages_genders.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="1035" column="21" lean-forward="true" selection-start-line="1035" selection-start-column="21" selection-end-line="1035" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/seaborn/axisgrid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="2157" column="20" selection-start-line="2157" selection-start-column="11" selection-end-line="2157" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/seaborn/distributions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="51" column="14" lean-forward="true" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/seaborn/categorical.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="2383" column="34" selection-start-line="2383" selection-start-column="31" selection-end-line="2383" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="310" selection-start-line="310" selection-end-line="310" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analysis_tools/age_sex.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="452">
-          <caret line="1484" column="11" selection-start-line="1484" selection-start-column="11" selection-end-line="1484" selection-end-column="11" />
-        </state>
-      </provider>
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
           <column index="0" width="100" />
           <column index="1" width="100" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="452">
+          <caret line="1484" column="11" selection-start-line="1484" selection-start-column="11" selection-end-line="1484" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -1385,44 +1185,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="103" column="34" selection-start-line="103" selection-start-column="34" selection-end-line="103" selection-end-column="34" />
-          <folding>
-            <element signature="e#1316#1537#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/options_lip.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="44" column="20" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="230" column="16" lean-forward="true" selection-start-line="230" selection-start-column="16" selection-end-line="230" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#402#2994#0" />
-            <element signature="e#3029#5252#0" />
-            <element signature="e#7181#7364#0" />
-            <element signature="e#7407#7788#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1455,10 +1217,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/analysis_tools/size_age.csv">
-      <provider selected="true" editor-type-id="csv-text-editor" />
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
+      <provider selected="true" editor-type-id="csv-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/analysis_tools/analysis_hist.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1476,16 +1238,6 @@
     <entry file="file://$PROJECT_DIR$/analysis_tools/dis_size_agesex_1p.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/testengine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="50" column="61" selection-start-line="50" selection-start-column="61" selection-end-line="50" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analysis_tools/analysis_size_period.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1497,31 +1249,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="90" column="67" lean-forward="true" selection-start-line="90" selection-start-column="67" selection-end-line="90" selection-end-column="67" />
-          <folding>
-            <element signature="e#242#1377#0" />
-            <element signature="e#1393#2400#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/analysis_lesion_size.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="42" column="14" lean-forward="true" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster_script.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="75" column="32" lean-forward="true" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1175#2127#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1532,10 +1259,296 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/radiomics/RadiomicsParams.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="75" column="32" lean-forward="true" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/analysis_tools/reg_to_one.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="89" column="52" selection-start-line="89" selection-start-column="52" selection-end-line="89" selection-end-column="52" />
+        <state relative-caret-position="253">
+          <caret line="46" column="28" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster15.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis_tools/analysis_lesion_size.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="18" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+          <folding>
+            <element signature="e#225#1182#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/analysis_gt_lesion_pattern.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/txt/test5cls1000.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="3179" column="36" selection-start-line="3179" selection-start-column="33" selection-end-line="3179" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/txt/train4cls.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="8043" column="47" lean-forward="true" selection-start-line="8043" selection-start-column="47" selection-end-line="8043" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../move_new.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-851">
+          <caret line="26" column="61" selection-start-line="26" selection-start-column="61" selection-end-line="26" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-414">
+          <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/gradcam_demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="140" column="30" selection-start-line="140" selection-start-column="30" selection-end-line="140" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#292#926#0" />
+            <element signature="e#953#1695#0" />
+            <element signature="e#1642#2148#0" />
+            <element signature="e#2169#3799#0" />
+            <element signature="e#3841#4640#0" />
+            <element signature="e#4676#5959#0" />
+            <element signature="e#7009#7277#0" />
+            <element signature="e#7328#7696#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/abnormal_detector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="29" column="33" lean-forward="true" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/all_ages_genders.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="1162" column="3" selection-start-line="1162" selection-end-line="1162" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/txt/test4cls.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="1930" column="36" selection-start-line="1930" selection-start-column="33" selection-end-line="1930" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/random.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="262" column="31" selection-start-line="262" selection-start-column="25" selection-end-line="262" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/filter_img.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="56" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis_tools/analysis_lesion_pos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/get_ild_infomation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="19" column="62" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis_tools/analysis_zs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/txt/3d_train.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testengine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="76" column="21" selection-start-line="76" selection-start-column="21" selection-end-line="76" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/get_set_seperate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="36" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/torch/utils/data/dataloader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="227" column="54" lean-forward="true" selection-start-line="227" selection-start-column="54" selection-end-line="227" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Dense3D.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="90" selection-start-line="13" selection-start-column="53" selection-end-line="13" selection-end-column="90" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#3483#3956#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/options_3d.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="943">
+          <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/get_set_seperate_jpg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="11" column="68" selection-start-line="11" selection-start-column="68" selection-end-line="11" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/net2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="373" column="49" selection-start-line="373" selection-start-column="49" selection-end-line="373" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/training.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3036">
+          <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/options_lip.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="733" column="48" selection-start-line="733" selection-start-column="48" selection-end-line="733" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="26" column="36" lean-forward="true" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/test_hu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="52" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/4cls_test.list">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-943">
+          <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/get_test_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
         </state>
       </provider>
     </entry>

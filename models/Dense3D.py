@@ -102,13 +102,13 @@ class _Transition(nn.Sequential):
 
 
 class Dense3D(torch.nn.Module):
-    def __init__(self, options, growth_rate=32, num_init_features=64, bn_size=4, drop_rate=0):
+    def __init__(self, options, growth_rate=16, num_init_features=48, bn_size=4, drop_rate=0,num_cls=4):
         super(Dense3D, self).__init__()
         #block_config = (6, 12, 24, 16)
         block_config = (4, 8, 12, 8)
 
         self.features = nn.Sequential(OrderedDict([
-            ('conv0', nn.Conv3d(3, num_init_features, kernel_size=(5, 7, 7), stride=(1, 2, 2), padding=(2, 3, 3), bias=False)),
+            ('conv0', nn.Conv3d(options['model']['z_length'], num_init_features, kernel_size=(5, 7, 7), stride=(1, 2, 2), padding=(2, 3, 3), bias=False)),
             ('norm0', nn.BatchNorm3d(num_init_features)),
             ('relu0', nn.ReLU(inplace=True)),
             ('pool0', nn.MaxPool3d(kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1))),
@@ -129,13 +129,13 @@ class Dense3D(torch.nn.Module):
         # Final batch norm
 
         self.features.add_module('norm5', nn.BatchNorm3d(num_features))
-        self.gru1 = nn.GRU(536*7*7,256, bidirectional=True, batch_first=True)
+        self.gru1 = nn.GRU(13230,256, bidirectional=True, batch_first=True)
         self.gru2 = nn.GRU(512, 256, bidirectional=True, batch_first=True)
 
 
         self.fc = nn.Sequential(
             nn.Dropout(0.5),
-            nn.Linear(512, 2)
+            nn.Linear(512, num_cls)
         )
 
         self.loss = NLLSequenceLoss
@@ -163,8 +163,8 @@ class Dense3D(torch.nn.Module):
         return f2
 
 if (__name__ == '__main__'):
-    options = {"model": {'numclasses': 32}}
-    data = torch.zeros((4, 3, 18, 112, 112))
+    options = {"model": {'numclasses': 4}}
+    data = torch.zeros((4, 3, 18, 224, 224))
     m = Dense3D('')
     # for k, v in m.state_dict().items():
     #     print(k)

@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 from torch.utils.data import DataLoader
 import torch.nn as nn
-from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset
+from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset,NCPJPGDataset_new
 import os,cv2
 import numpy as np
 def _validate(modelOutput, length, labels, total=None, wrong=None):
@@ -48,16 +48,18 @@ class Validator():
         self.batchsize = options["input"]["batchsize"]
         self.use_slice=options['general']['use_slice']
         if options['general']['use_slice']:
-            self.validationdataset = NCPJPGDataset(options[mode]["data_root"],
+            self.validationdataset = NCPJPGDataset_new(options[mode]["data_root"],
                                                     options[mode]["index_root"],
                                                     options[mode]["padding"],
                                                     False,cls_num=self.cls_num)
         else:
             if options['general']['use_3d']:
                 self.validationdataset = NCPDataset(options[mode]["data_root"],
+                                                    options[mode]["seg_root"],
                                                       options[mode]["index_root"],
                                                       options[mode]["padding"],
-                                                      False)
+                                                      False,
+                                                    z_length=options["model"]["z_length"])
             else:
                 self.validationdataset = NCP2DDataset(options[mode]["data_root"],
                                                         options[mode]["index_root"],

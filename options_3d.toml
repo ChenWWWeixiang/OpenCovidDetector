@@ -1,0 +1,57 @@
+title = "covid19 PyTorch 3D"
+
+[general]
+usecudnn = true
+usecudnnbenchmark = true
+gpuid = "4,5"
+loadpretrainedmodel = true
+random_seed = true
+pretrainedmodelpath = 'weights/3d_4cls.pt'
+use_3d = true
+use_lstm=true
+use_slice=false
+use_plus=false
+class_num=4
+
+[input]
+batchsize = 8
+numworkers = 8
+shuffle = true
+
+[model]
+type = "Finetune-label"
+inputdim = 256
+hiddendim = 256
+numclasses = 2
+numlstms = 2
+z_length=5
+
+[training]
+train = true
+epochs = 80
+startepoch = 7
+statsfrequency = 100
+data_root = ''#useless and used as ages_gender.txt path
+index_root = 'data/txt/3d_train.txt'
+seg_root='/home/cwx/extra/covid_project_segs/lungs'
+padding = 45
+learningrate = 1e-7
+momentum = 0.95
+weightdecay = 0.05
+save_prefix = "weights/3d_4cls"
+
+[validation]
+validate = true
+data_root = ''
+seg_root='/home/cwx/extra/covid_project_segs/lungs'
+index_root = 'data/txt/3d_test.txt'
+padding = 45
+saveaccuracy = false
+
+
+[test]
+test = false
+data_root = '/mnt/data6/lung_jpgs_with_SEG'
+index_root = 'data/txt/2train_lidc_ild_train.txt'
+padding = 45
+saveaccuracy = false

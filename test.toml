@@ -10,7 +10,7 @@ use_3d = false
 use_lstm=false
 use_slice=true
 use_plus=true
-class_num=5
+class_num=4
 
 [input]
 batchsize = 32
@@ -49,5 +49,5 @@ saveaccuracy = false
 test = false
 data_root = '/mnt/data6/lung_jpgs_with_SEG'
 index_root = 'data/txt/2train_lidc_ild_train.txt'
-padding = 45
+padding = 100
 saveaccuracy = false

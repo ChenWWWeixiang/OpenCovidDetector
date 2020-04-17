@@ -13,21 +13,17 @@ import random
 import cv2 as cv
 
 class NCPDataset(Dataset):
-    def __init__(self, data_root,index_root, padding, augment=False, pinyins=None, **kwargs):
+    def __init__(self, data_root, seg_root, index_root, padding, augment=False,z_length=5):
         self.padding = padding
         self.data = []
+        self.seg_root=seg_root
         self.data_root = data_root
         self.padding = padding
         self.augment = augment
-
+        self.z_length=z_length
         with open(index_root, 'r') as f:
         #list=os.listdir(data_root)
             self.data=f.readlines()
-
-        #for item in list:
-         #   self.data.append(item)
-
-        #print('index file:', index_root)
         print('num of data:', len(self.data))
 
     def __len__(self):
@@ -38,24 +34,40 @@ class NCPDataset(Dataset):
         data_path = self.data[idx]
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
-        cls=1-int(data_path.split('/')[-1][0]=='c')
-        volume=sitk.ReadImage(os.path.join(self.data_root, data_path))
+        if 'healthy' in data_path:
+            cls = 0
+        elif 'cap' in data_path:
+            cls = 1
+        elif 'ild' in data_path:
+            cls = 2  # covid
+        else:
+            cls = 3
+        seg_path = os.path.join(self.seg_root,data_path.split('/')[-2],data_path.split('/')[-2]+'_'+data_path.split('/')[-1])
+        volume=sitk.ReadImage(data_path)
         data=sitk.GetArrayFromImage(volume)
+
+        Mask = sitk.ReadImage(seg_path)
+        M = sitk.GetArrayFromImage(Mask)
+
+        valid=M.sum(1).sum(1)>500
+        M=M[valid,:,:]
+        data=data[valid,:,:]
+        xx, yy, zz = np.where(M > 0)
+        data=data[min(xx):max(xx),min(yy):max(yy),min(zz):max(zz)]
         #data=np.stack([data,data,data],0)
-        data[data>400]=400
-        data[data<-1700]=-1700
-        data=data+1700
-        data=(data/data.max()*255).astype(np.uint8)
+        data[data > 700] = 700
+        data[data < -1200] = -1200
+        data = data * 255.0 / 1900
+        data=(data+1200).astype(np.uint8)
         #cv.imwrite('temp.jpg', data[:,64,:,:])
-        temporalvolume,length = self.bbc(data, self.padding, self.augment)
+        temporalvolume,length = self.bbc(data, self.padding, self.augment,self.z_length)
         return {'temporalvolume': temporalvolume,
             'label': torch.LongTensor([cls]),
             'length':torch.LongTensor([length])
             }
 
-    def bbc(self,V, padding, augmentation=True):
-        temporalvolume = torch.zeros((3, padding, 224, 224))
-        stride=V.shape[1]//padding
+    def bbc(self,V, padding, augmentation=True,z_length=3):
+        temporalvolume = torch.zeros((z_length, padding, 224, 224))
         croptransform = transforms.CenterCrop((224, 224))
         if (augmentation):
             crop = StatefulRandomCrop((224, 224), (224, 224))
@@ -65,28 +77,23 @@ class NCPDataset(Dataset):
                 crop,
                 flip
             ])
-
-        for cnt,i in enumerate(range(V.shape[0]-40,45,-3 )):
+        for cnt,i in enumerate(range(0,V.shape[0]-z_length,z_length)):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             if cnt>=padding:
                 break
-            result = transforms.Compose([
-                transforms.ToPILImage(),
-                transforms.Resize((256, 256)),
-                transforms.CenterCrop((256, 256)),
-                croptransform,
-                transforms.ToTensor(),
-                transforms.Normalize([0, 0, 0], [1, 1, 1]),
-            ])(V[i-1:i+2,:,:])
+            result=[]
+            for j in range(z_length):
+                result.append(transforms.Compose([
+                    transforms.ToPILImage(),
+                    transforms.Resize((256, 256)),
+                    #transforms.CenterCrop((256, 256)),
+                    croptransform,
+                    transforms.ToTensor(),
+                    transforms.Normalize([0, 0, 0], [1, 1, 1]),
+                ])(V[i+j:i+j+1,:,:])[0,:,:])
+            temporalvolume[:, cnt] = torch.stack(result,0)
 
-            temporalvolume[:, cnt] = result
-        '''
-        for i in range(len(vidframes), padding):
-            temporalvolume[0][i] = temporalvolume[0][len(vidframes)-1]
-        '''
-
-        if cnt==0:
-            print(cnt)
+        #print(cnt)
         return temporalvolume,cnt
 
 class NCP2DDataset(Dataset):
@@ -168,15 +175,17 @@ class NCPJPGDataset(Dataset):
         self.padding = padding
         self.augment = augment
         self.cls_num=cls_num
-        self.train_augmentation = transforms.Compose([transforms.Resize(256),##just for abnormal detector
-                                                 transforms.RandomCrop(224),
-                                                 transforms.RandomRotation(45),
-                                                 #transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
+        self.train_augmentation = transforms.Compose([transforms.Resize(288),##just for abnormal detector
+                                                     transforms.RandomCrop(224),
+                                                     #transforms.RandomRotation(45),
+                                                     transforms.RandomHorizontalFlip(0.2),
+                                                     transforms.RandomVerticalFlip(0.2),
+                                                     transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
 
-                                                 transforms.ToTensor(),
-                                                 transforms.RandomErasing(p=0.1),
-                                                 transforms.Normalize([0, 0, 0], [1, 1, 1])
-                                                 ])
+                                                     transforms.ToTensor(),
+                                                     transforms.RandomErasing(p=0.1),
+                                                     transforms.Normalize([0, 0, 0], [1, 1, 1])
+                                                     ])
         self.test_augmentation = transforms.Compose([transforms.Resize(256),
                                                  transforms.CenterCrop(224),
                                                  transforms.ToTensor(),
@@ -202,9 +211,9 @@ class NCPJPGDataset(Dataset):
             for data_path in self.data:
                 if data_path.split('/')[-1][0] == 'c':
                     cls.append(0)
-                elif data_path.split('/')[-1][1]=='.':
+                elif 'CAP' in data_path:
                     cls.append(1)
-                elif data_path.split('/')[-2]=='masked_ild':
+                elif 'ILD' in data_path:
                     cls.append(2)
                 else:
                     cls.append(3)#covid
@@ -251,9 +260,9 @@ class NCPJPGDataset(Dataset):
         elif self.cls_num==4:
             if data_path.split('/')[-1][0] == 'c':
                 cls = 0
-            elif data_path.split('/')[-1][1] == '.':
+            elif 'CAP' in data_path:
                 cls = 1
-            elif  data_path.split('/')[-2] == 'masked_ild':
+            elif  'ILD' in data_path:
                 cls = 2  # covid
             else:
                 cls=3
@@ -274,7 +283,7 @@ class NCPJPGDataset(Dataset):
         if  'lidc'in data_path or data_path.split('/')[-3] == 'reader_ex':
             age = -1
             gender = -1
-        elif data_path.split('/')[-2].split('_')[-1] == 'ild' :
+        elif 'ILD' in data_path:
             temp = 'ILD/' + data_path.split('/')[-1].split('_')[0]
             for line in self.text_book:
                 if line[0].split('.nii')[0] == temp:
@@ -372,7 +381,7 @@ class NCPJPGtestDataset(Dataset):
             for data_path in self.data:
                 if data_path.split('/')[-1][0] == 'c':
                     cls.append(0)
-                elif data_path.split('/')[-1][1] == '.':
+                elif 'CAP' in data_path:
                     cls.append(1)
                 elif 'ILD' in data_path:
                     cls.append(2)
@@ -417,7 +426,7 @@ class NCPJPGtestDataset(Dataset):
         elif self.cls_num==4:
             if data_path.split('/')[-1][0] == 'c':
                 cls = 0
-            elif 'LIDC' in data_path:
+            elif 'CAP' in data_path:
                 cls = 1
             elif 'ILD' in data_path:
                 cls = 2  # covid
@@ -440,7 +449,7 @@ class NCPJPGtestDataset(Dataset):
         volume=sitk.ReadImage(data_path)
         data=sitk.GetArrayFromImage(volume)
         M=M[:data.shape[0],:,:]
-        valid=np.where(M.sum(1).sum(1)>100)
+        valid=np.where(M.sum(1).sum(1)>500)
         data = data[valid[0], :, :]
         M = M[valid[0], :data.shape[1], :data.shape[2]]
         data=data[:M.shape[0],:M.shape[1],:M.shape[2]]
@@ -454,11 +463,14 @@ class NCPJPGtestDataset(Dataset):
                 age = -1
                 gender = -1
             elif 'ILD' in data_path:
-                temp = 'ILD/' + data_path.split('/')[-1].split('_')[0]
+                temp = 'ILD/' + data_path.split('/')[-1].split('.nii')[0]
                 for line in self.text_book:
                     if line[0].split('.nii')[0] == temp:
                         age = int(line[1])
-                        gender = int(line[2][:-1] == 'M')  # m 1, f 0
+                        try:
+                            gender = int(line[2][:-1] == 'M')  # m 1, f 0
+                        except:
+                            gender=-1
                         break
             elif 'CAP' in data_path:
                 temp = 'CAP/' + data_path.split('/')[-1].split('_')[1]
@@ -489,7 +501,7 @@ class NCPJPGtestDataset(Dataset):
         #croptransform = transforms.CenterCrop((224, 224))
         cnt=0
         name=[]
-        for cnt,i in enumerate(range(1,V.shape[0]-1,5 )):
+        for cnt,i in enumerate(range(1,V.shape[0]-1,3)):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             if cnt>=padding:
                 break
@@ -499,7 +511,7 @@ class NCPJPGtestDataset(Dataset):
             data = data * 255.0 / 1900
             name.append(i)
             data = data - data.min()
-            data = np.concatenate([pre[i:i + 1, :, :] * 255,data], 0)  # mask one channel
+            data = np.concatenate([pre[i-1:i, :, :] * 255,data], 0)  # mask one channel
             data = data.astype(np.uint8)
             data=Image.fromarray(data.transpose(1,2,0))
             #data.save('temp.jpg')
@@ -621,4 +633,212 @@ class NCPJPGtestDataset_MHA(Dataset):
         #if cnt==0:
         print(cnt)
         temporalvolume=temporalvolume[:,:cnt+1]
+        return temporalvolume,name
+
+class NCPJPGDataset_new(Dataset):
+    def __init__(self, data_root,index_root, padding, augment=False,cls_num=2):
+        self.padding = padding
+        self.data = []
+        self.data_root = open(data_root,'r').readlines()
+        self.padding = padding
+        self.augment = augment
+        self.cls_num=cls_num
+        self.train_augmentation = transforms.Compose([transforms.Resize(288),##just for abnormal detector
+                                                     transforms.RandomCrop(224),
+                                                     #transforms.RandomRotation(45),
+                                                     transforms.RandomHorizontalFlip(0.2),
+                                                     transforms.RandomVerticalFlip(0.2),
+                                                     transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
+
+                                                     transforms.ToTensor(),
+                                                     transforms.RandomErasing(p=0.1),
+                                                     transforms.Normalize([0, 0, 0], [1, 1, 1])
+                                                     ])
+        self.test_augmentation = transforms.Compose([transforms.Resize(256),
+                                                 transforms.CenterCrop(224),
+                                                 transforms.ToTensor(),
+                                                 transforms.Normalize([0, 0, 0], [1, 1, 1])
+                                                 ])
+        with open(index_root, 'r') as f:
+            self.data=f.readlines()
+        print('num of data:', len(self.data))
+
+        if self.cls_num==2:
+            cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1]=='.' or
+                           data_path.split('/')[-2]=='masked_ild') for data_path in self.data]
+        elif self.cls_num==4:
+            cls=[]
+            for data_path in self.data:
+                if 'healthy' in data_path:
+                    cls.append(0)
+                elif 'cap' in data_path:
+                    cls.append(1)
+                elif 'ild' in data_path:
+                    cls.append(2)
+                else:
+                    cls.append(3)#covid
+
+        nums=[np.sum(np.array(cls)==i) for i in range(self.cls_num)]
+        print(nums)
+        self.nums=nums
+    def get_w(self):
+        S=np.sum(self.nums)
+        nums=S/(self.nums)
+        w=nums/np.sum(nums)
+        return w
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        #load video into a tensor
+        data_path = self.data[idx]
+        if data_path[-1]=='\n':
+            data_path=data_path[:-1]
+        if self.cls_num==2:
+            cls=1-int(data_path.split('/')[-1][0]=='c' or data_path.split('/')[-1][1]=='.' or
+                      data_path.split('/')[-2]=='masked_ild')
+        elif self.cls_num==4:
+            if 'healthy' in data_path:
+                cls = 0
+            elif 'cap' in data_path:
+                cls = 1
+            elif  'ild' in data_path:
+                cls = 2  # covid
+            else:
+                cls=3
+        data=Image.open(data_path)
+        age = int(data_path.split('_')[-3])
+        gender = int(data_path.split('_')[-2]=='M')
+
+        if self.augment:
+            data=self.train_augmentation(data)
+        else:
+            data=self.test_augmentation(data)
+        return {'temporalvolume': data,
+            'label': torch.LongTensor([cls]),
+            'length':torch.LongTensor([1]),
+            'gender':torch.LongTensor([gender]),
+            'age':torch.LongTensor([age])
+            }
+
+class NCPJPGtestDataset_new(Dataset):
+    def __init__(self, data_root, pre_lung_root,padding,lists=None,exlude_lists=True,age_list=None,cls_num=2):
+        self.padding = padding
+        self.cls_num=cls_num
+        self.data = []
+        self.text_book=None
+
+        self.mask=[]
+        if isinstance(lists,list):
+            self.data=open(lists,'r').readlines()
+            self.mask=[item.split('_data')[0]+'_seg'+item.split('_data')[1][:-1] for item in self.data]
+            self.data = [item[:-1] for item in self.data]
+
+        else:
+            if isinstance (data_root,list):
+                for r1,r2 in zip(data_root,pre_lung_root):
+                    self.data+=glob.glob(r1+'/*.n*')
+                    self.mask+=glob.glob(r2+'/*.n*')
+            else:
+                self.data = glob.glob(data_root)
+                self.mask=glob.glob(pre_lung_root)
+        self.pre_root=pre_lung_root
+        self.data_root = data_root
+        self.padding = padding
+
+        self.transform=  transforms.Compose([#transforms.ToPILImage(),
+                                        transforms.Resize(256),
+                                         transforms.CenterCrop(224),
+                                         transforms.ToTensor(),
+                                         transforms.Normalize([0, 0, 0], [1, 1, 1])
+                                         ])
+        print('num of data:', len(self.data))
+        person=[da.split('/')[-1].split('_')[0]+da.split('/')[-1].split('_')[2] for da in self.data]
+        person=list(set(person))
+        if self.cls_num == 2:
+            cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.index('LIDC')>-1 or
+                           data_path.index('ILD')>-1) for data_path in self.data]
+        elif self.cls_num == 4:
+            cls = []
+            for data_path in person:
+                if 'healthy' in data_path:
+                    cls.append(0)
+                elif 'cap' in data_path:
+                    cls.append(1)
+                elif 'ild' in data_path:
+                    cls.append(2)
+                else:
+                    cls.append(3)  # covid
+
+        nums = [np.sum(np.array(cls) == i) for i in range(np.max(cls) + 1)]
+        print(nums)
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        #load video into a tensor
+        data_path = self.data[idx]
+        mask_path=self.mask[idx]
+        #print(data_path,mask_path)
+        if data_path[-1]=='\n':
+            data_path=data_path[:-1]
+        if self.cls_num == 2:
+            cls = 1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1] == '.' or
+                          data_path.split('/')[-3] == 'ILD')
+        elif self.cls_num==4:
+            if 'healthy' in data_path:
+                cls = 0
+            elif 'cap' in data_path:
+                cls = 1
+            elif 'ild' in data_path:
+                cls = 2  # covid
+            else:
+                cls = 3
+
+        mask = sitk.ReadImage(mask_path)
+        M = sitk.GetArrayFromImage(mask)
+        volume=sitk.ReadImage(data_path)
+        data=sitk.GetArrayFromImage(volume)
+        M=M[:data.shape[0],:,:]
+        valid=np.where(M.sum(1).sum(1)>500)
+        data = data[valid[0], :, :]
+        M = M[valid[0], :data.shape[1], :data.shape[2]]
+        data=data[:M.shape[0],:M.shape[1],:M.shape[2]]
+        temporalvolume,name = self.bbc(data, self.padding,M)
+        age = int(data_path.split('_')[-3])
+        gender = int(data_path.split('_')[-2]=='M')
+        return {'temporalvolume': temporalvolume,
+            'label': torch.LongTensor([cls]),
+            'length':[data_path,name],
+            'gender': torch.LongTensor([gender]),
+            'age': torch.LongTensor([age])
+
+            }
+
+    def bbc(self,V, padding,pre=None):
+        temporalvolume = torch.zeros((3, padding, 224, 224))
+        #croptransform = transforms.CenterCrop((224, 224))
+        cnt=0
+        name=[]
+        for cnt,i in enumerate(range(1,V.shape[0]-2,5)):
+        #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
+            if cnt>=padding:
+                break
+            data=V[i-1:i+1,:,:]
+            data[data > 700] = 700
+            data[data < -1200] = -1200
+            data = data * 255.0 / 1900
+            name.append(i)
+            data = data - data.min()
+            data = np.concatenate([pre[i-1:i, :, :] * 255,data], 0)  # mask one channel
+            data = data.astype(np.uint8)
+            data=Image.fromarray(data.transpose(1,2,0))
+            #data.save('temp.jpg')
+            result = self.transform(data)
+
+            temporalvolume[:, cnt] = result
+
+        if cnt==0:
+            print(cnt)
         return temporalvolume,name

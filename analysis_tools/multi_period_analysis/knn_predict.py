@@ -35,10 +35,10 @@ def distance(gallary,query_data,query_delta,need_length=None):
     if need_length:
         if gallary.shape[1]<=need_length:
             return 1
-        if gallary[0,need_length]==-1:
-            return 1
-    #cosV12 = 1-np.abs(np.dot(g.T, q.T) / (linalg.norm(g) * linalg.norm(q)+1e-5))
-    cosV12 = np.abs(g.T-q)
+        #if gallary[0,need_length]==-1:
+        #    return 1
+    cosV12 = 1-np.abs(np.dot(g.T, q.T) / (linalg.norm(g) * linalg.norm(q)+1e-5))
+    #cosV12 = np.abs(g.T-q)
     return np.diagonal(cosV12).mean()
 def similar_score(g,q,q_d,need_length=None):
     if need_length:
@@ -52,11 +52,9 @@ def similar_score(g,q,q_d,need_length=None):
         S.append(distance(g[:,i:], q, q_d,need_length))
         d.append(i)
     return np.min(S),np.argmin(S)
-
-
 l='x'
 #inpath_train='/mnt/data9/mp_NCPs/reg_pt/gallary'
-inpath_train='/mnt/data9/mp_NCPs/reg_pt/cluster'
+inpath_train='/mnt/data9/mp_NCPs/reg_pt/gallary'
 inpath_query='/mnt/data9/mp_NCPs/reg_pt/query'
 img_path='/mnt/data9/mp_NCPs/reg/images'
 lesion_path='/mnt/data9/mp_NCPs/reg/lesions'
@@ -99,12 +97,13 @@ for k in klist:
             #    d_y=44
             k_closest = [np.load(os.path.join(inpath_train, data))[:, d_y] for data in G]
             #k_closest=[np.load(os.path.join(inpath_train,data))[:,d_y+m] for data,m in zip(G,M)]
-            k_closest=[k for k in k_closest if k[0]>-1]
+            k_closest=[k*(k[0]>-1) for k in k_closest]
             if len(k_closest)==0:
                 print('N.A. for query time:' +str(d_y))
                 continue
             pre_scores=np.mean(np.stack(k_closest,0),0)
-            Loss.append(np.mean(np.abs(y-pre_scores)))
+            loss=np.mean(np.abs(y-pre_scores))/(np.mean(data))
+            Loss.append(loss)
             #plt.figure()
             #sb.heatmap([y,pre_scores], vmin=0, vmax=0.05, cmap='jet')
             #plt.show()

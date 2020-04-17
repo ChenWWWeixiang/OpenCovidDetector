@@ -2,7 +2,7 @@ from torch.autograd import Variable
 import torch
 import torch.optim as optim
 from datetime import datetime, timedelta
-from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset
+from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset,NCPJPGDataset_new
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
 import torch.nn as nn
@@ -14,10 +14,9 @@ class NLLSequenceLoss(torch.nn.Module):
     Custom loss function.
     Returns a loss that is the sum of all losses at each time step.
     """
-
     def __init__(self,w=[0.55, 0.45]):
         super(NLLSequenceLoss, self).__init__()
-        self.criterion = torch.nn.NLLLoss(reduction='none', weight=torch.Tensor(w).cuda())
+        self.criterion = torch.nn.NLLLoss(reduction='none',weight=torch.Tensor([0.8,0.8,0.8,0.5]).cuda())
 
     def forward(self, input, length, target):
         loss = []
@@ -30,7 +29,7 @@ class NLLSequenceLoss(torch.nn.Module):
 
         for i in range(length.size(0)):
             L = min(mask.size(1), length[i])
-            mask[i, L - 1] = 1.0
+            mask[i, :L - 1] = 1.0
         # print('mask:',mask)
         # print('mask * loss',mask*loss)
         loss = (loss * mask).sum() / mask.sum()
@@ -69,16 +68,18 @@ class Trainer():
         self.momentum = options["training"]["momentum"]
         self.save_prefix = options["training"]["save_prefix"]
         if options['general']['use_slice']:
-            self.trainingdataset =NCPJPGDataset(options["training"]["data_root"],
+            self.trainingdataset =NCPJPGDataset_new(options["training"]["data_root"],
                                                 options["training"]["index_root"],
                                                 options["training"]["padding"],
                                                 True,cls_num=self.cls_num)#
         else:
             if options['general']['use_3d']:
                 self.trainingdataset = NCPDataset(options["training"]["data_root"],
+                                                  options["training"]["seg_root"],
                                                     options["training"]["index_root"],
                                                     options["training"]["padding"],
-                                                    True)
+                                                    True,
+                                                  z_length=options["model"]["z_length"])
             else:
                 self.trainingdataset = NCP2DDataset(options["training"]["data_root"],
                                                     options["training"]["index_root"],
@@ -105,12 +106,12 @@ class Trainer():
         else:
             #criterion=nn.
             w=torch.Tensor(self.trainingdataset.get_w()).cuda()
-
-            criterion =nn.NLLLoss(w)#0.3,0.7
+           # w = torch.Tensor([0.8,0.2,0.4,0.6]).cuda()
+            criterion =nn.NLLLoss(weight=w).cuda()#0.3,0.7
             if self.use_plus:
                 criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
                 criterion_gender = nn.NLLLoss(ignore_index=-1,
-                                              weight=torch.Tensor([0.3, 0.7]).cuda()).cuda()
+                                              weight=torch.Tensor([0.7, 0.3]).cuda()).cuda()
         if self.use_lstm:
             criterion=NLLSequenceLoss()
         if(self.usecudnn):
@@ -148,7 +149,7 @@ class Trainer():
                 #l2 = (criterion_age(out_age,age/90)*(age>0)).sum()/(age>0).sum()
                 l2 = criterion_age(out_age, (age//20).squeeze(1))
                 l3 = criterion_gender(out_gender,gender.squeeze(1))
-                loss=l1+l2*0.4+l3*0.4
+                loss=l1+l2*0.5+l3*0.8
             else:
                 loss = criterion(outputs, labels.squeeze(1))
             loss.backward()
