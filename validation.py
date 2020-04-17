@@ -126,6 +126,7 @@ class Validator():
                     pre_age_numpy=(np.exp(out_age.cpu().numpy())*np.array([10,30,50,70,90])).sum(1)
                     output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1])
                     gender_numpy = gender.cpu().numpy()[:, 0]
+
                 else:
                     _, maxindices = outputs.cpu().max(1)
                 isacc=labels.cpu().numpy().reshape(labels.size(0))==maxindices.numpy()
