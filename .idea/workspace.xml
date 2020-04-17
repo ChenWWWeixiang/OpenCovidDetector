@@ -2,24 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/analysis_tools/analysis_lesion_pos.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/analysis_tools/analysis_zs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/get_test_list.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/options_3d.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis_tools/reg_to_one.py" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_tools/reg_to_one.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/filter_img.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/filter_img.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/get_set_seperate.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_set_seperate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test_hu.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/test_hu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Dense3D.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Dense3D.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/gradcam_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/gradcam_demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_test_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_test_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/options_lip.toml" beforeDir="false" afterPath="$PROJECT_DIR$/options_lip.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pr.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.toml" beforeDir="false" afterPath="$PROJECT_DIR$/test.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/testengine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/validation.py" afterDir="false" />
@@ -36,8 +23,24 @@
       <file leaf-file-name="options_lip.toml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/options_lip.toml">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            <state relative-caret-position="107">
+              <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testengine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testengine.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="169" column="39" selection-start-line="169" selection-start-column="39" selection-end-line="169" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#2844#3142#0" />
+                <element signature="e#3195#3660#0" />
+                <element signature="e#5286#6582#0" />
+                <element signature="e#6609#7285#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -45,10 +48,34 @@
       <file leaf-file-name="dataset.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="733" column="48" selection-start-line="733" selection-start-column="48" selection-end-line="733" selection-end-column="48" />
+            <state relative-caret-position="-253">
+              <caret line="802" column="19" selection-start-line="802" selection-start-column="13" selection-end-line="802" selection-end-column="19" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="training.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/training.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="118" column="18" selection-start-line="118" selection-start-column="8" selection-end-line="118" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="validation.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/validation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="127" column="61" selection-start-line="127" selection-start-column="61" selection-end-line="127" selection-end-column="61" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -57,55 +84,10 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="26" column="36" lean-forward="true" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+            <state relative-caret-position="92">
+              <caret line="55" column="53" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="53" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_hu.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/test_hu.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="52" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="get_test_list.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/data/get_test_list.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="training.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/training.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3036">
-              <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="validation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/validation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="943">
-              <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -122,11 +104,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>output_numpy</find>
-      <find>inter_vecter</find>
-      <find>mask_path</find>
-      <find>person</find>
-      <find>50</find>
       <find>data_path</find>
       <find>id</find>
       <find>c</find>
@@ -143,7 +120,6 @@
       <find>use_lstm</find>
       <find>starting</find>
       <find>data_root</find>
-      <find>topk</find>
       <find>maxindices</find>
       <find>_auto_collation</find>
       <find>rate</find>
@@ -152,6 +128,12 @@
       <find>Dense3D</find>
       <find>length</find>
       <find>transform</find>
+      <find>5_78</find>
+      <find>5_69_202</find>
+      <find>topn</find>
+      <find>topk</find>
+      <find>pos_count</find>
+      <find>_validate_mc2</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,7 +150,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py" />
         <option value="$PROJECT_DIR$/plot_roc.py" />
         <option value="$PROJECT_DIR$/saves/results.csv" />
         <option value="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" />
@@ -207,18 +188,19 @@
         <option value="$PROJECT_DIR$/data/filter_img.py" />
         <option value="$PROJECT_DIR$/test.toml" />
         <option value="$PROJECT_DIR$/analysis_tools/analysis_zs.py" />
-        <option value="$PROJECT_DIR$/testengine.py" />
         <option value="$PROJECT_DIR$/models/Dense3D.py" />
         <option value="$PROJECT_DIR$/data/get_set_seperate.py" />
         <option value="$PROJECT_DIR$/options_3d.toml" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/validation.py" />
         <option value="$PROJECT_DIR$/data/test_hu.py" />
         <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
-        <option value="$PROJECT_DIR$/training.py" />
-        <option value="$PROJECT_DIR$/options_lip.toml" />
-        <option value="$PROJECT_DIR$/data/dataset.py" />
         <option value="$PROJECT_DIR$/data/get_test_list.py" />
+        <option value="$PROJECT_DIR$/data/4cls_test.list" />
+        <option value="$PROJECT_DIR$/data/dataset.py" />
+        <option value="$PROJECT_DIR$/testengine.py" />
+        <option value="$PROJECT_DIR$/options_lip.toml" />
+        <option value="$PROJECT_DIR$/training.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/validation.py" />
       </list>
     </option>
   </component>
@@ -245,6 +227,11 @@
               <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -284,7 +271,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.get_test_list">
+  <component name="RunManager" selected="Python.main">
     <configuration name="get_set_seperate" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -357,7 +344,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="test_hu" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="testengine" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -365,11 +352,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/test_hu.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testengine.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -378,17 +365,17 @@
     <list>
       <item itemvalue="Python.get_set_seperate" />
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.test_hu" />
       <item itemvalue="Python.get_set_seperate_jpg" />
       <item itemvalue="Python.get_test_list" />
+      <item itemvalue="Python.testengine" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.get_test_list" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.testengine" />
+        <item itemvalue="Python.get_test_list" />
         <item itemvalue="Python.get_set_seperate_jpg" />
         <item itemvalue="Python.get_set_seperate" />
-        <item itemvalue="Python.test_hu" />
       </list>
     </recent_temporary>
   </component>
@@ -402,13 +389,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1582022748789</updated>
-    </task>
-    <task id="LOCAL-00005" summary="pictures">
-      <created>1585745844596</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1585745844596</updated>
     </task>
     <task id="LOCAL-00006" summary="add pic to readme">
       <created>1585746159136</created>
@@ -746,20 +726,27 @@
       <option name="project" value="LOCAL" />
       <updated>1586845620955</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="4cls training">
+      <created>1587098710878</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1587098710879</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="28" width="1932" height="1034" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.79877114" visible="true" weight="0.1889182" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7923729" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50079155" side_tool="true" weight="0.33145434" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32919955" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.2660654" />
-      <window_info id="Structure" order="1" sideWeight="0.20122887" side_tool="true" visible="true" weight="0.1889182" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.46786922" />
+      <window_info id="Structure" order="1" sideWeight="0.20762712" side_tool="true" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.421646" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.41826382" />
@@ -801,7 +788,8 @@
     <MESSAGE value="try 5 cls" />
     <MESSAGE value="0414" />
     <MESSAGE value="ana_tools" />
-    <option name="LAST_COMMIT_MESSAGE" value="ana_tools" />
+    <MESSAGE value="4cls training" />
+    <option name="LAST_COMMIT_MESSAGE" value="4cls training" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -893,7 +881,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/validation.py</url>
-          <line>172</line>
+          <line>166</line>
           <option name="timeStamp" value="581" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -963,7 +951,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>251</line>
+          <line>273</line>
           <option name="timeStamp" value="745" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1000,11 +988,6 @@
           <url>file://$PROJECT_DIR$/get_CAP_infomaion.py</url>
           <line>27</line>
           <option name="timeStamp" value="906" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>194</line>
-          <option name="timeStamp" value="931" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/lidcpreprocess.py</url>
@@ -1052,11 +1035,6 @@
           <option name="timeStamp" value="1009" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>734</line>
-          <option name="timeStamp" value="1010" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/analysis_tools/analysis_zs.py</url>
           <line>3</line>
           <option name="timeStamp" value="1011" />
@@ -1068,7 +1046,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/validation.py</url>
-          <line>114</line>
+          <line>115</line>
           <option name="timeStamp" value="1028" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1083,8 +1061,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/training.py</url>
-          <line>137</line>
+          <line>135</line>
           <option name="timeStamp" value="1042" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/testengine.py</url>
+          <line>65</line>
+          <option name="timeStamp" value="1050" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1097,90 +1080,70 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1043" />
+      <option name="time" value="1051" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="age.max()" language="Python" />
-        <watch expression="age" language="Python" />
+        <watch expression="P" language="Python" />
+        <watch expression="labels.cpu().numpy()" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
       <expression>
-        <expression-string>age</expression-string>
+        <expression-string>labels.cpu().numpy()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>age.max()</expression-string>
+        <expression-string>P</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>sums.max()</expression-string>
+        <expression-string>P.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>sums</expression-string>
+        <expression-string>input.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>idd</expression-string>
+        <expression-string>sample_batched['length'][1]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>L.shape[0]</expression-string>
+        <expression-string>len(sample_batched['length'][1])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>M.shape[0]</expression-string>
+        <expression-string>sample_batched['length'][1].shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>V.shape[0]</expression-string>
+        <expression-string>sample_batched['length']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>L.shape</expression-string>
+        <expression-string>sample_batched['length'][1].length</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>L.max()</expression-string>
+        <expression-string>person</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/analysis_tools/age_sex.csv">
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
-          <column index="0" width="100" />
-          <column index="1" width="100" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="452">
-          <caret line="1484" column="11" selection-start-line="1484" selection-start-column="11" selection-end-line="1484" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/seaborn/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-897">
-          <caret line="451" column="47" selection-start-line="451" selection-start-column="47" selection-end-line="451" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analysis_tools/all_ages_genders.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
@@ -1425,16 +1388,6 @@
     <entry file="file://$PROJECT_DIR$/data/txt/3d_train.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/testengine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="76" column="21" selection-start-line="76" selection-start-column="21" selection-end-line="76" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/get_set_seperate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -1467,64 +1420,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="943">
-          <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/get_set_seperate_jpg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="11" column="68" selection-start-line="11" selection-start-column="68" selection-end-line="11" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/net2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="373" column="49" selection-start-line="373" selection-start-column="49" selection-end-line="373" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3036">
-          <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/options_lip.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="733" column="48" selection-start-line="733" selection-start-column="48" selection-end-line="733" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="26" column="36" lean-forward="true" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1538,17 +1437,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/4cls_test.list">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-943">
-          <caret line="7" column="19" lean-forward="true" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/data/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/data/get_test_list.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="54" lean-forward="true" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+        <state relative-caret-position="437">
+          <caret line="19" column="65" selection-start-line="19" selection-start-column="65" selection-end-line="19" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/25d_net.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1357">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/net2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2103">
+          <caret line="374" selection-start-line="374" selection-end-line="374" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/4cls_test.list">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-253">
+          <caret line="802" column="19" selection-start-line="802" selection-start-column="13" selection-end-line="802" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testengine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="169" column="39" selection-start-line="169" selection-start-column="39" selection-end-line="169" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#2844#3142#0" />
+            <element signature="e#3195#3660#0" />
+            <element signature="e#5286#6582#0" />
+            <element signature="e#6609#7285#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/options_lip.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/training.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="118" column="18" selection-start-line="118" selection-start-column="8" selection-end-line="118" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="55" column="53" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="127" column="61" selection-start-line="127" selection-start-column="61" selection-end-line="127" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

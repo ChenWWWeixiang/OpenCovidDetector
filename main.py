@@ -51,17 +51,18 @@ if(options["general"]["usecudnn"]):
     torch.cuda.manual_seed_all(options["general"]['random_seed'])
 
 if(options["training"]["train"]):
-    trainer = Trainer(options)
+    trainer = Trainer(options,model)
 if(options["validation"]["validate"]):   
-    validator = Validator(options, 'validation')
+    validator = Validator(options, 'validation',model)
 if(options['test']['test']):   
     tester = Validator(options, 'test')
     
 for epoch in range(options["training"]["startepoch"], options["training"]["epochs"]):
     if(options["training"]["train"]):
-        trainer(model, epoch)
-    if(options["validation"]["validate"]):        
-        result,re_all = validator(model)
+        trainer(epoch)
+    if(options["validation"]["validate"]):
+        result,re_all = validator()
+        trainer.ScheduleLR(re_all)
         print(options['training']['save_prefix'])
         print('-'*21)
         print('All acc:'+str(re_all))

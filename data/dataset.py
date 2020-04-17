@@ -723,28 +723,15 @@ class NCPJPGDataset_new(Dataset):
             }
 
 class NCPJPGtestDataset_new(Dataset):
-    def __init__(self, data_root, pre_lung_root,padding,lists=None,exlude_lists=True,age_list=None,cls_num=2):
+    def __init__(self, padding,lists,exlude_lists=True,age_list=None,cls_num=2):
         self.padding = padding
         self.cls_num=cls_num
         self.data = []
         self.text_book=None
 
-        self.mask=[]
-        if isinstance(lists,list):
-            self.data=open(lists,'r').readlines()
-            self.mask=[item.split('_data')[0]+'_seg'+item.split('_data')[1][:-1] for item in self.data]
-            self.data = [item[:-1] for item in self.data]
-
-        else:
-            if isinstance (data_root,list):
-                for r1,r2 in zip(data_root,pre_lung_root):
-                    self.data+=glob.glob(r1+'/*.n*')
-                    self.mask+=glob.glob(r2+'/*.n*')
-            else:
-                self.data = glob.glob(data_root)
-                self.mask=glob.glob(pre_lung_root)
-        self.pre_root=pre_lung_root
-        self.data_root = data_root
+        self.data=open(lists,'r').readlines()
+        self.mask=[item.split(',')[1] for item in self.data]
+        self.data = [item.split(',')[0] for item in self.data]
         self.padding = padding
 
         self.transform=  transforms.Compose([#transforms.ToPILImage(),
@@ -754,7 +741,7 @@ class NCPJPGtestDataset_new(Dataset):
                                          transforms.Normalize([0, 0, 0], [1, 1, 1])
                                          ])
         print('num of data:', len(self.data))
-        person=[da.split('/')[-1].split('_')[0]+da.split('/')[-1].split('_')[2] for da in self.data]
+        person=[da.split('/')[-2]+'_'+da.split('/')[-1].split('_')[0]+da.split('/')[-1].split('_')[1] for da in self.data]
         person=list(set(person))
         if self.cls_num == 2:
             cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.index('LIDC')>-1 or
@@ -795,8 +782,11 @@ class NCPJPGtestDataset_new(Dataset):
                 cls = 2  # covid
             else:
                 cls = 3
-
-        mask = sitk.ReadImage(mask_path)
+        try:
+            mask = sitk.ReadImage(mask_path[:-1])
+        except:
+            mask_path=mask_path.split('2020')[0]+mask_path.split('2020')[1][:-1]
+            mask = sitk.ReadImage(mask_path)
         M = sitk.GetArrayFromImage(mask)
         volume=sitk.ReadImage(data_path)
         data=sitk.GetArrayFromImage(volume)
@@ -806,8 +796,8 @@ class NCPJPGtestDataset_new(Dataset):
         M = M[valid[0], :data.shape[1], :data.shape[2]]
         data=data[:M.shape[0],:M.shape[1],:M.shape[2]]
         temporalvolume,name = self.bbc(data, self.padding,M)
-        age = int(data_path.split('_')[-3])
-        gender = int(data_path.split('_')[-2]=='M')
+        age = int(data_path.split('_')[-2])
+        gender = int(data_path.split('_')[-1].split('.nii')[0]=='M')
         return {'temporalvolume': temporalvolume,
             'label': torch.LongTensor([cls]),
             'length':[data_path,name],
@@ -821,7 +811,7 @@ class NCPJPGtestDataset_new(Dataset):
         #croptransform = transforms.CenterCrop((224, 224))
         cnt=0
         name=[]
-        for cnt,i in enumerate(range(1,V.shape[0]-2,5)):
+        for cnt,i in enumerate(range(1,V.shape[0]-2,3)):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             if cnt>=padding:
                 break

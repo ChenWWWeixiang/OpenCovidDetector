@@ -53,7 +53,7 @@ class Trainer():
     tot_iter = 0
     writer = SummaryWriter()    
     
-    def __init__(self, options):
+    def __init__(self, options,model):
         self.cls_num=options['general']['class_num']
         self.use_plus=options['general']['use_plus']
         self.use_slice = options['general']['use_slice']
@@ -92,42 +92,40 @@ class Trainer():
                                     shuffle=options["input"]["shuffle"],
                                     num_workers=options["input"]["numworkers"],
                                     drop_last=True)
-        
+
+        self.optimizer = optim.Adam(model.parameters(),lr = self.learningrate,amsgrad=True)
+        self.schedule=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer,'max')
+        self.model=model
+        if self.use_3d:
+            self.criterion=self.model.loss()
+        else:
+            #criterion=nn.
+            #w=torch.Tensor(self.trainingdataset.get_w()).cuda()
+            w = torch.Tensor([0.6,1.2,0.3,0.8]).cuda()
+            self.criterion =nn.NLLLoss(weight=w).cuda()#0.3,0.7
+            if self.use_plus:
+                self.criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
+                self.criterion_gender = nn.NLLLoss(ignore_index=-1,
+                                              weight=torch.Tensor([0.3, 0.7]).cuda()).cuda()
+        if self.use_lstm:
+            self.criterion=NLLSequenceLoss()
+        if(self.usecudnn):
+            self.net = nn.DataParallel(self.model).cuda()
+            self.criterion = self.criterion.cuda()
 
     def learningRate(self, epoch):
         decay = math.floor((epoch) / 10)
-        return self.learningrate * pow(0.1, decay)
-
-    def __call__(self, model, epoch):
+        return self.learningrate * pow(0.5, decay)
+    def ScheduleLR(self,acc):
+        self.schedule.step(acc)
+    def __call__(self,epoch):
         #set up the loss function.
-        model.train()
-        if self.use_3d:
-            criterion=model.loss()
-        else:
-            #criterion=nn.
-            w=torch.Tensor(self.trainingdataset.get_w()).cuda()
-           # w = torch.Tensor([0.8,0.2,0.4,0.6]).cuda()
-            criterion =nn.NLLLoss(weight=w).cuda()#0.3,0.7
-            if self.use_plus:
-                criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
-                criterion_gender = nn.NLLLoss(ignore_index=-1,
-                                              weight=torch.Tensor([0.7, 0.3]).cuda()).cuda()
-        if self.use_lstm:
-            criterion=NLLSequenceLoss()
-        if(self.usecudnn):
-            net = nn.DataParallel(model).cuda()
-            criterion = criterion.cuda()
-               
-        optimizer = optim.Adam(
-                        model.parameters(),
-                        lr = self.learningRate(epoch),amsgrad=True)
-        
-        #transfer the model to the GPU.       
-            
+        self.model.train()
+
         startTime = datetime.now()
         print("Starting training...")
         for i_batch, sample_batched in enumerate(self.trainingdataloader):
-            optimizer.zero_grad()
+            self.optimizer.zero_grad()
             input = Variable(sample_batched['temporalvolume'])
             labels = Variable(sample_batched['label'])
             length = Variable(sample_batched['length'])
@@ -139,21 +137,21 @@ class Trainer():
                 input = input.cuda()
                 labels = labels.cuda()
             if not self.use_plus:
-                outputs = net(input)
+                outputs = self.net(input)
             else:
-                outputs,out_gender,out_age=net(input)
+                outputs,out_gender,out_age=self.net(input)
             if self.use_3d or self.use_lstm:
-                loss = criterion(outputs, length,labels.squeeze(1))
+                loss = self.criterion(outputs, length,labels.squeeze(1))
             elif self.use_plus:
-                l1 = criterion(outputs, labels.squeeze(1))
+                l1 = self.criterion(outputs, labels.squeeze(1))
                 #l2 = (criterion_age(out_age,age/90)*(age>0)).sum()/(age>0).sum()
-                l2 = criterion_age(out_age, (age//20).squeeze(1))
-                l3 = criterion_gender(out_gender,gender.squeeze(1))
+                l2 = self.criterion_age(out_age, (age//20).squeeze(1))
+                l3 = self.criterion_gender(out_gender,gender.squeeze(1))
                 loss=l1+l2*0.5+l3*0.8
             else:
-                loss = criterion(outputs, labels.squeeze(1))
+                loss = self.criterion(outputs, labels.squeeze(1))
             loss.backward()
-            optimizer.step()
+            self.optimizer.step()
             sampleNumber = i_batch * self.batchsize
 
             if(sampleNumber % self.statsfrequency == 0):
@@ -164,4 +162,4 @@ class Trainer():
 
         print("Epoch "+str(epoch)+"completed, saving state...")
         print(self.use_3d)
-        torch.save(model.state_dict(), "{}.pt".format(self.save_prefix))
+        torch.save(self.model.state_dict(), "{}.pt".format(self.save_prefix))

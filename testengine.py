@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 #from data import LipreadingDataset
 from torch.utils.data import DataLoader
 import torch.nn as nn
-from data.dataset import NCPDataset, NCP2DDataset, NCPJPGDataset,NCPJPGtestDataset
+from data.dataset import NCPDataset, NCP2DDataset, NCPJPGDataset,NCPJPGtestDataset,NCPJPGtestDataset_new
 import os, cv2
 import toml
 from models.net2d import densenet121,densenet161,resnet152,resnet152_plus
@@ -60,25 +60,42 @@ def _validate(modelOutput, labels, topn=1):
     averageEnergies = np.mean(modelOutput[-topn:])
     iscorrect = labels.cpu().numpy()==(averageEnergies>0.5)
     return averageEnergies,iscorrect,pos_count
+def _validate_mc2(modelOutput, labels, length,topn=3):
+    AV=[]
+    P=np.exp(modelOutput.cpu().numpy())[:length,:]
+    a=1
+    for i in range(4):
+        temp=list(P[:,i])#for covid19
+        pos_count=np.sum(np.array(temp)>0.5)
+        temp.sort()
+        averageEnergies = np.mean(temp[-topn:])
+        AV.append(averageEnergies)
+    #AV=np.array(AV)
+    if np.max(AV[1:])>0.80:
+        predicted=np.argmax(AV[1:])+1
+    else:
+        predicted=np.argmax(AV)
+    iscorrect = labels.cpu().numpy()==predicted
+    return AV,iscorrect,predicted
 
-def _validate_multicls(modelOutput, labels, topn=3):
+def _validate_multicls(modelOutput, labels,length,topn=3):
     averageEnergies=[]
     for i in range(0,options['general']['class_num']):
-        t = np.exp(modelOutput.cpu().numpy())[:, i].tolist() # for covid19
+        t = np.exp(modelOutput.cpu().numpy())[:length, i].tolist() # for covid19
         #pos_count = np.sum(np.array(modelOutput) > 0.5)
         t.sort()
         if i==0:
-            averageEnergies.append(np.mean(t[topn*4:]))
+            averageEnergies.append(np.mean(t))
         else:
             averageEnergies.append(np.mean(t[-topn:]))
     pred=np.argmax(averageEnergies)
     iscorrect = labels.cpu().numpy() == pred
 
     return averageEnergies, iscorrect,pred
-def _voting_validate_multicls(modelOutput, labels, topn=3):
-    averageEnergies=np.exp(modelOutput.cpu().numpy()).mean(0)
+def _voting_validate_multicls(modelOutput, labels,length, topn=3):
+    averageEnergies=np.exp(modelOutput.cpu().numpy()[:length,:]).mean(0)
     #cnt=np.zeros([options['general']['class_num']])
-    idx_max=np.argmax(modelOutput.cpu().numpy(),axis=1)
+    idx_max=np.argmax(modelOutput.cpu().numpy()[:length,:],axis=1)
     cnt=np.bincount(idx_max)
     pred=np.argmax(cnt)
     if pred==0:
@@ -102,22 +119,26 @@ class Validator():
         datalist = args.imgpath
         masklist =args.maskpath
         self.savenpy = args.savenpy
-        if not args.exclude_list=="none":
-            f=open(args.exclude_list,'r')
+        if True:
+            #f=open(args.exclude_list,'r')
+            f='data/4cls_test.list'
             #f = open('data/txt/val_list.txt', 'r')
-            f=f.readlines()
-            f=[da.split('\t')[-1] for da in f]
+            #f=f.readlines()
             if self.use_plus:
-                self.validationdataset = NCPJPGtestDataset(datalist,
-                                                           masklist,
-                                                           options[mode]["padding"],
-                                                           f,1-args.invert_exclude,age_list='all_ages_genders.txt',
-                                                           cls_num=self.cls_num)
+                #self.validationdataset = NCPJPGtestDataset(datalist,
+                #                                           masklist,
+                #                                           options[mode]["padding"],
+                #                                           f,1-args.invert_exclude,age_list='all_ages_genders.txt',
+                #                                           cls_num=self.cls_num)
+                self.validationdataset = NCPJPGtestDataset_new(options[mode]["padding"],
+                                                           f,cls_num=self.cls_num)
             else:
-                self.validationdataset = NCPJPGtestDataset(datalist,
-                                                           masklist,
-                                                           options[mode]["padding"],f,1-args.invert_exclude,
-                                                           cls_num=self.cls_num)
+                #self.validationdataset = NCPJPGtestDataset(datalist,
+                #                                           masklist,
+                #                                           options[mode]["padding"],f,1-args.invert_exclude,
+                #                                           cls_num=self.cls_num)
+                self.validationdataset = NCPJPGtestDataset_new(options[mode]["padding"],
+                                                           f,cls_num=self.cls_num)
         else:
             if self.use_plus:
                 self.validationdataset = NCPJPGtestDataset(datalist,
@@ -129,7 +150,7 @@ class Validator():
                                                            masklist,
                                                            options[mode]["padding"],cls_num=self.cls_num
                                                            )
-        self.topk=5
+        self.topk=3
         self.tot_data = len(self.validationdataset)
         self.validationdataloader = DataLoader(
             self.validationdataset,
@@ -148,8 +169,8 @@ class Validator():
             count = np.zeros((self.cls_num + self.use_plus * 2))
             Matrix = np.zeros((self.cls_num, self.cls_num))
             if self.cls_num>2:
-                #validator_function=_voting_validate_multicls
-                validator_function=_validate_multicls
+                #validator_function=_voting_validate_multicls#win1
+                validator_function=_validate_multicls#win0
             else:
                 validator_function = _validate
             model.eval()
@@ -174,11 +195,12 @@ class Validator():
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
+
                 if self.use_plus:
                     age = Variable(sample_batched['age']).cuda()
                     gender = Variable(sample_batched['gender']).cuda()
                 name =sample_batched['length'][0]
-                slice_idx=sample_batched['length'][1]
+                valid_length=len(sample_batched['length'][1])
 
                 model = model.cuda()
                 input=input.squeeze(0)
@@ -190,15 +212,15 @@ class Validator():
                 if KEEP_ALL:
                     all_numpy=np.exp(outputs.cpu().numpy()[:,1]).tolist()
                     a=1
-                (vector, isacc,pos_count) = validator_function(outputs, labels,self.topk)
+                (vector, isacc,pos_count) = validator_function(outputs, labels,valid_length,self.topk)
                 _, maxindices = outputs.cpu().max(1)
                 if self.use_plus:
                     _, maxindices_gender = out_gender.cpu().mean(0).max(0)
                     genderacc = gender.cpu().numpy().reshape(gender.size(0)) == maxindices_gender.numpy()
-                    output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1]).mean()
+                    output_gender_numpy = np.exp(out_gender.cpu().numpy()[:valid_length, 1]).mean()
                     gender_numpy=gender.cpu().numpy()
                     age_numpy = age.cpu().numpy().reshape(age.size(0))
-                    pre_age_numpy = (np.exp(out_age.cpu().numpy()) * np.array([10, 30, 50, 70, 90])).sum(1).mean()
+                    pre_age_numpy = (np.exp(out_age.cpu().numpy())[:valid_length,:] * np.array([10, 30, 50, 70, 90])).sum(1).mean()
                     #ages_mse,oa=self.age_function(out_age, age)
                 #_, maxindices = vector.cpu().max(1)  ##vector--outputs
 

@@ -1,5 +1,6 @@
 import os
 data_path='/home/cwx/extra/covid_project_data'
+seg_path='/home/cwx/extra/covid_project_segs'
 with open('4cls_test.list','w') as f:
     for set_name in os.listdir(data_path):
         if set_name=='cap_qqhr' or set_name=='lidc':
@@ -16,4 +17,4 @@ with open('4cls_test.list','w') as f:
                 continue
             if set_name == 'covid' and set_id <= 3:
                 continue
-            f.writelines(os.path.join(data_path,set_name,name)+'\n')
+            f.writelines(os.path.join(data_path,set_name,name)+','+os.path.join(seg_path,'lungs',set_name,set_name+'_'+name)+'\n')

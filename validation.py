@@ -39,7 +39,8 @@ def _validate(modelOutput, length, labels, total=None, wrong=None):
     return (averageEnergies, count)
 
 class Validator():
-    def __init__(self, options, mode):
+    def __init__(self, options, mode,model):
+        self.model=model
         self.cls_num=options['general']['class_num']
         self.use_plus = options['general']['use_plus']
         self.use_3d=options['general']['use_3d']
@@ -77,22 +78,22 @@ class Validator():
         self.mode = mode
         self.epoch=0
         
-    def __call__(self, model):
+    def __call__(self):
         self.epoch+=1
         with torch.no_grad():
             print("Starting {}...".format(self.mode))
             count = np.zeros((self.cls_num+self.use_plus*2))
             Matrix=np.zeros((self.cls_num,self.cls_num))
             if self.use_3d:
-                validator_function = model.validator_function()##TODO:
+                validator_function = self.model.validator_function()##TODO:
             if self.use_lstm:
                 validator_function = _validate
-            model.eval()
+                self.model.eval()
             LL=[]
             GG=[]
             AA=[]
             if(self.usecudnn):
-                net = nn.DataParallel(model).cuda()
+                net = nn.DataParallel(self.model).cuda()
             error_dir='error/'
             os.makedirs(error_dir,exist_ok=True)
             cnt=0
@@ -104,7 +105,7 @@ class Validator():
                 if self.use_plus:
                     age = Variable(sample_batched['age']).cuda()
                     gender = Variable(sample_batched['gender']).cuda()
-                model = model.cuda()
+
 
                 if not self.use_plus:
                     outputs = net(input)
@@ -125,10 +126,6 @@ class Validator():
                     pre_age_numpy=(np.exp(out_age.cpu().numpy())*np.array([10,30,50,70,90])).sum(1)
                     output_gender_numpy = np.exp(out_gender.cpu().numpy()[:, 1])
                     gender_numpy = gender.cpu().numpy()[:, 0]
-
-                    #out_age_numpy = np.exp(out_age.cpu().numpy()[:, 1])
-                    #age_numpy = age.cpu().numpy()[:, 0]
-
                 else:
                     _, maxindices = outputs.cpu().max(1)
                 isacc=labels.cpu().numpy().reshape(labels.size(0))==maxindices.numpy()
@@ -168,5 +165,3 @@ class Validator():
             np.save('re/' + self.mode + 'gender_records' + str(self.epoch) + '.npy', GG)
         print(Matrix)
         return count/num_samples,count[:self.cls_num].sum()/num_samples[:self.cls_num].sum()
-    def validator_function(self,pre,label):
-        pass
