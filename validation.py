@@ -52,7 +52,8 @@ class Validator():
             self.validationdataset = NCPJPGDataset_new(options[mode]["data_root"],
                                                     options[mode]["index_root"],
                                                     options[mode]["padding"],
-                                                    False,cls_num=self.cls_num)
+                                                    False,cls_num=self.cls_num,
+                                                    mod=options['general']['mod'])
         else:
             if options['general']['use_3d']:
                 self.validationdataset = NCPDataset(options[mode]["data_root"],
@@ -110,7 +111,7 @@ class Validator():
                 if not self.use_plus:
                     outputs = net(input)
                 else:
-                    outputs, out_gender, out_age = net(input)
+                    outputs, out_gender, out_age,deep_feaures = net(input)
                 if self.use_3d or self.use_lstm:
                     (outputs, top1) = validator_function(outputs, length,labels)
                     _, maxindices = outputs.cpu().max(1)##vector--outputs

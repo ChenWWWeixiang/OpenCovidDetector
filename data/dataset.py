@@ -636,7 +636,8 @@ class NCPJPGtestDataset_MHA(Dataset):
         return temporalvolume,name
 
 class NCPJPGDataset_new(Dataset):
-    def __init__(self, data_root,index_root, padding, augment=False,cls_num=2):
+    def __init__(self, data_root,index_root, padding, augment=False,cls_num=2,mod='ab'):
+        self.mod=mod
         self.padding = padding
         self.data = []
         self.data_root = open(data_root,'r').readlines()
@@ -664,19 +665,19 @@ class NCPJPGDataset_new(Dataset):
         print('num of data:', len(self.data))
 
         if self.cls_num==2:
-            cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1]=='.' or
-                           data_path.split('/')[-2]=='masked_ild') for data_path in self.data]
-        elif self.cls_num==4:
+            if self.mod=='ab':#abnormal detection
+                cls = [int('pos' in data_path) for data_path in self.data]
+            else:
+                cls = [1-int('ild' in data_path or 'cap' in data_path) for data_path in self.data]
+        elif self.cls_num==3:
             cls=[]
             for data_path in self.data:
                 if 'healthy' in data_path:
                     cls.append(0)
                 elif 'cap' in data_path:
                     cls.append(1)
-                elif 'ild' in data_path:
-                    cls.append(2)
                 else:
-                    cls.append(3)#covid
+                    cls.append(2)#covid
 
         nums=[np.sum(np.array(cls)==i) for i in range(self.cls_num)]
         print(nums)
@@ -696,17 +697,17 @@ class NCPJPGDataset_new(Dataset):
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
         if self.cls_num==2:
-            cls=1-int(data_path.split('/')[-1][0]=='c' or data_path.split('/')[-1][1]=='.' or
-                      data_path.split('/')[-2]=='masked_ild')
-        elif self.cls_num==4:
+            if self.mod=='ab':#abnormal detection
+                cls = int('pos' in data_path)
+            else:
+                cls = 1-int('ild' in data_path or 'cap' in data_path)
+        elif self.cls_num==3:
             if 'healthy' in data_path:
                 cls = 0
             elif 'cap' in data_path:
                 cls = 1
-            elif  'ild' in data_path:
-                cls = 2  # covid
             else:
-                cls=3
+                cls=2
         data=Image.open(data_path)
         age = int(data_path.split('_')[-3])
         gender = int(data_path.split('_')[-2]=='M')
@@ -723,12 +724,12 @@ class NCPJPGDataset_new(Dataset):
             }
 
 class NCPJPGtestDataset_new(Dataset):
-    def __init__(self, padding,lists,exlude_lists=True,age_list=None,cls_num=2):
-        self.padding = padding
+    def __init__(self, padding,lists,exlude_lists=True,age_list=None,cls_num=2,mod='ab'):
+        #self.padding = padding
         self.cls_num=cls_num
         self.data = []
         self.text_book=None
-
+        self.mod=mod
         self.data=open(lists,'r').readlines()
         self.mask=[item.split(',')[1] for item in self.data]
         self.data = [item.split(',')[0] for item in self.data]
@@ -744,22 +745,34 @@ class NCPJPGtestDataset_new(Dataset):
         person=[da.split('/')[-2]+'_'+da.split('/')[-1].split('_')[0]+da.split('/')[-1].split('_')[1] for da in self.data]
         person=list(set(person))
         if self.cls_num == 2:
-            cls = [1 - int(data_path.split('/')[-1][0] == 'c' or data_path.index('LIDC')>-1 or
-                           data_path.index('ILD')>-1) for data_path in self.data]
-        elif self.cls_num == 4:
+            if self.mod=='ab':#abnormal detection
+                cls = [int('pos' in data_path) for data_path in person]
+                cls_stage = [int('pos' in data_path) for data_path in self.data]
+            else:
+                cls = [1-int('cap' in data_path) for data_path in person]
+                cls_stage = [1 - int('cap' in data_path) for data_path in self.data]
+        elif self.cls_num == 3:
             cls = []
             for data_path in person:
                 if 'healthy' in data_path:
                     cls.append(0)
                 elif 'cap' in data_path:
                     cls.append(1)
-                elif 'ild' in data_path:
-                    cls.append(2)
                 else:
-                    cls.append(3)  # covid
+                    cls.append(2)  # covid
+            cls_stage=[]
+            for data_path in self.data:
+                if 'healthy' in data_path:
+                    cls_stage.append(0)
+                elif 'cap' in data_path:
+                    cls_stage.append(1)
+                else:
+                    cls_stage.append(2)  # covid
 
         nums = [np.sum(np.array(cls) == i) for i in range(np.max(cls) + 1)]
-        print(nums)
+        print('patient',nums)
+        nums = [np.sum(np.array(cls_stage) == i) for i in range(np.max(cls_stage) + 1)]
+        print('stages', nums)
     def __len__(self):
         return len(self.data)
 
@@ -771,17 +784,17 @@ class NCPJPGtestDataset_new(Dataset):
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
         if self.cls_num == 2:
-            cls = 1 - int(data_path.split('/')[-1][0] == 'c' or data_path.split('/')[-1][1] == '.' or
-                          data_path.split('/')[-3] == 'ILD')
-        elif self.cls_num==4:
+            if self.mod=='ab':#abnormal detection
+                cls = int('pos' in data_path)
+            else:
+                cls = 1-int('ild' in data_path or 'cap' in data_path)
+        elif self.cls_num==3:
             if 'healthy' in data_path:
                 cls = 0
             elif 'cap' in data_path:
                 cls = 1
-            elif 'ild' in data_path:
-                cls = 2  # covid
             else:
-                cls = 3
+                cls = 2
         try:
             mask = sitk.ReadImage(mask_path[:-1])
         except:
@@ -826,7 +839,6 @@ class NCPJPGtestDataset_new(Dataset):
             data=Image.fromarray(data.transpose(1,2,0))
             #data.save('temp.jpg')
             result = self.transform(data)
-
             temporalvolume[:, cnt] = result
 
         if cnt==0:

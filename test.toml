@@ -10,7 +10,8 @@ use_3d = false
 use_lstm=false
 use_slice=true
 use_plus=true
-class_num=4
+class_num=3
+mod='co'
 
 [input]
 batchsize = 32

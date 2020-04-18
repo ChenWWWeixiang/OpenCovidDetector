@@ -7,11 +7,11 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.description='please enter two parameters a and b ...'
 parser.add_argument("-o", "--output_path", help="path to output nii files",  type=str,
-                    default='/home/cwx/extra/covid_project_data/covid')
+                    default='/home/cwx/extra/covid_project_data/cap2')
 parser.add_argument("-i", "--input_path", help="path to input dicom files",  type=str,
                     #default='/home/cwx/extra/NCP_CTs/NCP_control/control')
-                    #default='/home/cwx/extra/CAP')
-                    default='/home/cwx/extra/NCP_CTs/NCP_ill')
+                    default='/home/cwx/extra/CAP/CAP')
+                    #default='/home/cwx/extra/NCP_CTs/NCP_ill')
 args = parser.parse_args()
 
 output_path=args.output_path
@@ -20,7 +20,7 @@ os.makedirs(output_path,exist_ok=True)
 #input_c='/home/cwx/extra/new_control/control/control'
 #input_c='/home/cwx/extra/3rd/control/control '
 input_path=args.input_path
-for i in range(7,8):
+for i in range(2,5):
     #
     path=input_path+str(i)
     #path=input_path

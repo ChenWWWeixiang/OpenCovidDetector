@@ -6,11 +6,13 @@ usecudnnbenchmark = true
 gpuid = "3"
 loadpretrainedmodel = true
 random_seed = true
-pretrainedmodelpath = '../saves/trained_model.pt'
+pretrainedmodelpath = '../weights/locating.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
-use_plus=false
+use_plus=true
+mod='ab'
+class_num=2
 
 [input]
 batchsize = 32
@@ -27,7 +29,7 @@ numlstms = 2
 [training]
 train = true
 epochs = 100
-startepoch = 0
+startepoch = 60
 statsfrequency = 1000
 data_root = '../all_ages_genders.txt'
 index_root = '../data/txt/locating_train.txt'
@@ -35,12 +37,12 @@ padding = 35
 learningrate = 1e-6
 momentum = 0.995
 weightdecay = 0.05
-save_prefix = "../weights/locating_moreaug"
+save_prefix = "../weights/locating"
 
 [validation]
 validate = true
 data_root = '../all_ages_genders.txt'
-index_root = '../data/txt/locating_val.txt'
+index_root = '../data/txt/locating_test.txt'
 padding = 35
 saveaccuracy = false
 

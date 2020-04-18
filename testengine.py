@@ -14,6 +14,7 @@ import numpy as np
 #from models.g_cam import GuidedPropo
 import matplotlib as plt
 KEEP_ALL=True
+SAVE_DEEP=True
 import argparse
 parser = argparse.ArgumentParser()
 
@@ -40,26 +41,40 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
                              #'/mnt/data7/resampled_data/resampled_test_3']
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
-                    default='re/4cls_gender.npy')
+                    #default='re/cap_vs_covid.npy')
+                    default='re/3cls_gender.npy')
+parser.add_argument("-d", "--deepsave", help="A path to save deepfeature",  type=str,
+                    #default='re/cap_vs_covid.npy')
+                    default='deep_f')
 parser.add_argument("-e", "--exclude_list", help="A path to a txt file for excluded data list. If no file need to be excluded, "
                                                  "it should be 'none'.",  type=str,
                     default='none')
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='weights/model_4cls_gender.pt')
+                    #default='weights/model_covid_cap.pt')
+                    default='weights/model_3cls_gender.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
-                    default='4')
+                    default='2')
 args = parser.parse_args()
+os.makedirs(args.deepsave,exist_ok=True)
 
+def _validate(modelOutput, labels, length,topn=1):
+    modelOutput=list(np.exp(modelOutput.cpu().numpy())[:length,-1])#for covid19
+    #pos_count=np.sum(np.array(modelOutput)>0.5)
 
-def _validate(modelOutput, labels, topn=1):
-    modelOutput=list(np.exp(modelOutput.cpu().numpy())[:,-1])#for covid19
-    pos_count=np.sum(np.array(modelOutput)>0.5)
     modelOutput.sort()
     averageEnergies = np.mean(modelOutput[-topn:])
     iscorrect = labels.cpu().numpy()==(averageEnergies>0.5)
-    return averageEnergies,iscorrect,pos_count
+    pred=(averageEnergies>0.5)
+    return averageEnergies,iscorrect,pred
+
+def _validate_cp(modelOutput, labels, length,topn=1):
+    averageEnergies = np.exp(modelOutput.cpu().numpy()[:length, :]).mean(0)
+    pred = np.argmax(averageEnergies)
+    iscorrect = labels.cpu().numpy() == pred
+    return averageEnergies.tolist(), iscorrect, pred
+
 def _validate_mc2(modelOutput, labels, length,topn=3):
     AV=[]
     P=np.exp(modelOutput.cpu().numpy())[:length,:]
@@ -121,7 +136,9 @@ class Validator():
         self.savenpy = args.savenpy
         if True:
             #f=open(args.exclude_list,'r')
-            f='data/4cls_test.list'
+            #f='data/4cls_test.list'
+            f='data/cap_vs_covid_test.list'
+            f='data/3cls_test.list'
             #f = open('data/txt/val_list.txt', 'r')
             #f=f.readlines()
             if self.use_plus:
@@ -131,14 +148,14 @@ class Validator():
                 #                                           f,1-args.invert_exclude,age_list='all_ages_genders.txt',
                 #                                           cls_num=self.cls_num)
                 self.validationdataset = NCPJPGtestDataset_new(options[mode]["padding"],
-                                                           f,cls_num=self.cls_num)
+                                                           f,cls_num=self.cls_num,mod=options['general']['mod'])
             else:
                 #self.validationdataset = NCPJPGtestDataset(datalist,
                 #                                           masklist,
                 #                                           options[mode]["padding"],f,1-args.invert_exclude,
                 #                                           cls_num=self.cls_num)
                 self.validationdataset = NCPJPGtestDataset_new(options[mode]["padding"],
-                                                           f,cls_num=self.cls_num)
+                                                           f,cls_num=self.cls_num,mod=options['general']['mod'])
         else:
             if self.use_plus:
                 self.validationdataset = NCPJPGtestDataset(datalist,
@@ -172,7 +189,7 @@ class Validator():
                 #validator_function=_voting_validate_multicls#win1
                 validator_function=_validate_multicls#win0
             else:
-                validator_function = _validate
+                validator_function = _validate_cp
             model.eval()
             LL = []
             GG=[]
@@ -192,6 +209,8 @@ class Validator():
             #names=[tl.split('\t')[0] for tl in truth_list]
             #cls = [int(tl.split('\t')[1]) for tl in truth_list]
             tic=time.time()
+            X=[]
+            Y=[]
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
@@ -208,7 +227,11 @@ class Validator():
                 if not self.use_plus:
                     outputs = net(input)
                 else:
-                    outputs, out_gender, out_age = net(input)
+                    outputs, out_gender, out_age,deep_feaures = net(input)
+                if SAVE_DEEP:
+                    deep_feaures=deep_feaures.cpu().numpy()[:valid_length,:].mean(0)
+                    X.append(deep_feaures)
+                    Y.append(labels.cpu().numpy()[0][0])
                 if KEEP_ALL:
                     all_numpy=np.exp(outputs.cpu().numpy()[:,1]).tolist()
                     a=1
@@ -226,21 +249,13 @@ class Validator():
 
                 output_numpy = vector
                 label_numpy = labels.cpu().numpy()[0, 0]
-                ####
-
-                ####
-                #LL.append([name[0],output_numpy, label_numpy])
-
                 if self.use_plus and gender_numpy[0]>-1:
                     print(name[0], isacc, vector, 'sex:', genderacc)
                 else:
                     print(name[0],isacc,vector)
                 # argmax = (-vector.cpu().numpy()).argsort()
                 for i in range(labels.size(0)):
-                    if self.cls_num>2:
-                        LL.append([name[0]]+ output_numpy+[label_numpy])
-                    else:
-                        LL.append([name[0],output_numpy,label_numpy])
+                    LL.append([name[0]]+ output_numpy+[label_numpy])
                     Matrix[label_numpy, pos_count] += 1
                     #if isacc[i]==0:
                     #elist.writelines(name[0]+'\t'+str(all_numpy)+'\t'+str(pos_count)+'\t'+str(np.array(slice_idx).tolist())+'\n')
@@ -261,6 +276,11 @@ class Validator():
         LL = np.array(LL)
         print(Matrix)
         np.save(self.savenpy, LL)
+        if SAVE_DEEP:
+            X=np.array(X)
+            Y=np.array(Y)
+            np.save(os.path.join(args.deepsave,'X.npy'),X)
+            np.save(os.path.join(args.deepsave, 'Y.npy'), Y)
         if self.use_plus:
             GG = np.array(GG)
             AA=np.array(AA)

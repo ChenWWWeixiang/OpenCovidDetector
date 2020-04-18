@@ -71,7 +71,7 @@ class Trainer():
             self.trainingdataset =NCPJPGDataset_new(options["training"]["data_root"],
                                                 options["training"]["index_root"],
                                                 options["training"]["padding"],
-                                                True,cls_num=self.cls_num)#
+                                                True,cls_num=self.cls_num,mod=options['general']['mod'])#
         else:
             if options['general']['use_3d']:
                 self.trainingdataset = NCPDataset(options["training"]["data_root"],
@@ -100,8 +100,8 @@ class Trainer():
             self.criterion=self.model.loss()
         else:
             #criterion=nn.
-            #w=torch.Tensor(self.trainingdataset.get_w()).cuda()
-            w = torch.Tensor([0.6,1.2,0.3,0.8]).cuda()
+            w=torch.Tensor(self.trainingdataset.get_w()).cuda()
+            #w = torch.Tensor([0.6,1.2,0.3,0.8]).cuda()
             self.criterion =nn.NLLLoss(weight=w).cuda()#0.3,0.7
             if self.use_plus:
                 self.criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
@@ -139,7 +139,7 @@ class Trainer():
             if not self.use_plus:
                 outputs = self.net(input)
             else:
-                outputs,out_gender,out_age=self.net(input)
+                outputs,out_gender,out_age,deep_feaures=self.net(input)
             if self.use_3d or self.use_lstm:
                 loss = self.criterion(outputs, length,labels.squeeze(1))
             elif self.use_plus:

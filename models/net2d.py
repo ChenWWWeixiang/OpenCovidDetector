@@ -388,7 +388,7 @@ def modify_resnets_plus(model,num_of_cls):
         age = self.classifier_age(x)
         cc=torch.cat([gender.relu(),age.relu(),x],-1)
         y = self.classifier(cc).log_softmax(-1)
-        return y,gender.log_softmax(-1),age.log_softmax(-1)
+        return y,gender.log_softmax(-1),age.log_softmax(-1),cc
 
     # Modify methods
     model.features_func = types.MethodType(features_func, model)

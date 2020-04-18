@@ -62,7 +62,7 @@ for epoch in range(options["training"]["startepoch"], options["training"]["epoch
         trainer(epoch)
     if(options["validation"]["validate"]):
         result,re_all = validator()
-        trainer.ScheduleLR(result[:4].min())
+        trainer.ScheduleLR(result.min())
         print(options['training']['save_prefix'])
         print('-'*21)
         print('All acc:'+str(re_all))

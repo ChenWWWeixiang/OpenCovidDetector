@@ -2,13 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/result_plt/plot_age_roc.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_plt/plot_mc_roc.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_plt/plot_ss_roc.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/result_plt/plot_stage_roc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/multi_period_scores/get_abnormal_detectset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/result_plt/plot_2c_roc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/result_plt/tSNE_plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_test_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_test_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/mypreprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/mypreprocess.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/net2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/net2d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" beforeDir="false" afterPath="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/options_lip.toml" beforeDir="false" afterPath="$PROJECT_DIR$/options_lip.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_plt/plot_mc_roc.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_plt/plot_mc_roc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.toml" beforeDir="false" afterPath="$PROJECT_DIR$/test.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/testengine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/validation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +33,8 @@
       <file leaf-file-name="options_lip.toml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/options_lip.toml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+            <state relative-caret-position="115">
+              <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -32,14 +42,67 @@
       <file leaf-file-name="testengine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testengine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="68" column="44" selection-start-line="68" selection-start-column="44" selection-end-line="68" selection-end-column="44" />
+            <state relative-caret-position="257">
+              <caret line="285" column="27" selection-start-line="285" selection-start-column="27" selection-end-line="285" selection-end-column="27" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#2844#3142#0" />
-                <element signature="e#5286#6582#0" />
-                <element signature="e#6609#7285#0" />
+                <element signature="e#2850#3182#0" />
+                <element signature="e#3242#3646#0" />
+                <element signature="e#3706#4190#0" />
+                <element signature="e#4255#4741#0" />
+                <element signature="e#4813#5278#0" />
+                <element signature="e#5847#7248#0" />
+                <element signature="e#6086#6696#0" />
+                <element signature="e#7275#7951#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="abnormal_detector.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/multi_period_scores/abnormal_detector.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="529">
+              <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_abnormal_slices.toml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot_mc_roc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/result_plt/plot_mc_roc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="94" column="83" lean-forward="true" selection-start-line="94" selection-start-column="27" selection-end-line="94" selection-end-column="83" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot_2c_roc.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/result_plt/plot_2c_roc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="73" column="71" selection-start-line="73" selection-start-column="71" selection-end-line="73" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.toml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.toml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -47,55 +110,11 @@
       <file leaf-file-name="dataset.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/dataset.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-253">
-              <caret line="802" column="19" selection-start-line="802" selection-start-column="13" selection-end-line="802" selection-end-column="19" />
+            <state relative-caret-position="222">
+              <caret line="746" selection-start-line="746" selection-end-line="746" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="training.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/training.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="103" column="45" selection-start-line="103" selection-start-column="42" selection-end-line="103" selection-end-column="45" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plot_ss_roc.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/result_plt/plot_ss_roc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="43" selection-start-line="43" selection-end-line="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plot_stage_roc.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/result_plt/plot_stage_roc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="110" selection-end-column="32" />
-              <folding>
-                <element signature="e#799#1770#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="validation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/validation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="128" selection-start-line="128" selection-end-line="128" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#32211#33114#0" />
               </folding>
             </state>
           </provider>
@@ -104,8 +123,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
+            <state relative-caret-position="1242">
+              <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -124,10 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>data_path</find>
-      <find>id</find>
-      <find>c</find>
-      <find>validator_function</find>
       <find>txs</find>
       <find>reg_succed</find>
       <find>inter_vecter_time</find>
@@ -151,9 +166,13 @@
       <find>5_78</find>
       <find>5_69_202</find>
       <find>topn</find>
-      <find>topk</find>
       <find>pos_count</find>
       <find>_validate_mc2</find>
+      <find>mask_name</find>
+      <find>padding</find>
+      <find>pos</find>
+      <find>topk</find>
+      <find>averageEnergies</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -170,12 +189,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/multi_period_analysis/moving_4period.py" />
-        <option value="$PROJECT_DIR$/data/extract_abnormal_Set.py" />
-        <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" />
-        <option value="$PROJECT_DIR$/models/net2d.py" />
-        <option value="$PROJECT_DIR$/data/resample.py" />
-        <option value="$PROJECT_DIR$/multi_period_analysis/registration.py" />
         <option value="$PROJECT_DIR$/models/grad_volume.py" />
         <option value="$PROJECT_DIR$/data/get_ild_infomation.py" />
         <option value="$PROJECT_DIR$/get_CAP_infomaion.py" />
@@ -184,7 +197,6 @@
         <option value="$PROJECT_DIR$/all_ages_genders.txt" />
         <option value="$PROJECT_DIR$/ild_preprocess.py" />
         <option value="$PROJECT_DIR$/data/lidcpreprocess.py" />
-        <option value="$PROJECT_DIR$/data/mypreprocess.py" />
         <option value="$PROJECT_DIR$/multi_period_analysis/knn_predict.py" />
         <option value="$PROJECT_DIR$/analysis_tools/all_ages_genders.txt" />
         <option value="$PROJECT_DIR$/analysis_tools/age_sex.csv" />
@@ -200,27 +212,34 @@
         <option value="$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py" />
         <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
         <option value="$PROJECT_DIR$/data/filter_img.py" />
-        <option value="$PROJECT_DIR$/test.toml" />
         <option value="$PROJECT_DIR$/analysis_tools/analysis_zs.py" />
         <option value="$PROJECT_DIR$/models/Dense3D.py" />
         <option value="$PROJECT_DIR$/data/get_set_seperate.py" />
         <option value="$PROJECT_DIR$/options_3d.toml" />
         <option value="$PROJECT_DIR$/data/test_hu.py" />
-        <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
-        <option value="$PROJECT_DIR$/data/get_test_list.py" />
         <option value="$PROJECT_DIR$/data/4cls_test.list" />
-        <option value="$PROJECT_DIR$/data/dataset.py" />
-        <option value="$PROJECT_DIR$/testengine.py" />
-        <option value="$PROJECT_DIR$/training.py" />
-        <option value="$PROJECT_DIR$/validation.py" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/options_lip.toml" />
         <option value="$PROJECT_DIR$/plot_mc_roc.py" />
         <option value="$PROJECT_DIR$/plot_ss_roc.py" />
         <option value="$PROJECT_DIR$/result_plt/plot_age_roc.py" />
         <option value="$PROJECT_DIR$/result_plt/plot_ss_roc.py" />
-        <option value="$PROJECT_DIR$/result_plt/plot_mc_roc.py" />
         <option value="$PROJECT_DIR$/result_plt/plot_stage_roc.py" />
+        <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_detectset.py" />
+        <option value="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" />
+        <option value="$PROJECT_DIR$/data/mypreprocess.py" />
+        <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
+        <option value="$PROJECT_DIR$/options_lip.toml" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/result_plt/tSNE_plot.py" />
+        <option value="$PROJECT_DIR$/data/get_test_list.py" />
+        <option value="$PROJECT_DIR$/models/net2d.py" />
+        <option value="$PROJECT_DIR$/training.py" />
+        <option value="$PROJECT_DIR$/validation.py" />
+        <option value="$PROJECT_DIR$/test.toml" />
+        <option value="$PROJECT_DIR$/data/dataset.py" />
+        <option value="$PROJECT_DIR$/testengine.py" />
+        <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" />
+        <option value="$PROJECT_DIR$/result_plt/plot_mc_roc.py" />
+        <option value="$PROJECT_DIR$/result_plt/plot_2c_roc.py" />
       </list>
     </option>
   </component>
@@ -248,6 +267,18 @@
               <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
               <item name="result_plt" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
+              <item name="result_plt" type="462c0819:PsiDirectoryNode" />
+              <item name="csvs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
+              <item name="result_plt" type="462c0819:PsiDirectoryNode" />
+              <item name="jpgs" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -257,21 +288,21 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/cwx/extra/Lipreading-DenseNet3D-master/testengine.py" />
-    <property name="last_opened_file_path" value="/mnt/data2/densenet.pytorch" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/result_plt" />
+      <recent name="$PROJECT_DIR$/multi_period_scores" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/analysis_tools" />
+      <recent name="$PROJECT_DIR$/saves" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/analysis_tools" />
       <recent name="$PROJECT_DIR$/saves" />
       <recent name="$PROJECT_DIR$/data/txt" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/result_plt" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/analysis_tools" />
-      <recent name="$PROJECT_DIR$/saves" />
-      <recent name="$PROJECT_DIR$/ipt_results" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -286,8 +317,44 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.plot_stage_roc">
-    <configuration name="plot_age_roc" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.plot_2c_roc">
+    <configuration name="abnormal_detector" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Lipreading-DenseNet3D-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/multi_period_scores" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="get_test_list" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Lipreading-DenseNet3D-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/get_test_list.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="plot_2c_roc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -299,13 +366,13 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/result_plt/plot_age_roc.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/result_plt/plot_2c_roc.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="plot_mc_roc (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="plot_mc_roc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -318,42 +385,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/result_plt/plot_mc_roc.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="plot_ss_roc (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Lipreading-DenseNet3D-master" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/result_plt" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/result_plt/plot_ss_roc.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="plot_stage_roc" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Lipreading-DenseNet3D-master" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/result_plt" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/result_plt/plot_stage_roc.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -378,19 +409,19 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
+      <item itemvalue="Python.abnormal_detector" />
+      <item itemvalue="Python.get_test_list" />
       <item itemvalue="Python.testengine" />
-      <item itemvalue="Python.plot_ss_roc (1)" />
-      <item itemvalue="Python.plot_age_roc" />
-      <item itemvalue="Python.plot_mc_roc (1)" />
-      <item itemvalue="Python.plot_stage_roc" />
+      <item itemvalue="Python.plot_2c_roc" />
+      <item itemvalue="Python.plot_mc_roc" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.plot_stage_roc" />
+        <item itemvalue="Python.plot_2c_roc" />
+        <item itemvalue="Python.plot_mc_roc" />
+        <item itemvalue="Python.abnormal_detector" />
         <item itemvalue="Python.testengine" />
-        <item itemvalue="Python.plot_ss_roc (1)" />
-        <item itemvalue="Python.plot_age_roc" />
-        <item itemvalue="Python.plot_mc_roc (1)" />
+        <item itemvalue="Python.get_test_list" />
       </list>
     </recent_temporary>
   </component>
@@ -404,13 +435,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1582022748789</updated>
-    </task>
-    <task id="LOCAL-00007" summary="add pic to readme">
-      <created>1585746231058</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1585746231058</updated>
     </task>
     <task id="LOCAL-00008" summary="add pic to readme">
       <created>1585746262888</created>
@@ -748,23 +772,30 @@
       <option name="project" value="LOCAL" />
       <updated>1587121709366</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="plot tools">
+      <created>1587138727368</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1587138727368</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="28" width="1932" height="1034" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7923729" visible="true" weight="0.1889182" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7879925" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50079155" side_tool="true" weight="0.33145434" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.4430665" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32919955" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.46786922" />
-      <window_info id="Structure" order="1" sideWeight="0.20762712" side_tool="true" visible="true" weight="0.1889182" />
+      <window_info id="Structure" order="1" sideWeight="0.21200751" side_tool="true" weight="0.1889182" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.421646" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.41826382" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -805,7 +836,8 @@
     <MESSAGE value="ana_tools" />
     <MESSAGE value="4cls training" />
     <MESSAGE value="better structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="better structure" />
+    <MESSAGE value="plot tools" />
+    <option name="LAST_COMMIT_MESSAGE" value="plot tools" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -897,7 +929,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/validation.py</url>
-          <line>167</line>
+          <line>168</line>
           <option name="timeStamp" value="581" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -967,7 +999,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>273</line>
+          <line>293</line>
           <option name="timeStamp" value="745" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1062,7 +1094,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/validation.py</url>
-          <line>115</line>
+          <line>116</line>
           <option name="timeStamp" value="1028" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1081,14 +1113,14 @@
           <option name="timeStamp" value="1042" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="1050" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/result_plt/plot_stage_roc.py</url>
           <line>124</line>
           <option name="timeStamp" value="1077" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/testengine.py</url>
+          <line>231</line>
+          <option name="timeStamp" value="1085" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1101,150 +1133,66 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1080" />
+      <option name="time" value="1087" />
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="deep_feaures.cpu().numpy().shape" language="Python" />
+        <watch expression="deep_feaures.cpu().numpy()[:valid_length,:].mean(0).shape" language="Python" />
+        <watch expression="labels.cpu().numpy()" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
       <expression>
-        <expression-string>pre / pre.max(axis=0)</expression-string>
+        <expression-string>labels.cpu().numpy()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.stack(STAGEI[:,0])</expression-string>
+        <expression-string>deep_feaures.cpu().numpy()[:valid_length,:].mean(0).shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.array(STAGEI[:,0])</expression-string>
+        <expression-string>deep_feaures.cpu().numpy()[:valid_length,:].mean(1).shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.array(STAGEI[:,0],np.float)</expression-string>
+        <expression-string>deep_feaures.cpu().numpy()[:valid_length,:].mean(1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>pre</expression-string>
+        <expression-string>deep_feaures.cpu().numpy()[:valid_length,:]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>pre[4:6]</expression-string>
+        <expression-string>deep_feaures.cpu().numpy().shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>pre[4:5]</expression-string>
+        <expression-string>deep_feaures.cpu().numpy()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>pre[:,4:5]</expression-string>
+        <expression-string>names_id</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>label_binarize(np.array(gt,np.int), np.arange(4))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>gt</expression-string>
+        <expression-string />
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/analysis_tools/cluster_tend.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="90" column="67" lean-forward="true" selection-start-line="90" selection-start-column="67" selection-end-line="90" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/registration.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="58" lean-forward="true" selection-end-line="142" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/radiomics/RadiomicsParams.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster_script.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="75" column="32" lean-forward="true" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/reg_to_one.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="46" column="28" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/cluster15.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/analysis_lesion_size.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="18" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
-          <folding>
-            <element signature="e#225#1182#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/analysis_gt_lesion_pattern.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/txt/test5cls1000.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="3179" column="36" selection-start-line="3179" selection-start-column="33" selection-end-line="3179" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/txt/train4cls.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8043" column="47" lean-forward="true" selection-start-line="8043" selection-start-column="47" selection-end-line="8043" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../move_new.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-851">
-          <caret line="26" column="61" selection-start-line="26" selection-start-column="61" selection-end-line="26" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-414">
@@ -1267,13 +1215,6 @@
             <element signature="e#7009#7277#0" />
             <element signature="e#7328#7696#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multi_period_scores/abnormal_detector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="29" column="33" lean-forward="true" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -1302,13 +1243,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="3" column="56" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -1371,13 +1305,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/get_set_seperate_jpg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="11" column="68" selection-start-line="11" selection-start-column="68" selection-end-line="11" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/test_hu.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
@@ -1391,13 +1318,6 @@
     <entry file="file://$PROJECT_DIR$/data/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/get_test_list.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="19" column="65" selection-start-line="19" selection-start-column="65" selection-end-line="19" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/25d_net.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1357">
@@ -1405,81 +1325,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/net2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2103">
-          <caret line="374" selection-start-line="374" selection-end-line="374" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/4cls_test.list">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-253">
-          <caret line="802" column="19" selection-start-line="802" selection-start-column="13" selection-end-line="802" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="128" selection-start-line="128" selection-end-line="128" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="64" column="37" selection-start-line="64" selection-start-column="37" selection-end-line="64" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/options_lip.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="103" column="45" selection-start-line="103" selection-start-column="42" selection-end-line="103" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testengine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="68" column="44" selection-start-line="68" selection-start-column="44" selection-end-line="68" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#2844#3142#0" />
-            <element signature="e#5286#6582#0" />
-            <element signature="e#6609#7285#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/saves/results_mc.csv">
+      <provider editor-type-id="csv-text-editor" />
       <provider selected="true" editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
           <column index="0" width="100" />
@@ -1495,29 +1342,11 @@
           <column index="10" width="100" />
         </state>
       </provider>
-      <provider editor-type-id="csv-text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_ss_roc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="77" column="18" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
-          <folding>
-            <element signature="e#284#594#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plot_mc_roc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_ss_roc.py" />
+    <entry file="file://$PROJECT_DIR$/plot_mc_roc.py" />
     <entry file="file://$PROJECT_DIR$/saves/results_ss.csv">
+      <provider editor-type-id="csv-text-editor" />
       <provider selected="true" editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
           <column index="0" width="100" />
@@ -1533,24 +1362,9 @@
           <column index="10" width="100" />
         </state>
       </provider>
-      <provider editor-type-id="csv-text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/view_segs/0_10.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view_segs/0_6.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/result_plt/plot_mc_roc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="108" column="16" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/view_segs/0_10.jpg" />
+    <entry file="file://$PROJECT_DIR$/view_segs/0_6.jpg" />
     <entry file="file://$PROJECT_DIR$/result_plt/plot_age_roc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
@@ -1558,20 +1372,220 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/result_plt/plot_ss_roc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/result_plt/plot_stage_roc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="110" selection-end-column="32" />
+        <state relative-caret-position="991">
+          <caret line="119" column="19" lean-forward="true" selection-start-line="119" selection-start-column="19" selection-end-line="119" selection-end-column="19" />
           <folding>
             <element signature="e#799#1770#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/SimpleITK/SimpleITK.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="8875" selection-start-line="8875" selection-end-line="8875" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_detectset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="12" column="52" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/mypreprocess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/txt/locating_test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="34" selection-start-column="31" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/get_set_seperate_jpg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="17" column="42" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/options_lip.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/4cls_test.list">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" column="70" lean-forward="true" selection-start-line="17" selection-start-column="70" selection-end-line="17" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_roc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1334">
+          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/plot_ss_roc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/get_test_list.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="32" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/tSNE_plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/cap_vs_covid_test.list">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17450">
+          <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/net2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8809">
+          <caret line="390" column="62" selection-start-line="390" selection-start-column="60" selection-end-line="390" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/training.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3542">
+          <caret line="164" column="23" selection-start-line="164" selection-start-column="23" selection-end-line="164" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="110" column="37" selection-start-line="110" selection-start-column="37" selection-end-line="110" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="746" selection-start-line="746" selection-end-line="746" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#32211#33114#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testengine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="285" column="27" selection-start-line="285" selection-start-column="27" selection-end-line="285" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#2850#3182#0" />
+            <element signature="e#3242#3646#0" />
+            <element signature="e#3706#4190#0" />
+            <element signature="e#4255#4741#0" />
+            <element signature="e#4813#5278#0" />
+            <element signature="e#5847#7248#0" />
+            <element signature="e#6086#6696#0" />
+            <element signature="e#7275#7951#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/abnormal_detector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/jpgs/pr_cap_vs_covid.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/jpgs/roc_cap_vs_covid.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/csvs/cap_vs_covid.csv">
+      <provider editor-type-id="csv-text-editor" />
+      <provider selected="true" editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
+          <column index="0" width="100" />
+          <column index="1" width="100" />
+          <column index="2" width="100" />
+          <column index="3" width="100" />
+          <column index="4" width="100" />
+          <column index="5" width="100" />
+          <column index="6" width="100" />
+          <column index="7" width="100" />
+          <column index="8" width="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/plot_mc_roc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="94" column="83" lean-forward="true" selection-start-line="94" selection-start-column="27" selection-end-line="94" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/plot_2c_roc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="73" column="71" selection-start-line="73" selection-start-column="71" selection-end-line="73" selection-end-column="71" />
         </state>
       </provider>
     </entry>
