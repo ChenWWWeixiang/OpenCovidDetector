@@ -2,13 +2,14 @@ from torch.autograd import Variable
 import torch
 import torch.optim as optim
 from datetime import datetime, timedelta
-from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset,NCPJPGDataset_new
+from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset,NCPJPGDataset_new,NCPJPGtestDataset_new
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
 import torch.nn as nn
 import os
 import pdb
 import math
+USE_25D=False
 class NLLSequenceLoss(torch.nn.Module):
     """
     Custom loss function.
@@ -67,11 +68,17 @@ class Trainer():
         self.weightdecay = options["training"]["weightdecay"]
         self.momentum = options["training"]["momentum"]
         self.save_prefix = options["training"]["save_prefix"]
+
         if options['general']['use_slice']:
-            self.trainingdataset =NCPJPGDataset_new(options["training"]["data_root"],
+            if USE_25D:
+                f = 'data/3cls_train.list'
+                self.trainingdataset = NCPJPGtestDataset_new(options["training"]["padding"],
+                                                f, cls_num=self.cls_num, mod=options['general']['mod'])
+            else:
+                self.trainingdataset = NCPJPGDataset_new(options["training"]["data_root"],
                                                 options["training"]["index_root"],
                                                 options["training"]["padding"],
-                                                True,cls_num=self.cls_num,mod=options['general']['mod'])#
+                                                True,cls_num=self.cls_num,mod=options['general']['mod'])
         else:
             if options['general']['use_3d']:
                 self.trainingdataset = NCPDataset(options["training"]["data_root"],
@@ -100,13 +107,14 @@ class Trainer():
             self.criterion=self.model.loss()
         else:
             #criterion=nn.
-            w=torch.Tensor(self.trainingdataset.get_w()).cuda()
+           # w=torch.Tensor(self.trainingdataset.get_w()).cuda()
             #w = torch.Tensor([0.6,1.2,0.3,0.8]).cuda()
-            self.criterion =nn.NLLLoss(weight=w).cuda()#0.3,0.7
+            self.criterion =nn.NLLLoss().cuda()#0.3,0.7
             if self.use_plus:
                 self.criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
                 self.criterion_gender = nn.NLLLoss(ignore_index=-1,
                                               weight=torch.Tensor([0.3, 0.7]).cuda()).cuda()
+                self.criterion_pos=nn.SmoothL1Loss().cuda()
         if self.use_lstm:
             self.criterion=NLLSequenceLoss()
         if(self.usecudnn):
@@ -128,26 +136,37 @@ class Trainer():
             self.optimizer.zero_grad()
             input = Variable(sample_batched['temporalvolume'])
             labels = Variable(sample_batched['label'])
-            length = Variable(sample_batched['length'])
+            #length = Variable(len(sample_batched['length'][1]))
             if self.use_plus:
                 age = Variable(sample_batched['age']).cuda()
                 gender = Variable(sample_batched['gender']).cuda()
+                pos=Variable(sample_batched['pos']).cuda()
            # break
+            if USE_25D:
+                input = input.squeeze(0)
+                input = input.permute(1, 0, 2, 3)
             if(self.usecudnn):
                 input = input.cuda()
                 labels = labels.cuda()
             if not self.use_plus:
                 outputs = self.net(input)
             else:
-                outputs,out_gender,out_age,deep_feaures=self.net(input)
+                outputs,out_gender,out_age,out_pos,deep_feaures=self.net(input)
             if self.use_3d or self.use_lstm:
                 loss = self.criterion(outputs, length,labels.squeeze(1))
             elif self.use_plus:
-                l1 = self.criterion(outputs, labels.squeeze(1))
-                #l2 = (criterion_age(out_age,age/90)*(age>0)).sum()/(age>0).sum()
-                l2 = self.criterion_age(out_age, (age//20).squeeze(1))
-                l3 = self.criterion_gender(out_gender,gender.squeeze(1))
-                loss=l1+l2*0.5+l3*0.8
+                if USE_25D:
+                    l1 = self.criterion(outputs.unsqueeze(0), labels.squeeze(1))
+                    #l4=self.criterion_pos(out_pos.unsqueeze(0),pos)
+                    l2 = self.criterion_age(out_age.unsqueeze(0), (age//20).squeeze(1))
+                    l3 = self.criterion_gender(out_gender.unsqueeze(0),gender.squeeze(1))
+                    loss = l1 + l2 * 0.5 + l3 * 0.8
+                else:
+                    l1 = self.criterion(outputs, labels.squeeze(1))
+                    l4=self.criterion_pos(out_pos,pos)
+                    l2 = self.criterion_age(out_age, (age//20).squeeze(1))
+                    l3 = self.criterion_gender(out_gender,gender.squeeze(1))
+                    loss=l1+l2*0.5+l3*0.8+0.4*l4
             else:
                 loss = self.criterion(outputs, labels.squeeze(1))
             loss.backward()

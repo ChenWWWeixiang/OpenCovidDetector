@@ -66,7 +66,7 @@ with open(args.output_file,'w') as f:
             for cls in range(3):
                 recall.append(np.sum((prediction == cls) * (groundtruth == cls)) / np.sum(groundtruth == cls))
                 precision.append(np.sum((prediction == cls) * (groundtruth == cls)) / np.sum(prediction == cls))
-                sauc.append(metric.roc_auc_score(train_y[cls, :], train_x[cls, :]))
+                sauc.append(metric.roc_auc_score(train_y[:,cls], train_x[:,cls]))
             SAUC.append(sauc)
             REC.append(recall)
             PRE.append(precision)

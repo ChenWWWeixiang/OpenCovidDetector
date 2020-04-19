@@ -5,9 +5,10 @@ from datetime import datetime, timedelta
 
 from torch.utils.data import DataLoader
 import torch.nn as nn
-from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset,NCPJPGDataset_new
+from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset,NCPJPGDataset_new,NCPJPGtestDataset_new
 import os,cv2
 import numpy as np
+USE_25D=False
 def _validate(modelOutput, length, labels, total=None, wrong=None):
 
     averageEnergies = torch.mean(modelOutput.data, 1)
@@ -49,11 +50,16 @@ class Validator():
         self.batchsize = options["input"]["batchsize"]
         self.use_slice=options['general']['use_slice']
         if options['general']['use_slice']:
-            self.validationdataset = NCPJPGDataset_new(options[mode]["data_root"],
-                                                    options[mode]["index_root"],
-                                                    options[mode]["padding"],
-                                                    False,cls_num=self.cls_num,
-                                                    mod=options['general']['mod'])
+            if USE_25D:
+                f = 'data/3cls_test.list'
+                self.validationdataset = NCPJPGtestDataset_new(options["training"]["padding"],
+                                                             f, cls_num=self.cls_num, mod=options['general']['mod'])
+            else:
+                self.validationdataset = NCPJPGDataset_new(options[mode]["data_root"],
+                                                        options[mode]["index_root"],
+                                                        options[mode]["padding"],
+                                                        False,cls_num=self.cls_num,
+                                                        mod=options['general']['mod'])
         else:
             if options['general']['use_3d']:
                 self.validationdataset = NCPDataset(options[mode]["data_root"],
@@ -102,16 +108,24 @@ class Validator():
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
-                length = Variable(sample_batched['length']).cuda()
+                #length = Variable(sample_batched['length']).cuda()
                 if self.use_plus:
                     age = Variable(sample_batched['age']).cuda()
                     gender = Variable(sample_batched['gender']).cuda()
 
+                if USE_25D:
+                    input = input.squeeze(0)
+                    input = input.permute(1, 0, 2, 3)
 
                 if not self.use_plus:
                     outputs = net(input)
                 else:
-                    outputs, out_gender, out_age,deep_feaures = net(input)
+                    outputs, out_gender, out_age,out_pos,deep_feaures = net(input)
+                if USE_25D:
+                    outputs=outputs.unsqueeze(0)
+                    out_gender = out_gender.unsqueeze(0)
+                    out_age = out_age.unsqueeze(0)
+                    out_pos = out_pos.unsqueeze(0)
                 if self.use_3d or self.use_lstm:
                     (outputs, top1) = validator_function(outputs, length,labels)
                     _, maxindices = outputs.cpu().max(1)##vector--outputs

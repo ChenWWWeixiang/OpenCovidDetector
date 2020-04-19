@@ -5,11 +5,11 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-o", "--outputfile", help="output file's name", type=str,
-                    default='withfake_features.csv')
+                    default='new_r_features.csv')
 parser.add_argument("-m", "--inputmask", help="input mask root", type=str,
-                    default='mask/')
+                    default='/mnt/data9/covid_detector_jpgs/cam/mask/')
 parser.add_argument("-r", "--inputimgs", help="input data root", type=str,
-                    default='img/')
+                    default='/mnt/data9/covid_detector_jpgs/cam/pre/')
 args = parser.parse_args()
 
 o_img_nii = args.inputimgs
@@ -18,26 +18,19 @@ extractor = featureextractor.RadiomicsFeatureExtractor('RadiomicsParams.yaml')
 
 
 
-with open(args.outputfile, 'w', newline='') as f:
+with open(args.outputfile, 'w+', newline='') as f:
     writer = csv.writer(f)
     for i,name in enumerate(os.listdir(o_img_nii)):
-        #print(name)
-        if not name[0]=='c' and i%4>=1:
-            continue
+
         row = ['id', 'label']
-        row_next = [name, 1-(name[0]=='c')]
-        if name[0]=='c':
-            listall=os.listdir(o_msk_nii)
-            listall=[item for item in listall if not item[0]=='c']
-            n_fake=listall[np.random.randint(0,len(listall))]
-        else:
-            n_fake=name
+        row_next = [name, 'cap' in name]
+
         imageName=os.path.join(o_img_nii,name)
-        maskName=os.path.join(o_msk_nii,n_fake)
+        maskName=os.path.join(o_msk_nii,name)
         try:
             result = extractor.execute(imageName, maskName)
             for idx, (key, val) in enumerate(six.iteritems(result)):
-                if idx<14:
+                if idx<11:
                     continue
                 if not isinstance(val,(float,int,np.ndarray)):
                     continue

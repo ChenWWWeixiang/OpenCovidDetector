@@ -372,6 +372,7 @@ def modify_resnets_plus(model,num_of_cls):
     model.classifier = torch.nn.Linear(2048+7,num_of_cls)
     model.classifier_gender = torch.nn.Linear(2048, 2)
     model.classifier_age = torch.nn.Linear(2048, 5)
+    model.regress_pos = torch.nn.Linear(2048, 1)
 
     model.features=torch.nn.Sequential(model.conv1,model.bn1,model.relu,model.maxpool,
                                        model.layer1,model.layer2,model.layer3,model.layer4,model.avgpool)
@@ -384,11 +385,13 @@ def modify_resnets_plus(model,num_of_cls):
     def forward(self, input):
         x = self.features_func(input)
         x = x.view(x.size(0), -1)
+        #x = x.mean(0)
+        #pos=self.regress_pos(x).sigmoid()
         gender = self.classifier_gender(x)
         age = self.classifier_age(x)
         cc=torch.cat([gender.relu(),age.relu(),x],-1)
         y = self.classifier(cc).log_softmax(-1)
-        return y,gender.log_softmax(-1),age.log_softmax(-1),cc
+        return y,gender.log_softmax(-1),age.log_softmax(-1),cc,cc
 
     # Modify methods
     model.features_func = types.MethodType(features_func, model)

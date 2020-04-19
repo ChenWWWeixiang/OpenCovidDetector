@@ -1,6 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore")
 import seaborn as sns
+from sklearn.externals import joblib
 from sklearn.metrics import mean_squared_error
 from sklearn.linear_model import Lasso,LassoCV,LassoLarsCV
 from sklearn.model_selection import cross_val_score,train_test_split,KFold
@@ -11,20 +12,21 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-i", "--input_csv", help="input file's name", type=str,
-                    default='withfake_features.csv')
+                    default='new_r_features.csv')
 
 args = parser.parse_args()
 df = pd.read_csv(args.input_csv,error_bad_lines=False)
-cls=df.pop('label')
+cls=df.pop('label').astype(int)
+
 id=df.pop('id')
-#M=df.max()._values
-#m=df.min()._values
+M=df.max()._values
+m=df.min()._values
 #np.save('M.npy',M)
 #np.save('m.npy',m)
-#df=(df - df.min()) / (df.max() - df.min())
+df=(df - df.min()) / (df.max() - df.min())
 
-Lambdas=np.logspace(-7,0,100)
-model = LassoCV(cv=10,alphas=Lambdas).fit(df._values, cls._values)
+#Lambdas=np.logspace(-7,0,100)
+model = LassoCV(cv=10).fit(df._values, cls._values)
 
 # Display results
 m_log_alphas = -np.log10(model.alphas_)
@@ -80,8 +82,9 @@ f.savefig('corr_heatmap_before.jpg', bbox_inches='tight')
 
 model = Lasso(alpha=model.alpha_)
 model.fit(df._values, cls._values)
+
 coef = pd.Series(model.coef_, index = df.columns)
-coef[coef.abs()<3e-3]=0
+#coef[coef.abs()<3e-3]=0
 print("Lasso picked " + str(sum(coef != 0)) + " variables and eliminated the other " +  str(sum(coef == 0)) + " variables")
 #print(rmse_cv(model).mean())
 
@@ -95,16 +98,18 @@ f.savefig('corr_heatmap_after.jpg', bbox_inches='tight')
 sns.clustermap(after_df, row_colors=row_colors,standard_scale=1,figsize=(10, 20))
 plt.title('Cluster Heatmap of Features After LASSO',x=10,y=1,fontsize=20)
 plt.savefig("After_CHM.jpg")
-imp_coef = coef[coef!=0]
-#imp_coef.sort()
-name=np.where(coef!=0)[0]
-co=imp_coef.values
-saving=np.save('coefs.npy',np.stack([name,co],-1))
+
+
+
+#saving=np.save('coefs.npy',np.stack([name,co],-1))
 #matplotlib.rcParams['figure.figsize'] = (8.0, 10.0)
 plt.figure(figsize=(18,6))
+imp_coef = pd.concat([coef.sort_values().head(5),
+                     coef.sort_values().tail(5)])
 imp_coef.plot(kind = "barh",fontsize=7)
 print(imp_coef.keys())
 #print(imp_coef.values)
 plt.axis('tight')
 plt.title("Coefficients in the Lasso Model",fontsize=20)
-plt.savefig("CIM.jpg", bbox_inches='tight')
+plt.savefig("coffs.jpg", bbox_inches='tight')
+joblib.dump(model, "train_model.m")

@@ -644,12 +644,11 @@ class NCPJPGDataset_new(Dataset):
         self.padding = padding
         self.augment = augment
         self.cls_num=cls_num
-        self.train_augmentation = transforms.Compose([transforms.Resize(288),##just for abnormal detector
-                                                     transforms.RandomCrop(224),
+        self.train_augmentation = transforms.Compose([transforms.Resize(256),##just for abnormal detector
+
                                                      #transforms.RandomRotation(45),
-                                                     transforms.RandomHorizontalFlip(0.2),
-                                                     transforms.RandomVerticalFlip(0.2),
                                                      transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
+                                                     transforms.RandomCrop(224),
 
                                                      transforms.ToTensor(),
                                                      transforms.RandomErasing(p=0.1),
@@ -711,7 +710,7 @@ class NCPJPGDataset_new(Dataset):
         data=Image.open(data_path)
         age = int(data_path.split('_')[-3])
         gender = int(data_path.split('_')[-2]=='M')
-
+        pos=int(data_path.split('_')[-1].split('.')[0])
         if self.augment:
             data=self.train_augmentation(data)
         else:
@@ -720,7 +719,8 @@ class NCPJPGDataset_new(Dataset):
             'label': torch.LongTensor([cls]),
             'length':torch.LongTensor([1]),
             'gender':torch.LongTensor([gender]),
-            'age':torch.LongTensor([age])
+            'age':torch.LongTensor([age]),
+            'pos':torch.FloatTensor([pos/100])
             }
 
 class NCPJPGtestDataset_new(Dataset):
@@ -804,19 +804,20 @@ class NCPJPGtestDataset_new(Dataset):
         volume=sitk.ReadImage(data_path)
         data=sitk.GetArrayFromImage(volume)
         M=M[:data.shape[0],:,:]
+        M[M>1]=1
         valid=np.where(M.sum(1).sum(1)>500)
         data = data[valid[0], :, :]
         M = M[valid[0], :data.shape[1], :data.shape[2]]
         data=data[:M.shape[0],:M.shape[1],:M.shape[2]]
-        temporalvolume,name = self.bbc(data, self.padding,M)
+        temporalvolume,pos = self.bbc(data, self.padding,M)
         age = int(data_path.split('_')[-2])
         gender = int(data_path.split('_')[-1].split('.nii')[0]=='M')
         return {'temporalvolume': temporalvolume,
             'label': torch.LongTensor([cls]),
-            'length':[data_path,name],
+            'length':[data_path,pos],
             'gender': torch.LongTensor([gender]),
-            'age': torch.LongTensor([age])
-
+            'age': torch.LongTensor([age]),
+            'pos':torch.FloatTensor([pos])
             }
 
     def bbc(self,V, padding,pre=None):
@@ -832,7 +833,7 @@ class NCPJPGtestDataset_new(Dataset):
             data[data > 700] = 700
             data[data < -1200] = -1200
             data = data * 255.0 / 1900
-            name.append(i)
+            name.append(float(i/V.shape[0]))
             data = data - data.min()
             data = np.concatenate([pre[i-1:i, :, :] * 255,data], 0)  # mask one channel
             data = data.astype(np.uint8)

@@ -37,7 +37,7 @@ imageType:
 # Featureclasses, from which features must be calculated. If a featureclass is not mentioned, no features are calculated
 # for that class. Otherwise, the specified features are calculated, or, if none are specified, all are calculated.
 featureClass:
-  #shape:  # disable redundant Compactness 1 and Compactness 2 features by specifying all other shape features
+  shape2D:  # disable redundant Compactness 1 and Compactness 2 features by specifying all other shape features
   firstorder: 
   glcm:  
   glrlm: # for lists none values are allowed, in this case, all features are enabled

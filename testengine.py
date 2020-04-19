@@ -14,7 +14,7 @@ import numpy as np
 #from models.g_cam import GuidedPropo
 import matplotlib as plt
 KEEP_ALL=True
-SAVE_DEEP=True
+SAVE_DEEP=False
 import argparse
 parser = argparse.ArgumentParser()
 
@@ -42,7 +42,7 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
                     #default='re/cap_vs_covid.npy')
-                    default='re/3cls_gender.npy')
+                    default='re/ab_detect.npy')
 parser.add_argument("-d", "--deepsave", help="A path to save deepfeature",  type=str,
                     #default='re/cap_vs_covid.npy')
                     default='deep_f')
@@ -53,9 +53,9 @@ parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
                     #default='weights/model_covid_cap.pt')
-                    default='weights/model_3cls_gender.pt')
+                    default='weights/locating.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
-                    default='2')
+                    default='3')
 args = parser.parse_args()
 os.makedirs(args.deepsave,exist_ok=True)
 
@@ -139,6 +139,7 @@ class Validator():
             #f='data/4cls_test.list'
             f='data/cap_vs_covid_test.list'
             f='data/3cls_test.list'
+            f='data/ab_detect.list'
             #f = open('data/txt/val_list.txt', 'r')
             #f=f.readlines()
             if self.use_plus:
@@ -227,14 +228,15 @@ class Validator():
                 if not self.use_plus:
                     outputs = net(input)
                 else:
-                    outputs, out_gender, out_age,deep_feaures = net(input)
+                    outputs, out_gender, out_age,out_pos,deep_feaures = net(input)
                 if SAVE_DEEP:
                     deep_feaures=deep_feaures.cpu().numpy()[:valid_length,:].mean(0)
                     X.append(deep_feaures)
                     Y.append(labels.cpu().numpy()[0][0])
                 if KEEP_ALL:
-                    all_numpy=np.exp(outputs.cpu().numpy()[:,1]).tolist()
-                    a=1
+                    all_numpy=np.exp(outputs.cpu().numpy()[:valid_length,1])
+                    np.save('multi_period_scores/npys_re/'+name[0].split('/')[-1]+'.npy',all_numpy)
+
                 (vector, isacc,pos_count) = validator_function(outputs, labels,valid_length,self.topk)
                 _, maxindices = outputs.cpu().max(1)
                 if self.use_plus:
