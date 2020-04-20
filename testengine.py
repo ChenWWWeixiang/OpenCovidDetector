@@ -13,7 +13,7 @@ from models.net2d import densenet121,densenet161,resnet152,resnet152_plus
 import numpy as np
 #from models.g_cam import GuidedPropo
 import matplotlib as plt
-KEEP_ALL=True
+KEEP_ALL=False
 SAVE_DEEP=False
 import argparse
 parser = argparse.ArgumentParser()
@@ -42,7 +42,7 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
                     #default='re/cap_vs_covid.npy')
-                    default='re/ab_detect.npy')
+                    default='re/reader_cap_vs_covid.npy')
 parser.add_argument("-d", "--deepsave", help="A path to save deepfeature",  type=str,
                     #default='re/cap_vs_covid.npy')
                     default='deep_f')
@@ -52,10 +52,10 @@ parser.add_argument("-e", "--exclude_list", help="A path to a txt file for exclu
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    #default='weights/model_covid_cap.pt')
-                    default='weights/locating.pt')
+                    default='weights/cap_vs_covid.pt')
+                    #default='weights/healthy_or_not.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
-                    default='3')
+                    default='2')
 args = parser.parse_args()
 os.makedirs(args.deepsave,exist_ok=True)
 
@@ -139,7 +139,9 @@ class Validator():
             #f='data/4cls_test.list'
             f='data/cap_vs_covid_test.list'
             f='data/3cls_test.list'
-            f='data/ab_detect.list'
+            f='data/reader_cap_vs_covid.list'
+            #f='data/reader_healthy_vs_ill.list'
+            #f='data/ab_detect.list'
             #f = open('data/txt/val_list.txt', 'r')
             #f=f.readlines()
             if self.use_plus:

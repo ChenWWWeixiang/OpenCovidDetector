@@ -92,23 +92,29 @@ class Trainer():
                                                     options["training"]["index_root"],
                                                     options["training"]["padding"],
                                                     True)##TODO:3
+        weights = self.trainingdataset.make_weights_for_balanced_classes()
+        weights = torch.DoubleTensor(weights)
+        sampler = torch.utils.data.sampler.WeightedRandomSampler(
+            weights, len(self.trainingdataset))
 
         self.trainingdataloader = DataLoader(
                                     self.trainingdataset,
                                     batch_size=options["input"]["batchsize"],
-                                    shuffle=options["input"]["shuffle"],
+                                    #shuffle=options["input"]["shuffle"],
                                     num_workers=options["input"]["numworkers"],
-                                    drop_last=True)
+                                    drop_last=True,sampler=sampler)
 
         self.optimizer = optim.Adam(model.parameters(),lr = self.learningrate,amsgrad=True)
-        self.schedule=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer,'max')
+        self.schedule=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer,'max',
+                                                                 patience=3, factor=.3, threshold=1e-3, verbose=True)
         self.model=model
         if self.use_3d:
             self.criterion=self.model.loss()
         else:
             #criterion=nn.
-           # w=torch.Tensor(self.trainingdataset.get_w()).cuda()
-            #w = torch.Tensor([0.6,1.2,0.3,0.8]).cuda()
+            #w=torch.Tensor(self.trainingdataset.get_w()).cuda()
+            #print(w)
+            #w = torch.Tensor([0.4,0.4,0.2]).cuda()
             self.criterion =nn.NLLLoss().cuda()#0.3,0.7
             if self.use_plus:
                 self.criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
@@ -166,7 +172,7 @@ class Trainer():
                     l4=self.criterion_pos(out_pos,pos)
                     l2 = self.criterion_age(out_age, (age//20).squeeze(1))
                     l3 = self.criterion_gender(out_gender,gender.squeeze(1))
-                    loss=l1+l2*0.5+l3*0.8+0.4*l4
+                    loss=l1+l2*0.5+l3*0.8+0.8*l4
             else:
                 loss = self.criterion(outputs, labels.squeeze(1))
             loss.backward()

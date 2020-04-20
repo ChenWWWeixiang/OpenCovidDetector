@@ -1,9 +1,9 @@
 import os,random
 data_path='/home/cwx/extra/covid_project_data'
 seg_path='/home/cwx/extra/covid_project_segs'
-nums=[50,50]
-sets=['cap','covid']
-with open('reader_cap_vs_covid.list','w') as f:
+nums=[50,25,25]
+sets=['healthy','cap2','covid']
+with open('reader_healthy_vs_ill.list','w') as f:
     ALL=[]
     with open('3cls_test.list','r') as l:
         data=l.readlines()
@@ -16,8 +16,8 @@ with open('reader_cap_vs_covid.list','w') as f:
             for one in selected:
                 find_name=set_this+'/'+one
                 print(find_name)
-                find_items=[da for da in this_data_t if find_name in da]
+                find_items=[da for da in data if find_name in da]
                 ALL.append(find_items[0])
     random.shuffle(ALL)
     for i in range(len(ALL)):
-        f.writelines(str(i)+','+ALL[i]+'\n')
+        f.writelines(ALL[i])

@@ -47,8 +47,6 @@ for idx,name in enumerate(name_list):
             continue
     if set_name=='cap' and person_id>300:
         continue
-    if set_name=='ild' and person_id>84:
-        continue
     if set_name=='covid' and set_id>5:
         continue
     volume = sitk.ReadImage(os.path.join(input_path,name))
@@ -59,7 +57,11 @@ for idx,name in enumerate(name_list):
         L = sitk.ReadImage(os.path.join(input_lesion_mask, lesion_name))
         L = sitk.GetArrayFromImage(L)
         L[L>0]=1
-
+    if  set_name=='cap':
+        lesion_name =  'cap_' + name.split('.nii')[0]+'_label.nrrd'
+        L = sitk.ReadImage(os.path.join(input_lesion_mask, lesion_name))
+        L = sitk.GetArrayFromImage(L)
+        L[L>0]=1
     try:
         mask=sitk.ReadImage(os.path.join(input_mask,mask_name))
     except:
@@ -73,7 +75,7 @@ for idx,name in enumerate(name_list):
     idd=np.where(sums>500)[0]
     M=M[idd,:,:]
     V=V[idd,:,:]
-    if set_name=='covid':
+    if set_name=='covid' or set_name=='cap':
         L = L[idd, :, :]
         sums2 = L.sum(1).sum(1)
         sums2=np.where(sums2>50)[0]
@@ -83,7 +85,7 @@ for idx,name in enumerate(name_list):
     V_set=[]
     #for idx, i in enumerate(range(V.shape[0] - 40, 45, -5)):
     for idx, i in enumerate(range(1,V.shape[0]-3,3)):
-        if set_name=='covid':
+        if set_name=='covid' or set_name=='cap':
             if not i in sums2:
                 continue
         data=V[i-1:i+2,:,:]

@@ -87,8 +87,11 @@ coef = pd.Series(model.coef_, index = df.columns)
 #coef[coef.abs()<3e-3]=0
 print("Lasso picked " + str(sum(coef != 0)) + " variables and eliminated the other " +  str(sum(coef == 0)) + " variables")
 #print(rmse_cv(model).mean())
+imp_coef = pd.concat([coef.sort_values().head(5),
+                     coef.sort_values().tail(5)])
 
-after_df = df.iloc[:,(coef!=0)._values]
+#after_df = df.iloc[:,(coef!=0)._values]
+after_df = df[imp_coef]
 # matplotlib colormap
 f,ax= plt.subplots(figsize = (7, 7),nrows=1)
 sns.heatmap(after_df.corr(), ax = ax, vmax=1, vmin=-1,)
@@ -103,13 +106,14 @@ plt.savefig("After_CHM.jpg")
 
 #saving=np.save('coefs.npy',np.stack([name,co],-1))
 #matplotlib.rcParams['figure.figsize'] = (8.0, 10.0)
-plt.figure(figsize=(18,6))
+plt.figure()
 imp_coef = pd.concat([coef.sort_values().head(5),
                      coef.sort_values().tail(5)])
-imp_coef.plot(kind = "barh",fontsize=7)
+imp_coef.plot(kind = "barh")
 print(imp_coef.keys())
+plt.subplots_adjust(left = 0.4)
 #print(imp_coef.values)
 plt.axis('tight')
-plt.title("Coefficients in the Lasso Model",fontsize=20)
+plt.title("Coefficients in the Lasso Model")
 plt.savefig("coffs.jpg", bbox_inches='tight')
 joblib.dump(model, "train_model.m")

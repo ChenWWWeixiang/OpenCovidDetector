@@ -3,7 +3,7 @@ title = "covid19 PyTorch test"
 [general]
 usecudnn = true
 usecudnnbenchmark = true
-gpuid = "2"
+gpuid = "1"
 loadpretrainedmodel = true
 random_seed = true
 use_3d = false

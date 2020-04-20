@@ -666,8 +666,10 @@ class NCPJPGDataset_new(Dataset):
         if self.cls_num==2:
             if self.mod=='ab':#abnormal detection
                 cls = [int('pos' in data_path) for data_path in self.data]
+            elif self.mod=='co':
+                cls = [1-int('cap' in data_path) for data_path in self.data]
             else:
-                cls = [1-int('ild' in data_path or 'cap' in data_path) for data_path in self.data]
+                cls = [1 - int('healthy' in data_path ) for data_path in self.data]
         elif self.cls_num==3:
             cls=[]
             for data_path in self.data:
@@ -680,13 +682,27 @@ class NCPJPGDataset_new(Dataset):
 
         nums=[np.sum(np.array(cls)==i) for i in range(self.cls_num)]
         print(nums)
+        self.labels=cls
         self.nums=nums
     def get_w(self):
         S=np.sum(self.nums)
-        nums=S/(self.nums)
+        nums=(S/(self.nums))
         w=nums/np.sum(nums)
         return w
+    def make_weights_for_balanced_classes(self):
+        """Making sampling weights for the data samples
+        :returns: sampling weigghts for dealing with class imbalance problem
 
+        """
+        n_samples = len(self.labels)
+        unique, cnts = np.unique(self.labels, return_counts=True)
+        cnt_dict = dict(zip(unique, cnts))
+
+        weights = []
+        for label in self.labels:
+            weights.append((n_samples / float(cnt_dict[label]))**(0.5))
+
+        return weights
     def __len__(self):
         return len(self.data)
 
@@ -698,8 +714,10 @@ class NCPJPGDataset_new(Dataset):
         if self.cls_num==2:
             if self.mod=='ab':#abnormal detection
                 cls = int('pos' in data_path)
-            else:
+            elif self.mod=='co':
                 cls = 1-int('ild' in data_path or 'cap' in data_path)
+            else:
+                cls = 1 - int('healthy' in data_path )
         elif self.cls_num==3:
             if 'healthy' in data_path:
                 cls = 0
@@ -744,13 +762,19 @@ class NCPJPGtestDataset_new(Dataset):
         print('num of data:', len(self.data))
         person=[da.split('/')[-2]+'_'+da.split('/')[-1].split('_')[0]+da.split('/')[-1].split('_')[1] for da in self.data]
         person=list(set(person))
-        if self.cls_num == 2:
+
+
+        if self.cls_num==2:
             if self.mod=='ab':#abnormal detection
-                cls = [int('pos' in data_path) for data_path in person]
+                cls = [int('pos' in data_path) for data_path in self.data]
                 cls_stage = [int('pos' in data_path) for data_path in self.data]
-            else:
-                cls = [1-int('cap' in data_path) for data_path in person]
+            elif self.mod=='co':
+                cls = [1-int('cap' in data_path) for data_path in self.data]
                 cls_stage = [1 - int('cap' in data_path) for data_path in self.data]
+            else:
+                cls = [1 - int('healthy' in data_path ) for data_path in self.data]
+                cls_stage = [1 - int('healthy' in data_path) for data_path in self.data]
+
         elif self.cls_num == 3:
             cls = []
             for data_path in person:
@@ -786,8 +810,10 @@ class NCPJPGtestDataset_new(Dataset):
         if self.cls_num == 2:
             if self.mod=='ab':#abnormal detection
                 cls = int('pos' in data_path)
+            elif self.mod=='co':
+                cls = 1-int('cap' in data_path)
             else:
-                cls = 1-int('ild' in data_path or 'cap' in data_path)
+                cls = 1 - int('healthy' in data_path)
         elif self.cls_num==3:
             if 'healthy' in data_path:
                 cls = 0
