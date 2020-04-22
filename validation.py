@@ -41,6 +41,7 @@ def _validate(modelOutput, length, labels, total=None, wrong=None):
 
 class Validator():
     def __init__(self, options, mode,model):
+        self.R='R' in options['general'].keys()
         self.model=model
         self.cls_num=options['general']['class_num']
         self.use_plus = options['general']['use_plus']
@@ -49,8 +50,10 @@ class Validator():
         self.use_lstm = options["general"]["use_lstm"]
         self.batchsize = options["input"]["batchsize"]
         self.use_slice=options['general']['use_slice']
+        self.asinput = options['general']['plus_as_input']
+        self.USE_25D = options['general']['use25d']
         if options['general']['use_slice']:
-            if USE_25D:
+            if self.USE_25D:
                 f = 'data/3cls_test.list'
                 self.validationdataset = NCPJPGtestDataset_new(options["training"]["padding"],
                                                              f, cls_num=self.cls_num, mod=options['general']['mod'])
@@ -62,9 +65,7 @@ class Validator():
                                                         mod=options['general']['mod'])
         else:
             if options['general']['use_3d']:
-                self.validationdataset = NCPDataset(options[mode]["data_root"],
-                                                    options[mode]["seg_root"],
-                                                      options[mode]["index_root"],
+                self.validationdataset = NCPDataset(  options[mode]["index_root"],
                                                       options[mode]["padding"],
                                                       False,
                                                     z_length=options["model"]["z_length"])
@@ -89,10 +90,10 @@ class Validator():
         self.epoch+=1
         with torch.no_grad():
             print("Starting {}...".format(self.mode))
-            count = np.zeros((self.cls_num+self.use_plus*2))
+            count = np.zeros((self.cls_num+self.use_plus*2*(1-self.asinput)))
             Matrix=np.zeros((self.cls_num,self.cls_num))
             if self.use_3d:
-                validator_function = self.model.validator_function()##TODO:
+                validator_function = self.model.validator_function()
             if self.use_lstm:
                 validator_function = _validate
                 self.model.eval()
@@ -104,24 +105,31 @@ class Validator():
             error_dir='error/'
             os.makedirs(error_dir,exist_ok=True)
             cnt=0
-            num_samples = np.zeros((self.cls_num+self.use_plus*2))
+            num_samples = np.zeros((self.cls_num+self.use_plus*2*(1-self.asinput)))
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
-                #length = Variable(sample_batched['length']).cuda()
+                length = Variable(sample_batched['length']).cuda()
+                features= Variable(sample_batched['features']).cuda()
                 if self.use_plus:
                     age = Variable(sample_batched['age']).cuda()
                     gender = Variable(sample_batched['gender']).cuda()
-
-                if USE_25D:
+                    pos=Variable(sample_batched['pos']).cuda()
+                if self.USE_25D:
                     input = input.squeeze(0)
                     input = input.permute(1, 0, 2, 3)
 
                 if not self.use_plus:
-                    outputs = net(input)
+                    if self.R:
+                        outputs = net(input, features)
+                    else:
+                        outputs = net(input)
                 else:
-                    outputs, out_gender, out_age,out_pos,deep_feaures = net(input)
-                if USE_25D:
+                    if self.asinput:
+                        outputs, _, _, _, deep_feaures = net(input,pos,gender,age)
+                    else:
+                        outputs, out_gender, out_age,out_pos,deep_feaures = net(input)
+                if self.USE_25D:
                     outputs=outputs.unsqueeze(0)
                     out_gender = out_gender.unsqueeze(0)
                     out_age = out_age.unsqueeze(0)
@@ -129,7 +137,7 @@ class Validator():
                 if self.use_3d or self.use_lstm:
                     (outputs, top1) = validator_function(outputs, length,labels)
                     _, maxindices = outputs.cpu().max(1)##vector--outputs
-                elif self.use_plus:
+                elif self.use_plus and not self.asinput:
                     _, maxindices = outputs.cpu().max(1)
                     _, maxindices_gender = out_gender.cpu().max(1)
                     _, maxindices_age = out_age.cpu().max(1)
@@ -162,7 +170,7 @@ class Validator():
                             cv2.imwrite(os.path.join(error_dir,'error'+str(cnt)+'_truecls:'+str(label_numpy)+'_slice:'+str(b)+'.jpg'
                                                      ),I)
                         cnt+=1
-                    if self.use_plus and gender_numpy[i]>-1:
+                    if self.use_plus and not self.asinput  and gender_numpy[i]>-1:
                         GG.append([output_gender_numpy[i],gender_numpy[i]])
                         AA.append(np.abs(pre_age_numpy[i]-age_numpy[i]))
                         if genderacc[i]==1 :
@@ -176,7 +184,7 @@ class Validator():
         print(count[:self.cls_num].sum()/num_samples[:self.cls_num].sum(),np.mean(AA))
         LL=np.array(LL)
         np.save('re/' + self.mode + 'records' + str(self.epoch) + '.npy', LL)
-        if self.use_plus:
+        if self.use_plus and not self.asinput:
             GG=np.array(GG)
             np.save('re/' + self.mode + 'gender_records' + str(self.epoch) + '.npy', GG)
         print(Matrix)

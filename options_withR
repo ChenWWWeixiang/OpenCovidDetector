@@ -1,19 +1,20 @@
-title = "covid19 PyTorch test"
+title = "covid19 PyTorch"
 
 [general]
 usecudnn = true
 usecudnnbenchmark = true
-gpuid = "1"
+gpuid = "5"
 loadpretrainedmodel = true
 random_seed = true
+pretrainedmodelpath = 'weights/model_3cls_assuper.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
 use_plus=false
 use25d=false
-class_num=3
 plus_as_input=false
-mod='co'
+mod='co'#'ab
+class_num=3
 R=1
 
 [input]
@@ -33,19 +34,20 @@ train = true
 epochs = 50
 startepoch = 0
 statsfrequency = 1000
-data_root = 'all_ages_genders.txt'#useless and used as ages_gender.txt path
-index_root = 'data/txt/train5cls.txt'
-padding = 35
+data_root = 'radiomics/r_features.csv'#useless and used as ages_gender.txt path
+index_root = 'data/txt/train3cls_pos.txt'
+padding = 45
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.05
-save_prefix = "weights/model_5cls"
+save_prefix = "weights/model_R"
+
 
 [validation]
 validate = true
-data_root = 'all_ages_genders.txt'
-index_root = 'data/txt/test5cls.txt'
-padding = 35
+data_root = 'radiomics/r_features.csv'
+index_root = 'data/txt/test3cls_pos.txt'
+padding = 45
 saveaccuracy = false
 
 
@@ -53,5 +55,5 @@ saveaccuracy = false
 test = false
 data_root = 'radiomics/r_features.csv'
 index_root = 'data/txt/2train_lidc_ild_train.txt'
-padding = 100
+padding = 45
 saveaccuracy = false

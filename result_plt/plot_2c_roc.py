@@ -15,11 +15,11 @@ def get_CI(value,res):
     return res
 import argparse
 parser = argparse.ArgumentParser()
-
+saving='jpgs/roc_reader_healthy_or_not.jpg'
 parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.",
-                    default=['../re/cap_vs_covid.npy'])
+                    default=['../re/reader_healthy_or_not.npy'])
 parser.add_argument("-o", "--output_file", help="Output file path", type=str,
-                    default='csvs/cap_vs_covid.csv')
+                    default='csvs/reader_healthy_or_not.csv')
 args = parser.parse_args()
 
 #res=np.load('ipt_results/results/train.npy')
@@ -85,7 +85,7 @@ plt.ylabel('True Positive Rate')
 plt.title('Receiver operating characteristic Curve')
 plt.legend(loc="lower right")
 #plt.show()
-plt.savefig('jpgs/roc_cap_vs_covid.jpg')
+plt.savefig(saving)
 
 
 plt.figure(2)

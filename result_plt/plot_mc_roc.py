@@ -19,7 +19,8 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.",
-                    default=['../re/3cls_gender.npy'])
+                    default=['../key_result/model_3cls_assuper.npy','../key_result/model_3cls_asinput.npy',
+                             '../key_result/model_3cls_pure.npy'])
 parser.add_argument("-o", "--output_file", help="Output file path", type=str,
                     default='csvs/results_mc.csv')
 args = parser.parse_args()
@@ -92,11 +93,11 @@ with open(args.output_file,'w') as f:
         #fpr, tpr, thresholds = metric.roc_curve(y_one_hot.ravel(), norm_x.ravel())
         #plt.plot(fpr, tpr, label='all, AUC={:.2f}'.format(metric.auc(fpr, tpr)))
         fpr, tpr, thresholds = metric.roc_curve(y_one_hot[:,0], norm_x[:,0])
-        plt.plot(fpr, tpr, label='healthy, AUC={:.4f}'.format(metric.auc(fpr, tpr)))
+        plt.plot(fpr, tpr, label=a_res+'healthy, AUC={:.4f}'.format(metric.auc(fpr, tpr)))
         fpr, tpr, thresholds = metric.roc_curve(y_one_hot[:,1], norm_x[:,1])
-        plt.plot(fpr, tpr, label='CAP, AUC={:.4f}'.format(metric.auc(fpr, tpr)))
+        plt.plot(fpr, tpr, label=a_res+'CAP, AUC={:.4f}'.format(metric.auc(fpr, tpr)))
         fpr, tpr, thresholds = metric.roc_curve(y_one_hot[:,2], norm_x[:,2])
-        plt.plot(fpr, tpr, label='COVID, AUC={:.4f}'.format(metric.auc(fpr, tpr)))
+        plt.plot(fpr, tpr, label=a_res+'COVID, AUC={:.4f}'.format(metric.auc(fpr, tpr)))
 
 plt.figure(1)
 #plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')

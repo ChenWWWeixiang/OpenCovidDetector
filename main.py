@@ -6,12 +6,12 @@ from training import Trainer
 from validation import Validator
 import torch.nn as nn
 import os
-from models.net2d import densenet121,densenet161,squeezenet1_1,vgg19_bn,resnet152,resnet152_plus
+from models.net2d import densenet121,densenet161,squeezenet1_1,vgg19_bn,resnet152,resnet152_plus,resnet152_R
 
 
 
 print("Loading options...")
-with open('options_lip.toml', 'r') as optionsFile:
+with open('options_withR', 'r') as optionsFile:
     options = toml.loads(optionsFile.read())
 
 if(options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):
@@ -27,9 +27,12 @@ if options['general']['use_3d']:
     model = Dense3D(options)##TODO:1
 elif options['general']['use_slice']:
     if options['general']['use_plus']:
-        model = resnet152_plus(options['general']['class_num'])
+        model = resnet152_plus(options['general']['class_num'],asinput=options['general']['plus_as_input'],
+                               USE_25D=options['general']['use25d'])
     else:
-        model = resnet152(options['general']['class_num'])#vgg19_bn(2)#squeezenet1_1(2)
+        model = resnet152(options['general']['class_num'],USE_25D=options['general']['use25d'])#vgg19_bn(2)#squeezenet1_1(2)
+    if 'R' in options['general'].keys():
+        model=resnet152_R(options['general']['class_num'])
 else:
     model=densenet161(2)
 

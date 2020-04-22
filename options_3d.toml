@@ -3,19 +3,21 @@ title = "covid19 PyTorch 3D"
 [general]
 usecudnn = true
 usecudnnbenchmark = true
-gpuid = "4,5"
-loadpretrainedmodel = true
+gpuid = "6"
+loadpretrainedmodel = false
 random_seed = true
-pretrainedmodelpath = 'weights/3d_4cls.pt'
+pretrainedmodelpath = 'weights/3d_3cls.pt'
 use_3d = true
 use_lstm=true
 use_slice=false
 use_plus=false
-class_num=4
+class_num=3
+use25d=false
+plus_as_input=false
 
 [input]
-batchsize = 8
-numworkers = 8
+batchsize = 4
+numworkers = 4
 shuffle = true
 
 [model]
@@ -29,22 +31,22 @@ z_length=5
 [training]
 train = true
 epochs = 80
-startepoch = 7
+startepoch = 0
 statsfrequency = 100
 data_root = ''#useless and used as ages_gender.txt path
-index_root = 'data/txt/3d_train.txt'
+index_root = 'data/3cls_train.list'
 seg_root='/home/cwx/extra/covid_project_segs/lungs'
 padding = 45
-learningrate = 1e-7
+learningrate = 1e-6
 momentum = 0.95
 weightdecay = 0.05
-save_prefix = "weights/3d_4cls"
+save_prefix = "weights/3D_3cls"
 
 [validation]
 validate = true
 data_root = ''
 seg_root='/home/cwx/extra/covid_project_segs/lungs'
-index_root = 'data/txt/3d_test.txt'
+index_root = 'data/3cls_test.list'
 padding = 45
 saveaccuracy = false
 

@@ -7,28 +7,53 @@ import torch
 from .statefultransforms import StatefulRandomCrop, StatefulRandomHorizontalFlip
 import SimpleITK as sitk
 import os
-import glob
 import numpy as np
+import glob
+import pandas as pd
 import random
 import cv2 as cv
+from batchgenerators.transforms import noise_transforms
+from batchgenerators.transforms import spatial_transforms
 
 class NCPDataset(Dataset):
-    def __init__(self, data_root, seg_root, index_root, padding, augment=False,z_length=5):
+    def __init__(self, index_root, padding, augment=False,z_length=5):
         self.padding = padding
         self.data = []
-        self.seg_root=seg_root
-        self.data_root = data_root
         self.padding = padding
         self.augment = augment
         self.z_length=z_length
         with open(index_root, 'r') as f:
         #list=os.listdir(data_root)
             self.data=f.readlines()
+            self.mask=[item.split(',')[-1][:-1] for item in  self.data]
+            self.data = [item.split(',')[-0] for item in self.data]
+        cls = []
+        for data_path in self.data:
+            if 'healthy' in data_path:
+                cls.append(0)
+            elif 'cap' in data_path:
+                cls.append(1)
+            else:
+                cls.append(2)  # covid
+        self.labels=cls
         print('num of data:', len(self.data))
 
     def __len__(self):
         return len(self.data)
+    def make_weights_for_balanced_classes(self):
+        """Making sampling weights for the data samples
+        :returns: sampling weigghts for dealing with class imbalance problem
 
+        """
+        n_samples = len(self.labels)
+        unique, cnts = np.unique(self.labels, return_counts=True)
+        cnt_dict = dict(zip(unique, cnts))
+
+        weights = []
+        for label in self.labels:
+            weights.append((n_samples / float(cnt_dict[label])))
+
+        return weights
     def __getitem__(self, idx):
         #load video into a tensor
         data_path = self.data[idx]
@@ -38,11 +63,9 @@ class NCPDataset(Dataset):
             cls = 0
         elif 'cap' in data_path:
             cls = 1
-        elif 'ild' in data_path:
-            cls = 2  # covid
         else:
-            cls = 3
-        seg_path = os.path.join(self.seg_root,data_path.split('/')[-2],data_path.split('/')[-2]+'_'+data_path.split('/')[-1])
+            cls = 2
+        seg_path = self.mask[idx]
         volume=sitk.ReadImage(data_path)
         data=sitk.GetArrayFromImage(volume)
 
@@ -52,31 +75,58 @@ class NCPDataset(Dataset):
         valid=M.sum(1).sum(1)>500
         M=M[valid,:,:]
         data=data[valid,:,:]
-        xx, yy, zz = np.where(M > 0)
-        data=data[min(xx):max(xx),min(yy):max(yy),min(zz):max(zz)]
+        try:
+            xx, yy, zz = np.where(M > 0)
+            data = data[min(xx):max(xx), min(yy):max(yy), min(zz):max(zz)]
+            M = M[min(xx):max(xx), min(yy):max(yy), min(zz):max(zz)]
+        except:
+            print(data_path)
+
         #data=np.stack([data,data,data],0)
-        data[data > 700] = 700
+        data[data > 500] = 500
         data[data < -1200] = -1200
-        data = data * 255.0 / 1900
+        data = data * 255.0 / 1700
         data=(data+1200).astype(np.uint8)
+        if self.augment:
+            data,M=self.do_augmentation(data,M)
         #cv.imwrite('temp.jpg', data[:,64,:,:])
-        temporalvolume,length = self.bbc(data, self.padding, self.augment,self.z_length)
+        temporalvolume,length = self.bbc(data, self.padding, self.z_length)
         return {'temporalvolume': temporalvolume,
             'label': torch.LongTensor([cls]),
-            'length':torch.LongTensor([length])
+            'length':torch.LongTensor([length]),
+            'features': torch.LongTensor([length])
             }
+    def do_augmentation(self, array, mask):
 
-    def bbc(self,V, padding, augmentation=True,z_length=3):
+        #array = array[None, ...]
+        patch_size = np.asarray(array.shape)
+        augmented = noise_transforms.augment_gaussian_noise(
+            array, noise_variance=(0, .015))
+        # need to become [bs, c, x, y, z] before augment_spatial
+        augmented = augmented[None,None, ...]
+
+        mask = mask[None, None, ...]
+        r_range = (0, (15 / 360.) * 2 * np.pi)
+        r_range2 = (0, (3 / 360.) * 2 * np.pi)
+        cval = 0.
+        augmented, mask = spatial_transforms.augment_spatial(
+            augmented, seg=mask, patch_size=patch_size,
+            do_elastic_deform=True, alpha=(0., 100.), sigma=(8., 13.),
+            do_rotation=True, angle_x=r_range2, angle_y=r_range2, angle_z=r_range,
+            do_scale=True, scale=(.9, 1.1),
+            border_mode_data='constant', border_cval_data=cval,
+            order_data=1,
+            p_el_per_sample=0.5,
+            p_scale_per_sample=.5,
+            p_rot_per_sample=.5,
+            random_crop=False
+        )
+        mask = mask[0]
+        augmented= (augmented[0,0, :, :, :]).astype(np.uint8)
+        return augmented, mask
+    def bbc(self,V, padding,z_length=3):
+
         temporalvolume = torch.zeros((z_length, padding, 224, 224))
-        croptransform = transforms.CenterCrop((224, 224))
-        if (augmentation):
-            crop = StatefulRandomCrop((224, 224), (224, 224))
-            flip = StatefulRandomHorizontalFlip(0.5)
-
-            croptransform = transforms.Compose([
-                crop,
-                flip
-            ])
         for cnt,i in enumerate(range(0,V.shape[0]-z_length,z_length)):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             if cnt>=padding:
@@ -86,8 +136,7 @@ class NCPDataset(Dataset):
                 result.append(transforms.Compose([
                     transforms.ToPILImage(),
                     transforms.Resize((256, 256)),
-                    #transforms.CenterCrop((256, 256)),
-                    croptransform,
+                    transforms.RandomCrop((224, 224)),
                     transforms.ToTensor(),
                     transforms.Normalize([0, 0, 0], [1, 1, 1]),
                 ])(V[i+j:i+j+1,:,:])[0,:,:])
@@ -635,12 +684,16 @@ class NCPJPGtestDataset_MHA(Dataset):
         temporalvolume=temporalvolume[:,:cnt+1]
         return temporalvolume,name
 
+
+
 class NCPJPGDataset_new(Dataset):
     def __init__(self, data_root,index_root, padding, augment=False,cls_num=2,mod='ab'):
         self.mod=mod
         self.padding = padding
         self.data = []
-        self.data_root = open(data_root,'r').readlines()
+        if data_root[-3:]=='csv':
+            self.r=pd.read_csv(data_root)
+        self.data_root=data_root
         self.padding = padding
         self.augment = augment
         self.cls_num=cls_num
@@ -700,7 +753,7 @@ class NCPJPGDataset_new(Dataset):
 
         weights = []
         for label in self.labels:
-            weights.append((n_samples / float(cnt_dict[label]))**(0.5))
+            weights.append((n_samples / float(cnt_dict[label])))
 
         return weights
     def __len__(self):
@@ -709,8 +762,20 @@ class NCPJPGDataset_new(Dataset):
     def __getitem__(self, idx):
         #load video into a tensor
         data_path = self.data[idx]
+
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
+        feature=0
+        if self.data_root[-3:] == 'csv':
+            this_name=data_path.split('/')[-2].split('masked_')[-1].split('2nd')[0]+'_' +\
+                      data_path.split('/')[-1][:data_path.split('/')[-1].index('_',-7)]+'_label.nrrd'
+            try:
+                feature=self.r[self.r['filename'].isin([this_name])].values[0,1:]
+                feature=np.delete(feature,2)
+            except:
+                print(this_name)
+                a=1
+
         if self.cls_num==2:
             if self.mod=='ab':#abnormal detection
                 cls = int('pos' in data_path)
@@ -738,12 +803,16 @@ class NCPJPGDataset_new(Dataset):
             'length':torch.LongTensor([1]),
             'gender':torch.LongTensor([gender]),
             'age':torch.LongTensor([age]),
-            'pos':torch.FloatTensor([pos/100])
+            'pos':torch.FloatTensor([pos/100]),
+            'features':torch.FloatTensor([feature])
             }
 
 class NCPJPGtestDataset_new(Dataset):
-    def __init__(self, padding,lists,exlude_lists=True,age_list=None,cls_num=2,mod='ab'):
+    def __init__(self, data_root,padding,lists,age_list=None,cls_num=2,mod='ab'):
         #self.padding = padding
+        self.data_root=data_root
+        if data_root[-3:]=='csv':
+            self.r=pd.read_csv(data_root)
         self.cls_num=cls_num
         self.data = []
         self.text_book=None
@@ -760,7 +829,7 @@ class NCPJPGtestDataset_new(Dataset):
                                          transforms.Normalize([0, 0, 0], [1, 1, 1])
                                          ])
         print('num of data:', len(self.data))
-        person=[da.split('/')[-2]+'_'+da.split('/')[-1].split('_')[0]+da.split('/')[-1].split('_')[1] for da in self.data]
+        person=[da.split('/')[-2]+'_'+da.split('/')[-1].split('_')[0]+'_'+da.split('/')[-1].split('_')[1] for da in self.data]
         person=list(set(person))
 
 
@@ -807,6 +876,16 @@ class NCPJPGtestDataset_new(Dataset):
         #print(data_path,mask_path)
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
+        feature = 0
+        if self.data_root[-3:] == 'csv':
+            this_name = data_path.split('/')[-2].split('masked_')[-1].split('2nd')[0] + '_' + \
+                        data_path.split('/')[-1].split('.nii')[0] + '_label.nrrd'
+            try:
+                feature = self.r[self.r['filename'].isin([this_name])].values[0, 1:]
+                feature = np.delete(feature, 2)
+            except:
+                print(this_name)
+                a = 1
         if self.cls_num == 2:
             if self.mod=='ab':#abnormal detection
                 cls = int('pos' in data_path)
@@ -843,7 +922,8 @@ class NCPJPGtestDataset_new(Dataset):
             'length':[data_path,pos],
             'gender': torch.LongTensor([gender]),
             'age': torch.LongTensor([age]),
-            'pos':torch.FloatTensor([pos])
+            'pos':torch.FloatTensor([pos]),
+            'features':torch.FloatTensor([feature])
             }
 
     def bbc(self,V, padding,pre=None):

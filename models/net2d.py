@@ -337,7 +337,38 @@ def inceptionv3(num_classes=1000, pretrained='imagenet'):
 ###############################################################
 # ResNets
 
-def modify_resnets(model,num_of_cls):
+def modify_resnets_r(model,num_of_cls):
+    # Modify attributs
+    model.bn=torch.nn.BatchNorm1d(109)
+    model.classifier = torch.nn.Sequential(torch.nn.Linear(2048+109,1024),
+                                           torch.nn.ReLU(),
+                                           torch.nn.Dropout(),
+                                           torch.nn.Linear(1024,num_of_cls))
+    model.features=torch.nn.Sequential(model.conv1,model.bn1,model.relu,model.maxpool,
+                                       model.layer1,model.layer2,model.layer3,model.layer4,model.avgpool)
+    del model.fc
+
+    def features_func(self, input):
+        x = self.features(input)
+        return x
+
+    def forward(self, input,r,test=False):
+        x = self.features_func(input)
+        x = x.view(x.size(0), -1)
+        r=self.bn(r.squeeze(1))
+        if test:
+            x = x.max(0).values
+        x=torch.cat([x.unsqueeze(0),r],-1)
+        x = self.classifier(x).log_softmax(-1)
+        return x
+
+    # Modify methods
+    model.features_func = types.MethodType(features_func, model)
+    #model.classifier = types.MethodType(classifier, model)
+    model.forward = types.MethodType(forward, model)
+    return model
+
+def modify_resnets(model,num_of_cls,USE_25D):
     # Modify attributs
     model.classifier = torch.nn.Linear(2048,num_of_cls)
     model.features=torch.nn.Sequential(model.conv1,model.bn1,model.relu,model.maxpool,
@@ -358,6 +389,8 @@ def modify_resnets(model,num_of_cls):
     def forward(self, input):
         x = self.features_func(input)
         x = x.view(x.size(0), -1)
+        if USE_25D:
+            x = x.max(0)
         x = self.classifier(x).log_softmax(-1)
         return x
 
@@ -367,12 +400,19 @@ def modify_resnets(model,num_of_cls):
     model.forward = types.MethodType(forward, model)
     return model
 
-def modify_resnets_plus(model,num_of_cls):
+def modify_resnets_plus2(model,num_of_cls,asinput=False,USE_25D=False):
     # Modify attributs
-    model.classifier = torch.nn.Linear(2048+8,num_of_cls)
-    model.classifier_gender = torch.nn.Linear(2048, 2)
-    model.classifier_age = torch.nn.Linear(2048, 5)
-    model.regress_pos = torch.nn.Linear(2048, 1)
+    if USE_25D:
+        model.classifier = torch.nn.Linear(2048 + 7, num_of_cls)
+    else:
+        model.fusing = torch.nn.Linear(4096, 1024)
+        model.classifier = torch.nn.Linear(1024+6,num_of_cls)
+        model.droplayer=torch.nn.Dropout(0.5)
+    if not asinput:
+        model.classifier_gender = torch.nn.Linear(2048, 2)
+        model.classifier_age = torch.nn.Linear(1024, 5)
+        model.regress_pos = torch.nn.Linear(1024, 1)
+
 
     model.features=torch.nn.Sequential(model.conv1,model.bn1,model.relu,model.maxpool,
                                        model.layer1,model.layer2,model.layer3,model.layer4,model.avgpool)
@@ -382,17 +422,66 @@ def modify_resnets_plus(model,num_of_cls):
         x = self.features(input)
         return x
 
-    def forward(self, input):
+    def forward(self, input,ipos=None,igender=None,iage=None):
         x = self.features_func(input)
         x = x.view(x.size(0), -1)
-        #x = x.mean(0)
-        pos=self.regress_pos(x).sigmoid()
-        gender = self.classifier_gender(x)
-        age = self.classifier_age(x)
-        cc=torch.cat([gender.relu(),age.relu(),pos,x],-1)
-        y = self.classifier(cc).log_softmax(-1)
-        return y,gender.log_softmax(-1),age.log_softmax(-1),pos,cc
 
+        gender = self.classifier_gender(x).log_softmax(-1)
+        x=torch.cat([gender[:,0:1].exp()*x,gender[:,1:2].exp()*x],-1)
+        cc=self.droplayer(self.fusing(x).relu())
+        age = self.classifier_age(cc).log_softmax(-1)
+        pos = self.regress_pos(cc).sigmoid()
+        f=torch.cat([age.exp(),pos, cc], -1)
+        y = self.classifier(f).log_softmax(-1)
+        return y, gender, age, pos, f
+    # Modify methods
+    model.features_func = types.MethodType(features_func, model)
+    #model.classifier = types.MethodType(classifier, model)
+    model.forward = types.MethodType(forward, model)
+    return model
+
+def modify_resnets_plus(model,num_of_cls,asinput=False,USE_25D=False):
+    # Modify attributs
+    if USE_25D:
+        model.classifier = torch.nn.Linear(2048 + 7, num_of_cls)
+    else:
+        model.classifier = torch.nn.Linear(2048+8,num_of_cls)
+    if not asinput:
+        model.classifier_gender = torch.nn.Linear(2048, 2)
+        model.classifier_age = torch.nn.Linear(2048, 5)
+        model.regress_pos = torch.nn.Linear(2048, 1)
+
+    model.features=torch.nn.Sequential(model.conv1,model.bn1,model.relu,model.maxpool,
+                                       model.layer1,model.layer2,model.layer3,model.layer4,model.avgpool)
+    del model.fc
+
+    def features_func(self, input):
+        x = self.features(input)
+        return x
+
+    def forward(self, input,ipos=None,igender=None,iage=None):
+        x = self.features_func(input)
+        x = x.view(x.size(0), -1)
+        if USE_25D:
+            x = x.max(0)
+        if not asinput:
+            pos=self.regress_pos(x).sigmoid()
+            gender = self.classifier_gender(x)
+            age = self.classifier_age(x)
+        else:
+            pos=ipos
+            #gender=igender
+            gender = torch.zeros(igender.shape[0], 2).cuda().scatter_(1, igender, 1)
+            age = torch.zeros(iage.shape[0], 5).cuda().scatter_(1, iage//20, 1)
+           # age=iage.float()
+        if USE_25D:
+            cc=torch.cat([gender.relu(),age.relu(),x],-1)
+            y = self.classifier(cc).log_softmax(-1)
+            return y, gender.log_softmax(-1), age.log_softmax(-1), cc, cc
+        else:
+            cc = torch.cat([gender.relu(), age.relu(),pos, x], -1)
+            y = self.classifier(cc).log_softmax(-1)
+            return y, gender.log_softmax(-1), age.log_softmax(-1), pos, cc
     # Modify methods
     model.features_func = types.MethodType(features_func, model)
     #model.classifier = types.MethodType(classifier, model)
@@ -539,14 +628,14 @@ def resnet101(num_classes=1000, pretrained='imagenet'):
     model = modify_resnets(model,num_classes)
     return model
 
-def resnet152(num_classes=1000, pretrained='imagenet'):
+def resnet152(num_classes=1000, pretrained='imagenet',USE_25D=False):
     """Constructs a ResNet-152 model.
     """
     model = models.resnet152(pretrained=False)
     if pretrained is not None:
         settings = pretrained_settings['resnet152'][pretrained]
         model = load_pretrained(model, num_classes, settings)
-    model = modify_resnets(model,num_classes)
+    model = modify_resnets(model,num_classes,USE_25D=USE_25D)
     return model
 
 
@@ -554,14 +643,20 @@ def resUnet152(num_classes=1000, pretrained='imagenet'):
     model = models.resnet152(pretrained=False)
     settings = pretrained_settings['resnet152'][pretrained]
     model = load_pretrained(model, num_classes, settings)
-    model = modify_resUnets(model,num_classes)
+    model = modify_resnets(model,num_classes)
     return model
 
-def resnet152_plus(num_classes=1000, pretrained='imagenet'):
+def resnet152_plus(num_classes=1000, pretrained='imagenet',asinput=False,USE_25D=False):
     model = models.resnet152(pretrained=False)
     settings = pretrained_settings['resnet152'][pretrained]
     model = load_pretrained(model, num_classes, settings)
-    model = modify_resnets_plus(model,num_classes)
+    model = modify_resnets_plus2(model,num_classes,asinput=asinput,USE_25D=USE_25D)
+    return model
+def resnet152_R(num_classes=1000, pretrained='imagenet',asinput=False,USE_25D=False):
+    model = models.resnet152(pretrained=False)
+    settings = pretrained_settings['resnet152'][pretrained]
+    model = load_pretrained(model, num_classes, settings)
+    model = modify_resnets_r(model,num_classes)
     return model
 
 ###############################################################

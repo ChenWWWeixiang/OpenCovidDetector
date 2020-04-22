@@ -9,7 +9,7 @@ import torch.nn as nn
 from data.dataset import NCPDataset, NCP2DDataset, NCPJPGDataset,NCPJPGtestDataset,NCPJPGtestDataset_new
 import os, cv2
 import toml
-from models.net2d import densenet121,densenet161,resnet152,resnet152_plus
+from models.net2d import densenet121,densenet161,resnet152,resnet152_plus,resnet152_R
 import numpy as np
 #from models.g_cam import GuidedPropo
 import matplotlib as plt
@@ -42,7 +42,7 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
                     #default='re/cap_vs_covid.npy')
-                    default='re/reader_cap_vs_covid.npy')
+                    default='re/withR.npy')
 parser.add_argument("-d", "--deepsave", help="A path to save deepfeature",  type=str,
                     #default='re/cap_vs_covid.npy')
                     default='deep_f')
@@ -52,10 +52,10 @@ parser.add_argument("-e", "--exclude_list", help="A path to a txt file for exclu
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='weights/cap_vs_covid.pt')
+                    default='weights/model_R.pt')
                     #default='weights/healthy_or_not.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
-                    default='2')
+                    default='4')
 args = parser.parse_args()
 os.makedirs(args.deepsave,exist_ok=True)
 
@@ -124,6 +124,7 @@ def _voting_validate_multicls(modelOutput, labels,length, topn=3):
 
 class Validator():
     def __init__(self, options, mode):
+        self.R = 'R' in options['general'].keys()
         self.cls_num=options['general']['class_num']
         self.use_plus=options['general']['use_plus']
         self.use_3d = options['general']['use_3d']
@@ -131,15 +132,16 @@ class Validator():
         self.use_lstm = options["general"]["use_lstm"]
         self.batchsize = options["input"]["batchsize"]
         self.use_slice = options['general']['use_slice']
+        self.asinput = options['general']['plus_as_input']
         datalist = args.imgpath
         masklist =args.maskpath
         self.savenpy = args.savenpy
         if True:
             #f=open(args.exclude_list,'r')
             #f='data/4cls_test.list'
-            f='data/cap_vs_covid_test.list'
+            #f='data/cap_vs_covid_test.list'
             f='data/3cls_test.list'
-            f='data/reader_cap_vs_covid.list'
+            #f='data/reader_cap_vs_covid.list'
             #f='data/reader_healthy_vs_ill.list'
             #f='data/ab_detect.list'
             #f = open('data/txt/val_list.txt', 'r')
@@ -150,14 +152,16 @@ class Validator():
                 #                                           options[mode]["padding"],
                 #                                           f,1-args.invert_exclude,age_list='all_ages_genders.txt',
                 #                                           cls_num=self.cls_num)
-                self.validationdataset = NCPJPGtestDataset_new(options[mode]["padding"],
+                self.validationdataset = NCPJPGtestDataset_new(options[mode]["data_root"],
+                                                            options[mode]["padding"],
                                                            f,cls_num=self.cls_num,mod=options['general']['mod'])
             else:
                 #self.validationdataset = NCPJPGtestDataset(datalist,
                 #                                           masklist,
                 #                                           options[mode]["padding"],f,1-args.invert_exclude,
                 #                                           cls_num=self.cls_num)
-                self.validationdataset = NCPJPGtestDataset_new(options[mode]["padding"],
+                self.validationdataset = NCPJPGtestDataset_new(options[mode]["data_root"],
+                                                               options[mode]["padding"],
                                                            f,cls_num=self.cls_num,mod=options['general']['mod'])
         else:
             if self.use_plus:
@@ -186,7 +190,7 @@ class Validator():
         self.epoch += 1
         with torch.no_grad():
             print("Starting {}...".format(self.mode))
-            count = np.zeros((self.cls_num + self.use_plus * 2))
+            count = np.zeros((self.cls_num + self.use_plus * 2*(1-self.asinput)))
             Matrix = np.zeros((self.cls_num, self.cls_num))
             if self.cls_num>2:
                 #validator_function=_voting_validate_multicls#win1
@@ -206,7 +210,7 @@ class Validator():
             cnt_for_lidc=0
             e_cnt_l=0
             e_cnt_w=0
-            num_samples = np.zeros((self.cls_num + self.use_plus * 2))
+            num_samples = np.zeros((self.cls_num + self.use_plus * 2*(1-self.asinput)))
             #elist=open('val_slices_count.txt','w+')
             #truth_list=truth_list.readlines()
             #names=[tl.split('\t')[0] for tl in truth_list]
@@ -217,10 +221,11 @@ class Validator():
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
-
+                features= Variable(sample_batched['features']).cuda()
                 if self.use_plus:
                     age = Variable(sample_batched['age']).cuda()
                     gender = Variable(sample_batched['gender']).cuda()
+                    pos=Variable(sample_batched['pos']).cuda()
                 name =sample_batched['length'][0]
                 valid_length=len(sample_batched['length'][1])
 
@@ -228,9 +233,15 @@ class Validator():
                 input=input.squeeze(0)
                 input=input.permute(1,0,2,3)
                 if not self.use_plus:
-                    outputs = net(input)
+                    if self.R:
+                        outputs = net(input, features,True)
+                    else:
+                        outputs = net(input)
                 else:
-                    outputs, out_gender, out_age,out_pos,deep_feaures = net(input)
+                    if self.asinput:
+                        outputs, _, _, _, deep_feaures = net(input,pos,gender,age)
+                    else:
+                        outputs, out_gender, out_age,out_pos,deep_feaures = net(input)
                 if SAVE_DEEP:
                     deep_feaures=deep_feaures.cpu().numpy()[:valid_length,:].mean(0)
                     X.append(deep_feaures)
@@ -241,7 +252,7 @@ class Validator():
 
                 (vector, isacc,pos_count) = validator_function(outputs, labels,valid_length,self.topk)
                 _, maxindices = outputs.cpu().max(1)
-                if self.use_plus:
+                if self.use_plus and not self.asinput:
                     _, maxindices_gender = out_gender.cpu().mean(0).max(0)
                     genderacc = gender.cpu().numpy().reshape(gender.size(0)) == maxindices_gender.numpy()
                     output_gender_numpy = np.exp(out_gender.cpu().numpy()[:valid_length, 1]).mean()
@@ -253,7 +264,7 @@ class Validator():
 
                 output_numpy = vector
                 label_numpy = labels.cpu().numpy()[0, 0]
-                if self.use_plus and gender_numpy[0]>-1:
+                if self.use_plus and not self.asinput and gender_numpy[0]>-1 :
                     print(name[0], isacc, vector, 'sex:', genderacc)
                 else:
                     print(name[0],isacc,vector)
@@ -267,7 +278,7 @@ class Validator():
                         count[labels[i]] += 1
                     num_samples[labels[i]] += 1
 
-                    if self.use_plus and gender_numpy[i]>-1:
+                    if self.use_plus  and not self.asinput and gender_numpy[i]>-1:
                         GG.append([output_gender_numpy,gender_numpy])
                         AA.append(np.abs(pre_age_numpy-age_numpy))
                         if genderacc[i]==1 :
@@ -285,7 +296,7 @@ class Validator():
             Y=np.array(Y)
             np.save(os.path.join(args.deepsave,'X.npy'),X)
             np.save(os.path.join(args.deepsave, 'Y.npy'), Y)
-        if self.use_plus:
+        if self.use_plus and not self.asinput:
             GG = np.array(GG)
             AA=np.array(AA)
             np.save('gender.npy', GG)
@@ -319,7 +330,8 @@ if options['general']['use_plus']:
     model = resnet152_plus(options['general']['class_num'])
 else:
     model = resnet152(options['general']['class_num'])
-
+if 'R' in options['general'].keys():
+    model = resnet152_R(options['general']['class_num'])
 pretrained_dict = torch.load(args.model_path)
 # load only exists weights
 model_dict = model.state_dict()

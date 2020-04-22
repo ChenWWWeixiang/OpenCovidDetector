@@ -55,6 +55,7 @@ class Trainer():
     writer = SummaryWriter()    
     
     def __init__(self, options,model):
+        self.R='R'in options['general'].keys()
         self.cls_num=options['general']['class_num']
         self.use_plus=options['general']['use_plus']
         self.use_slice = options['general']['use_slice']
@@ -68,9 +69,10 @@ class Trainer():
         self.weightdecay = options["training"]["weightdecay"]
         self.momentum = options["training"]["momentum"]
         self.save_prefix = options["training"]["save_prefix"]
-
+        self.asinput=options['general']['plus_as_input']
+        self.USE_25D=options['general']['use25d']
         if options['general']['use_slice']:
-            if USE_25D:
+            if self.USE_25D:
                 f = 'data/3cls_train.list'
                 self.trainingdataset = NCPJPGtestDataset_new(options["training"]["padding"],
                                                 f, cls_num=self.cls_num, mod=options['general']['mod'])
@@ -81,12 +83,11 @@ class Trainer():
                                                 True,cls_num=self.cls_num,mod=options['general']['mod'])
         else:
             if options['general']['use_3d']:
-                self.trainingdataset = NCPDataset(options["training"]["data_root"],
-                                                  options["training"]["seg_root"],
+                self.trainingdataset = NCPDataset(
                                                     options["training"]["index_root"],
                                                     options["training"]["padding"],
                                                     True,
-                                                  z_length=options["model"]["z_length"])
+                                                    z_length=options["model"]["z_length"])
             else:
                 self.trainingdataset = NCP2DDataset(options["training"]["data_root"],
                                                     options["training"]["index_root"],
@@ -102,7 +103,8 @@ class Trainer():
                                     batch_size=options["input"]["batchsize"],
                                     #shuffle=options["input"]["shuffle"],
                                     num_workers=options["input"]["numworkers"],
-                                    drop_last=True,sampler=sampler)
+                                    drop_last=True,
+                                    sampler=sampler)
 
         self.optimizer = optim.Adam(model.parameters(),lr = self.learningrate,amsgrad=True)
         self.schedule=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer,'max',
@@ -114,7 +116,7 @@ class Trainer():
             #criterion=nn.
             #w=torch.Tensor(self.trainingdataset.get_w()).cuda()
             #print(w)
-            #w = torch.Tensor([0.4,0.4,0.2]).cuda()
+            w = torch.Tensor([0.4,0.4,0.2]).cuda()
             self.criterion =nn.NLLLoss().cuda()#0.3,0.7
             if self.use_plus:
                 self.criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
@@ -142,26 +144,33 @@ class Trainer():
             self.optimizer.zero_grad()
             input = Variable(sample_batched['temporalvolume'])
             labels = Variable(sample_batched['label'])
-            #length = Variable(len(sample_batched['length'][1]))
+            length = Variable(sample_batched['length'])
+            features = Variable(sample_batched['features'])
             if self.use_plus:
                 age = Variable(sample_batched['age']).cuda()
                 gender = Variable(sample_batched['gender']).cuda()
                 pos=Variable(sample_batched['pos']).cuda()
            # break
-            if USE_25D:
+            if self.USE_25D:
                 input = input.squeeze(0)
                 input = input.permute(1, 0, 2, 3)
             if(self.usecudnn):
                 input = input.cuda()
                 labels = labels.cuda()
             if not self.use_plus:
-                outputs = self.net(input)
+                if self.R:
+                    outputs = self.net(input, features)
+                else:
+                    outputs = self.net(input)
             else:
-                outputs,out_gender,out_age,out_pos,deep_feaures=self.net(input)
+                if self.asinput:
+                    outputs, _, _, _, deep_feaures = self.net(input,pos,gender,age)
+                else:
+                    outputs,out_gender,out_age,out_pos,deep_feaures=self.net(input)
             if self.use_3d or self.use_lstm:
                 loss = self.criterion(outputs, length,labels.squeeze(1))
-            elif self.use_plus:
-                if USE_25D:
+            elif self.use_plus and not self.asinput:
+                if self.USE_25D:
                     l1 = self.criterion(outputs.unsqueeze(0), labels.squeeze(1))
                     #l4=self.criterion_pos(out_pos.unsqueeze(0),pos)
                     l2 = self.criterion_age(out_age.unsqueeze(0), (age//20).squeeze(1))
