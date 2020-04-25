@@ -14,7 +14,8 @@ use25d=false
 class_num=3
 plus_as_input=false
 mod='co'
-R=1
+#R=1
+#radiomics_path='/mnt/data9/r_c_cache'
 
 [input]
 batchsize = 32

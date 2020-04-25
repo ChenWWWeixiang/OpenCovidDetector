@@ -42,7 +42,7 @@ parser.add_argument("-i", "--imgpath", help="A list of paths for image data",
                         ])
 parser.add_argument("-o", "--savenpy", help="A path to save record",  type=str,
                     #default='re/cap_vs_covid.npy')
-                    default='re/withR.npy')
+                    default='re/model_3cls_pure.npy')
 parser.add_argument("-d", "--deepsave", help="A path to save deepfeature",  type=str,
                     #default='re/cap_vs_covid.npy')
                     default='deep_f')
@@ -52,7 +52,7 @@ parser.add_argument("-e", "--exclude_list", help="A path to a txt file for exclu
 parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include",  type=bool,
                     default=False)
 parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include",  type=str,
-                    default='weights/model_R.pt')
+                    default='weights/model_3cls_pure.pt')
                     #default='weights/healthy_or_not.pt')
 parser.add_argument("-g", "--gpuid", help="gpuid",  type=str,
                     default='4')
@@ -154,7 +154,8 @@ class Validator():
                 #                                           cls_num=self.cls_num)
                 self.validationdataset = NCPJPGtestDataset_new(options[mode]["data_root"],
                                                             options[mode]["padding"],
-                                                           f,cls_num=self.cls_num,mod=options['general']['mod'])
+                                                           f,cls_num=self.cls_num,mod=options['general']['mod'],
+                                                               options=options)
             else:
                 #self.validationdataset = NCPJPGtestDataset(datalist,
                 #                                           masklist,
@@ -162,7 +163,8 @@ class Validator():
                 #                                           cls_num=self.cls_num)
                 self.validationdataset = NCPJPGtestDataset_new(options[mode]["data_root"],
                                                                options[mode]["padding"],
-                                                           f,cls_num=self.cls_num,mod=options['general']['mod'])
+                                                           f,cls_num=self.cls_num,mod=options['general']['mod'],
+                                                               options=options)
         else:
             if self.use_plus:
                 self.validationdataset = NCPJPGtestDataset(datalist,
@@ -174,7 +176,7 @@ class Validator():
                                                            masklist,
                                                            options[mode]["padding"],cls_num=self.cls_num
                                                            )
-        self.topk=3
+        self.topk=5
         self.tot_data = len(self.validationdataset)
         self.validationdataloader = DataLoader(
             self.validationdataset,
@@ -230,13 +232,16 @@ class Validator():
                 valid_length=len(sample_batched['length'][1])
 
                 model = model.cuda()
+                if self.R:
+                    features=features.squeeze(0)
+                    #features=features.permute()
                 input=input.squeeze(0)
                 input=input.permute(1,0,2,3)
                 if not self.use_plus:
                     if self.R:
                         outputs = net(input, features,True)
                     else:
-                        outputs = net(input)
+                        outputs = net(input,False)
                 else:
                     if self.asinput:
                         outputs, _, _, _, deep_feaures = net(input,pos,gender,age)

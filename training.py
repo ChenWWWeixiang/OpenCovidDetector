@@ -1,4 +1,6 @@
 from torch.autograd import Variable
+import warnings
+warnings.filterwarnings("ignore")
 import torch
 import torch.optim as optim
 from datetime import datetime, timedelta
@@ -80,7 +82,7 @@ class Trainer():
                 self.trainingdataset = NCPJPGDataset_new(options["training"]["data_root"],
                                                 options["training"]["index_root"],
                                                 options["training"]["padding"],
-                                                True,cls_num=self.cls_num,mod=options['general']['mod'])
+                                                True,cls_num=self.cls_num,mod=options['general']['mod'],options=options)
         else:
             if options['general']['use_3d']:
                 self.trainingdataset = NCPDataset(
@@ -104,7 +106,8 @@ class Trainer():
                                     #shuffle=options["input"]["shuffle"],
                                     num_workers=options["input"]["numworkers"],
                                     drop_last=True,
-                                    sampler=sampler)
+                                    sampler=sampler
+                                    )
 
         self.optimizer = optim.Adam(model.parameters(),lr = self.learningrate,amsgrad=True)
         self.schedule=torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer,'max',

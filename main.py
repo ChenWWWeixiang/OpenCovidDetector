@@ -7,11 +7,13 @@ from validation import Validator
 import torch.nn as nn
 import os
 from models.net2d import densenet121,densenet161,squeezenet1_1,vgg19_bn,resnet152,resnet152_plus,resnet152_R
+import warnings
+warnings.filterwarnings("ignore")
 
 
 
 print("Loading options...")
-with open('options_withR', 'r') as optionsFile:
+with open('options_lip.toml', 'r') as optionsFile:
     options = toml.loads(optionsFile.read())
 
 if(options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):

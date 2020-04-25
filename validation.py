@@ -1,4 +1,6 @@
 from torch.autograd import Variable
+import warnings
+warnings.filterwarnings("ignore")
 import torch
 import torch.optim as optim
 from datetime import datetime, timedelta
@@ -62,7 +64,8 @@ class Validator():
                                                         options[mode]["index_root"],
                                                         options[mode]["padding"],
                                                         False,cls_num=self.cls_num,
-                                                        mod=options['general']['mod'])
+                                                        mod=options['general']['mod'],
+                                                           options=options)
         else:
             if options['general']['use_3d']:
                 self.validationdataset = NCPDataset(  options[mode]["index_root"],

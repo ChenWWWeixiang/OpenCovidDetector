@@ -1,14 +1,19 @@
+import warnings
+warnings.filterwarnings("ignore")
 from torch.utils.data import Dataset
+
 from PIL import Image
+from radiomics import featureextractor
 #import torchvision.transforms.functional as functional
 import torchvision.transforms as transforms
 #import torchvision
 import torch
+import time
 from .statefultransforms import StatefulRandomCrop, StatefulRandomHorizontalFlip
 import SimpleITK as sitk
 import os
 import numpy as np
-import glob
+import glob,six
 import pandas as pd
 import random
 import cv2 as cv
@@ -687,28 +692,34 @@ class NCPJPGtestDataset_MHA(Dataset):
 
 
 class NCPJPGDataset_new(Dataset):
-    def __init__(self, data_root,index_root, padding, augment=False,cls_num=2,mod='ab'):
+    def __init__(self, data_root,index_root, padding, augment=False,cls_num=2,mod='ab',options=None):
         self.mod=mod
         self.padding = padding
         self.data = []
+        self.options=options
+        if 'radiomics_path' in options['general'].keys():
+            self.radiomics_path = options['general']['radiomics_path']
+            os.makedirs(self.radiomics_path,exist_ok=True)
+        else:
+            self.radiomics_path=[]
         if data_root[-3:]=='csv':
             self.r=pd.read_csv(data_root)
         self.data_root=data_root
         self.padding = padding
         self.augment = augment
         self.cls_num=cls_num
-        self.train_augmentation = transforms.Compose([transforms.Resize(256),##just for abnormal detector
-
+        self.extractor = featureextractor.RadiomicsFeatureExtractor('radiomics/RadiomicsParams.yaml')
+        self.train_augmentation = transforms.Compose([transforms.Resize((224,224)),##just for abnormal detector
                                                      #transforms.RandomRotation(45),
-                                                     transforms.RandomAffine(45, translate=(0,0.2),fillcolor=0),
-                                                     transforms.RandomCrop(224),
+                                                     transforms.RandomAffine(30, translate=(0,0.1),fillcolor=0),
+                                                     #transforms.RandomCrop(224),
 
                                                      transforms.ToTensor(),
                                                      transforms.RandomErasing(p=0.1),
                                                      transforms.Normalize([0, 0, 0], [1, 1, 1])
                                                      ])
-        self.test_augmentation = transforms.Compose([transforms.Resize(256),
-                                                 transforms.CenterCrop(224),
+        self.test_augmentation = transforms.Compose([transforms.Resize((224,224)),
+                                                 #transforms.CenterCrop(224),
                                                  transforms.ToTensor(),
                                                  transforms.Normalize([0, 0, 0], [1, 1, 1])
                                                  ])
@@ -762,11 +773,11 @@ class NCPJPGDataset_new(Dataset):
     def __getitem__(self, idx):
         #load video into a tensor
         data_path = self.data[idx]
-
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
+
         feature=0
-        if self.data_root[-3:] == 'csv':
+        if self.data_root[-3:] == 'csv' and not isinstance(self.radiomics_path,str):
             this_name=data_path.split('/')[-2].split('masked_')[-1].split('2nd')[0]+'_' +\
                       data_path.split('/')[-1][:data_path.split('/')[-1].index('_',-7)]+'_label.nrrd'
             try:
@@ -774,7 +785,6 @@ class NCPJPGDataset_new(Dataset):
                 feature=np.delete(feature,2)
             except:
                 print(this_name)
-                a=1
 
         if self.cls_num==2:
             if self.mod=='ab':#abnormal detection
@@ -794,6 +804,36 @@ class NCPJPGDataset_new(Dataset):
         age = int(data_path.split('_')[-3])
         gender = int(data_path.split('_')[-2]=='M')
         pos=int(data_path.split('_')[-1].split('.')[0])
+        time1=time.time()
+        if isinstance(self.radiomics_path,str):
+            aim=os.path.join(self.radiomics_path,data_path.split('/')[-2].split('masked_')[-1].split('2nd')[0]+'_'+
+                                                               data_path.split('/')[-1].split('.jpg')[0]+'.npy')
+            if os.path.exists(aim):
+                feature=np.load(aim)
+            else:
+                feature = []
+                masks_a=(np.array(data)[:,:,0]>20).astype(np.int)
+                if np.sum(masks_a>0)<2:
+                    feature=np.zeros(665)
+                else:
+                    try:
+                        result = self.extractor.execute(sitk.GetImageFromArray(np.array(data)[:,:,2]),
+                                                        sitk.GetImageFromArray(masks_a))
+                        for idx, (key, val) in enumerate(six.iteritems(result)):
+                            if idx < 11:
+                                continue
+                            if not isinstance(val, (float, int, np.ndarray)):
+                                continue
+                            if np.isnan(val):
+                                val = 0
+                            feature.append(val)
+                    except:
+                        feature = np.zeros(665)
+
+                feature=np.array(feature)
+                np.save(aim,feature)
+       # time2 = time.time()-time1
+        #print(time2)
         if self.augment:
             data=self.train_augmentation(data)
         else:
@@ -808,11 +848,18 @@ class NCPJPGDataset_new(Dataset):
             }
 
 class NCPJPGtestDataset_new(Dataset):
-    def __init__(self, data_root,padding,lists,age_list=None,cls_num=2,mod='ab'):
+    def __init__(self, data_root,padding,lists,age_list=None,cls_num=2,mod='ab',options=None):
         #self.padding = padding
         self.data_root=data_root
         if data_root[-3:]=='csv':
             self.r=pd.read_csv(data_root)
+        self.options = options
+        if 'radiomics_path' in options['general'].keys():
+            self.radiomics_path = options['general']['radiomics_path']
+            os.makedirs(self.radiomics_path, exist_ok=True)
+        else:
+            self.radiomics_path = []
+        self.extractor = featureextractor.RadiomicsFeatureExtractor('radiomics/RadiomicsParams.yaml')
         self.cls_num=cls_num
         self.data = []
         self.text_book=None
@@ -823,8 +870,8 @@ class NCPJPGtestDataset_new(Dataset):
         self.padding = padding
 
         self.transform=  transforms.Compose([#transforms.ToPILImage(),
-                                        transforms.Resize(256),
-                                         transforms.CenterCrop(224),
+                                         transforms.Resize((224,224)),
+                                         #transforms.CenterCrop(224),
                                          transforms.ToTensor(),
                                          transforms.Normalize([0, 0, 0], [1, 1, 1])
                                          ])
@@ -876,8 +923,8 @@ class NCPJPGtestDataset_new(Dataset):
         #print(data_path,mask_path)
         if data_path[-1]=='\n':
             data_path=data_path[:-1]
-        feature = 0
-        if self.data_root[-3:] == 'csv':
+
+        if self.data_root[-3:] == 'csv' and not isinstance(self.radiomics_path, str):
             this_name = data_path.split('/')[-2].split('masked_')[-1].split('2nd')[0] + '_' + \
                         data_path.split('/')[-1].split('.nii')[0] + '_label.nrrd'
             try:
@@ -905,16 +952,22 @@ class NCPJPGtestDataset_new(Dataset):
         except:
             mask_path=mask_path.split('2020')[0]+mask_path.split('2020')[1][:-1]
             mask = sitk.ReadImage(mask_path)
+        lesion_name = (mask_path.split('.nii')[0] + '_label.nrrd').replace('lungs','lesion')
+        L = sitk.ReadImage(lesion_name)
+        L = sitk.GetArrayFromImage(L)
+        L[L > 0] = 1
         M = sitk.GetArrayFromImage(mask)
         volume=sitk.ReadImage(data_path)
         data=sitk.GetArrayFromImage(volume)
         M=M[:data.shape[0],:,:]
         M[M>1]=1
         valid=np.where(M.sum(1).sum(1)>500)
-        data = data[valid[0], :, :]
-        M = M[valid[0], :data.shape[1], :data.shape[2]]
-        data=data[:M.shape[0],:M.shape[1],:M.shape[2]]
-        temporalvolume,pos = self.bbc(data, self.padding,M)
+        area = np.where(M>0)
+        data = data[valid[0], area[1].min():area[1].max(), area[2].min():area[2].max()]
+        L=L[valid[0],area[1].min():area[1].max(),area[2].min():area[2].max()]
+        M = M[valid[0], area[1].min():area[1].max(), area[2].min():area[2].max()]
+        #data=data[:M.shape[0],:M.shape[1],:M.shape[2]]
+        temporalvolume,pos,feature = self.bbc(data, self.padding,data_path,M,L)
         age = int(data_path.split('_')[-2])
         gender = int(data_path.split('_')[-1].split('.nii')[0]=='M')
         return {'temporalvolume': temporalvolume,
@@ -923,31 +976,57 @@ class NCPJPGtestDataset_new(Dataset):
             'gender': torch.LongTensor([gender]),
             'age': torch.LongTensor([age]),
             'pos':torch.FloatTensor([pos]),
-            'features':torch.FloatTensor([feature])
+            'features':torch.FloatTensor(feature)
             }
 
-    def bbc(self,V, padding,pre=None):
+    def bbc(self,V, padding,data_path,pre=None,L=None):
         temporalvolume = torch.zeros((3, padding, 224, 224))
+        F=np.zeros((padding,665))
         #croptransform = transforms.CenterCrop((224, 224))
         cnt=0
         name=[]
-        for cnt,i in enumerate(range(1,V.shape[0]-2,3)):
+        for cnt,i in enumerate(range(0,V.shape[0],3)):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             if cnt>=padding:
                 break
-            data=V[i-1:i+1,:,:]
-            data[data > 700] = 700
+            data=V[i,:,:]
+            data[data > 500] = 500
             data[data < -1200] = -1200
-            data = data * 255.0 / 1900
+            data = data * 255.0 / 1700
             name.append(float(i/V.shape[0]))
             data = data - data.min()
-            data = np.concatenate([pre[i-1:i, :, :] * 255,data], 0)  # mask one channel
+            data = np.stack([L[i,:,:]*data,pre[i, :, :] * data,data], -1)  # mask one channel
             data = data.astype(np.uint8)
-            data=Image.fromarray(data.transpose(1,2,0))
+            data=Image.fromarray(data)
             #data.save('temp.jpg')
             result = self.transform(data)
+            if isinstance(self.radiomics_path,str):
+                aim=os.path.join(self.radiomics_path,data_path.split('/')[-2].split('masked_')[-1].split('2nd')[0]+'_'+\
+                                                                   data_path.split('/')[-1].split('.nii')[0]+'_'+\
+                                                                    str(int(100*i/V.shape[0]))+'.npy')
+                if os.path.exists(aim):
+                    feature=np.load(aim,allow_pickle=False)
+                else:
+                    feature = []
+
+                    try:
+                        r = self.extractor.execute(sitk.GetImageFromArray(np.array(data)[:,:,2]),
+                                                        sitk.GetImageFromArray(L[i,:,:]))
+                        for idx, (key, val) in enumerate(six.iteritems(r)):
+                            if idx < 11:
+                                continue
+                            if not isinstance(val, (float, int, np.ndarray)):
+                                continue
+                            if np.isnan(val):
+                                val = 0
+                            feature.append(val)
+                    except:
+                        feature = np.zeros(665)
+                        #print('zeros',data_path)
+                    feature=np.array(feature)
+                    np.save(aim,feature)
+                F[cnt] = feature
             temporalvolume[:, cnt] = result
 
-        if cnt==0:
-            print(cnt)
-        return temporalvolume,name
+        temporalvolume=temporalvolume[:,:cnt,:,:]
+        return temporalvolume,name,F[:cnt]

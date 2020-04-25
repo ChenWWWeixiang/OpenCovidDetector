@@ -3,10 +3,10 @@ title = "covid19 PyTorch"
 [general]
 usecudnn = true
 usecudnnbenchmark = true
-gpuid = "5"
+gpuid = "1"
 loadpretrainedmodel = true
 random_seed = true
-pretrainedmodelpath = 'weights/model_3cls_assuper.pt'
+pretrainedmodelpath = 'weights/model_R_online.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
@@ -16,6 +16,7 @@ plus_as_input=false
 mod='co'#'ab
 class_num=3
 R=1
+radiomics_path='/mnt/data9/r_c_cache'
 
 [input]
 batchsize = 32
@@ -35,18 +36,18 @@ epochs = 50
 startepoch = 0
 statsfrequency = 1000
 data_root = 'radiomics/r_features.csv'#useless and used as ages_gender.txt path
-index_root = 'data/txt/train3cls_pos.txt'
+index_root = 'data/txt/train3cls_c.txt'
 padding = 45
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.05
-save_prefix = "weights/model_R"
+save_prefix = "weights/crop_R"
 
 
 [validation]
 validate = true
 data_root = 'radiomics/r_features.csv'
-index_root = 'data/txt/test3cls_pos.txt'
+index_root = 'data/txt/test3cls_c.txt'
 padding = 45
 saveaccuracy = false
 
