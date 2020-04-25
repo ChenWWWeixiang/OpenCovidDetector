@@ -50,16 +50,14 @@ def predict(img, model, batch_size=30, cuda=True):
 
 if __name__ == '__main__':
     os.environ["CUDA_VISIBLE_DEVICES"] = '1'
-    img_path = '/Extra/xuzhanwei/CoV19/cap_zs'
-    lung_path = '/Extra/xuzhanwei/CoV19/image_npy'
-    pred_path = '/Extra/xuzhanwei/CoV19/image_npy_predict'
-    model_path = './checkpoint_52000.pth'
+    img_path = '/home/cwx/extra/covid_project_data/cap_qqhr'
+    pred_path = '/home/cwx/extra/covid_project_segs/lungs/cap_qqhr'
+    model_path = './checkpoint_200000.pth'
     if not os.path.exists(pred_path):
         os.makedirs(pred_path)
     print('# images:  ', len(os.listdir(img_path)))
     for filename in tqdm(os.listdir(img_path), dynamic_ncols=True):
-        img = np.load(os.path.join(img_path, filename))
-        # print(filename+':\n Shape: ', np.shape(img))
+        img=sitk.ReadImage(os.path.join(img_path, filename))
         result = predict(img, model_path)
         np.save(os.path.join(pred_path, 'pred_' + filename), result)
 

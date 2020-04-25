@@ -19,3 +19,4 @@ ipt_results
 view_segs
 *.csv
 *.txt
+segmentation/*.pth
