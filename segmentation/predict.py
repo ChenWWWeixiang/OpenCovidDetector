@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
-from unet import UNet
+from segmentation.unet import UNet
 import SimpleITK as sitk
 def get_model(model_path,cuda=True):
     cuda = cuda and torch.cuda.is_available()

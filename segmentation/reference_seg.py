@@ -1,10 +1,10 @@
 import SimpleITK as sitk 
 import numpy as np
-from lungmask import mask
+#from segmentation.lungmask import mask
 import glob
 import os 
-from predict import predict,get_model
-from unet import UNet
+from segmentation.predict import predict,get_model
+#from segmentation.unet import UNet
 os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 lung_dir = '/Extra/xuzhanwei/CoV19_data/Output/finial/reference/lung/'
 leision_dir = '/Extra/xuzhanwei/CoV19_data/Output/finial/reference/leision/'

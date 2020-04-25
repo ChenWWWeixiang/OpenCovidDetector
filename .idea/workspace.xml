@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Lipreading-DenseNet3D-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Lipreading-DenseNet3D-master.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/test_hu.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/test_hu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/net2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/net2d.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options_lip.toml" beforeDir="false" afterPath="$PROJECT_DIR$/options_lip.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options_withR" beforeDir="false" afterPath="$PROJECT_DIR$/options_withR" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/radiomics/RadiomicsParams.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/radiomics/RadiomicsParams.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.toml" beforeDir="false" afterPath="$PROJECT_DIR$/test.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/testengine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/validation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/segmentation/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/segmentation/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/segmentation/reference_seg.py" beforeDir="false" afterPath="$PROJECT_DIR$/segmentation/reference_seg.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,7 +28,7 @@
         <entry file="file://$PROJECT_DIR$/testengine.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="618">
-              <caret line="138" column="16" lean-forward="true" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+              <caret line="138" column="16" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
                 <element signature="e#3196#3528#0" />
@@ -71,16 +60,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="net2d.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="net2d.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/net2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="403" column="49" selection-start-line="403" selection-start-column="49" selection-end-line="403" selection-end-column="49" />
+            <state relative-caret-position="199">
+              <caret line="400" lean-forward="true" selection-start-line="400" selection-end-line="400" />
               <folding>
                 <element signature="e#7286#8657#0" />
                 <element signature="e#9641#10037#0" />
                 <element signature="e#10101#10497#0" />
                 <element signature="e#10640#12855#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="predict.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/segmentation/predict.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="92">
+              <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reference_seg.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/segmentation/reference_seg.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="5" column="50" lean-forward="true" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,18 +103,6 @@
               <caret line="108" column="51" selection-start-line="108" selection-start-column="51" selection-end-line="108" selection-end-column="51" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -207,8 +205,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/analysis_tools/reg_to_one.py" />
-        <option value="$PROJECT_DIR$/analysis_tools/multi_period_analysis/knn_predict.py" />
         <option value="$PROJECT_DIR$/data/filter_img.py" />
         <option value="$PROJECT_DIR$/analysis_tools/analysis_zs.py" />
         <option value="$PROJECT_DIR$/models/Dense3D.py" />
@@ -258,6 +254,8 @@
         <option value="$PROJECT_DIR$/models/net2d.py" />
         <option value="$PROJECT_DIR$/data/dataset.py" />
         <option value="$PROJECT_DIR$/testengine.py" />
+        <option value="$PROJECT_DIR$/segmentation/predict.py" />
+        <option value="$PROJECT_DIR$/segmentation/reference_seg.py" />
       </list>
     </option>
   </component>
@@ -283,12 +281,7 @@
             <path>
               <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
-              <item name="radiomics" type="462c0819:PsiDirectoryNode" />
+              <item name="segmentation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -304,11 +297,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/segmentation" />
       <recent name="$PROJECT_DIR$/key_result" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/result_plt" />
       <recent name="$PROJECT_DIR$/multi_period_scores" />
-      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/result_plt" />
@@ -447,13 +440,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1582022748789</updated>
-    </task>
-    <task id="LOCAL-00012" summary="add pic to readme">
-      <created>1585753612961</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1585753612961</updated>
     </task>
     <task id="LOCAL-00013" summary="add pic to readme">
       <created>1585753756777</created>
@@ -791,20 +777,27 @@
       <option name="project" value="LOCAL" />
       <updated>1587524280202</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="seg models">
+      <created>1587814142336</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1587814142337</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="28" width="1932" height="1034" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7879925" visible="true" weight="0.1889182" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7879925" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50079155" side_tool="true" weight="0.33145434" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32807216" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Python Console" order="9" weight="0.32919955" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.37880495" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920845" visible="true" weight="0.37880495" />
       <window_info id="Structure" order="1" sideWeight="0.21200751" side_tool="true" weight="0.1889182" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.421646" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -824,7 +817,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/python-fracdim" />
     </ignored-roots>
-    <MESSAGE value="pictures" />
     <MESSAGE value="add pic to readme" />
     <MESSAGE value="add model plus" />
     <MESSAGE value="readme better" />
@@ -849,7 +841,8 @@
     <MESSAGE value="many news: 2.5d network; new radiomics and cam" />
     <MESSAGE value="new weighted sampler" />
     <MESSAGE value="many fixs" />
-    <option name="LAST_COMMIT_MESSAGE" value="many fixs" />
+    <MESSAGE value="seg models" />
+    <option name="LAST_COMMIT_MESSAGE" value="seg models" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1275,16 +1268,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/key_result/model_3cls_asinput.npy">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/batchgenerators/augmentations/spatial_transformations.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="196" column="24" selection-start-line="196" selection-start-column="14" selection-end-line="196" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/batchgenerators/augmentations/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -1668,7 +1651,7 @@
     <entry file="file://$PROJECT_DIR$/testengine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="618">
-          <caret line="138" column="16" lean-forward="true" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
+          <caret line="138" column="16" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="16" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#3196#3528#0" />
@@ -1683,13 +1666,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/net2d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="403" column="49" selection-start-line="403" selection-start-column="49" selection-end-line="403" selection-end-column="49" />
+        <state relative-caret-position="199">
+          <caret line="400" lean-forward="true" selection-start-line="400" selection-end-line="400" />
           <folding>
             <element signature="e#7286#8657#0" />
             <element signature="e#9641#10037#0" />
             <element signature="e#10101#10497#0" />
             <element signature="e#10640#12855#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/reference_seg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="50" lean-forward="true" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
