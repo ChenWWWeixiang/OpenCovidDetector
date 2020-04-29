@@ -814,7 +814,7 @@ class NCPJPGDataset_new(Dataset):
                 feature = []
                 masks_a=(np.array(data)[:,:,0]>20).astype(np.int)
                 if np.sum(masks_a>0)<2:
-                    feature=np.zeros(665)
+                    feature=np.zeros(479)
                 else:
                     try:
                         result = self.extractor.execute(sitk.GetImageFromArray(np.array(data)[:,:,2]),
@@ -828,7 +828,7 @@ class NCPJPGDataset_new(Dataset):
                                 val = 0
                             feature.append(val)
                     except:
-                        feature = np.zeros(665)
+                        feature = np.zeros(479)
 
                 feature=np.array(feature)
                 np.save(aim,feature)
@@ -981,11 +981,14 @@ class NCPJPGtestDataset_new(Dataset):
 
     def bbc(self,V, padding,data_path,pre=None,L=None):
         temporalvolume = torch.zeros((3, padding, 224, 224))
-        F=np.zeros((padding,665))
+        F=np.zeros((padding,479))
         #croptransform = transforms.CenterCrop((224, 224))
+        stride=max(V.shape[0]//padding,5)
         cnt=0
         name=[]
-        for cnt,i in enumerate(range(0,V.shape[0],3)):
+        if data_path=='/home/cwx/extra/covid_project_data/cap-qqhr/1_85_20200118_50_M.nii':
+            a=1
+        for cnt,i in enumerate(range(0,V.shape[0],stride)):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             if cnt>=padding:
                 break
@@ -1001,12 +1004,14 @@ class NCPJPGtestDataset_new(Dataset):
             #data.save('temp.jpg')
             result = self.transform(data)
             if isinstance(self.radiomics_path,str):
+
                 aim=os.path.join(self.radiomics_path,data_path.split('/')[-2].split('masked_')[-1].split('2nd')[0]+'_'+\
                                                                    data_path.split('/')[-1].split('.nii')[0]+'_'+\
                                                                     str(int(100*i/V.shape[0]))+'.npy')
                 if os.path.exists(aim):
-                    feature=np.load(aim,allow_pickle=False)
+                    feature=np.load(aim,allow_pickle=True)
                 else:
+                    warnings.filterwarnings("ignore")
                     feature = []
 
                     try:
@@ -1021,12 +1026,12 @@ class NCPJPGtestDataset_new(Dataset):
                                 val = 0
                             feature.append(val)
                     except:
-                        feature = np.zeros(665)
+                        feature = np.zeros(479)
                         #print('zeros',data_path)
                     feature=np.array(feature)
-                    np.save(aim,feature)
+                    np.save(aim,feature,allow_pickle=True)
                 F[cnt] = feature
             temporalvolume[:, cnt] = result
 
-        temporalvolume=temporalvolume[:,:cnt,:,:]
-        return temporalvolume,name,F[:cnt]
+        #temporalvolume=temporalvolume
+        return temporalvolume[:,:cnt,:,:],name,F[:cnt]

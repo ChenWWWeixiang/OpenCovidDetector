@@ -1,7 +1,7 @@
 from unet_parts import *
 
 class UNet(nn.Module):
-    def __init__(self, n_channels=1, n_classes=2, bilinear=True):
+    def __init__(self, n_channels=1, n_classes=3, bilinear=True):
         super(UNet, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
@@ -19,7 +19,7 @@ class UNet(nn.Module):
         self.outpred = OutConv(64, n_classes)
 
     def forward(self, x):
-        x = x/255.0
+        #x = x/255.0
         x1 = self.inc(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)

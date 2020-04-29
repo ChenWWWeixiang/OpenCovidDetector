@@ -6,20 +6,20 @@ usecudnnbenchmark = true
 gpuid = "1"
 loadpretrainedmodel = true
 random_seed = true
-pretrainedmodelpath = 'weights/model_R_online.pt'
+pretrainedmodelpath = 'weights/crop_R3_25D.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
 use_plus=false
-use25d=false
+use25d=true
 plus_as_input=false
 mod='co'#'ab
 class_num=3
 R=1
-radiomics_path='/mnt/data9/r_c_cache'
+radiomics_path='/mnt/data9/crop_R3_25D'
 
 [input]
-batchsize = 32
+batchsize = 1
 numworkers = 8
 shuffle = true
 
@@ -32,24 +32,25 @@ numlstms = 2
 
 [training]
 train = true
-epochs = 50
+epochs = 80
 startepoch = 0
-statsfrequency = 1000
+statsfrequency = 50
 data_root = 'radiomics/r_features.csv'#useless and used as ages_gender.txt path
 index_root = 'data/txt/train3cls_c.txt'
-padding = 45
+padding = 35
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.05
-save_prefix = "weights/crop_R"
+save_prefix = "weights/crop_R3_25D"
 
 
 [validation]
 validate = true
 data_root = 'radiomics/r_features.csv'
 index_root = 'data/txt/test3cls_c.txt'
-padding = 45
+padding = 35
 saveaccuracy = false
+saves='re/withR.npy'
 
 
 [test]

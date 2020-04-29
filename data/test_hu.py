@@ -5,7 +5,7 @@ from PIL import Image
 import cv2,os
 #input_path='/home/cwx/extra/CAP'
 #input_mask='/mnt/data6/CAP/resampled_seg'
-set_name='cap'
+set_name='cap-zs'
 input_path='/home/cwx/extra/covid_project_data/'+set_name
 input_mask='/home/cwx/extra/covid_project_segs/lungs/'+set_name
 input_lesion_mask='/home/cwx/extra/covid_project_segs/lesion/'+set_name

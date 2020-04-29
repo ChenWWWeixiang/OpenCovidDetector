@@ -76,8 +76,8 @@ class Trainer():
         if options['general']['use_slice']:
             if self.USE_25D:
                 f = 'data/3cls_train.list'
-                self.trainingdataset = NCPJPGtestDataset_new(options["training"]["padding"],
-                                                f, cls_num=self.cls_num, mod=options['general']['mod'])
+                self.trainingdataset = NCPJPGtestDataset_new(options["training"]["data_root"],options["training"]["padding"],
+                                                f, cls_num=self.cls_num, mod=options['general']['mod'],options=options)
             else:
                 self.trainingdataset = NCPJPGDataset_new(options["training"]["data_root"],
                                                 options["training"]["index_root"],
@@ -95,18 +95,18 @@ class Trainer():
                                                     options["training"]["index_root"],
                                                     options["training"]["padding"],
                                                     True)##TODO:3
-        weights = self.trainingdataset.make_weights_for_balanced_classes()
-        weights = torch.DoubleTensor(weights)
-        sampler = torch.utils.data.sampler.WeightedRandomSampler(
-            weights, len(self.trainingdataset))
+        #weights = self.trainingdataset.make_weights_for_balanced_classes()
+        #weights = torch.DoubleTensor(weights)
+        #sampler = torch.utils.data.sampler.WeightedRandomSampler(
+        #    weights, len(self.trainingdataset))
 
         self.trainingdataloader = DataLoader(
                                     self.trainingdataset,
                                     batch_size=options["input"]["batchsize"],
-                                    #shuffle=options["input"]["shuffle"],
+                                    shuffle=options["input"]["shuffle"],
                                     num_workers=options["input"]["numworkers"],
                                     drop_last=True,
-                                    sampler=sampler
+                                    #sampler=sampler
                                     )
 
         self.optimizer = optim.Adam(model.parameters(),lr = self.learningrate,amsgrad=True)
@@ -119,8 +119,8 @@ class Trainer():
             #criterion=nn.
             #w=torch.Tensor(self.trainingdataset.get_w()).cuda()
             #print(w)
-            w = torch.Tensor([0.4,0.4,0.2]).cuda()
-            self.criterion =nn.NLLLoss().cuda()#0.3,0.7
+            w = torch.Tensor([0.2,0.6,1.4]).cuda()
+            self.criterion =nn.NLLLoss(w).cuda()#0.3,0.7
             if self.use_plus:
                 self.criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
                 self.criterion_gender = nn.NLLLoss(ignore_index=-1,
@@ -147,7 +147,7 @@ class Trainer():
             self.optimizer.zero_grad()
             input = Variable(sample_batched['temporalvolume'])
             labels = Variable(sample_batched['label'])
-            length = Variable(sample_batched['length'])
+            length = len(sample_batched['length'][1])
             features = Variable(sample_batched['features'])
             if self.use_plus:
                 age = Variable(sample_batched['age']).cuda()
@@ -157,14 +157,15 @@ class Trainer():
             if self.USE_25D:
                 input = input.squeeze(0)
                 input = input.permute(1, 0, 2, 3)
+                features = features.squeeze(0)
             if(self.usecudnn):
                 input = input.cuda()
                 labels = labels.cuda()
             if not self.use_plus:
                 if self.R:
-                    outputs = self.net(input, features)
+                    outputs = self.net(input, features,True)
                 else:
-                    outputs = self.net(input)
+                    outputs = self.net(input,False)
             else:
                 if self.asinput:
                     outputs, _, _, _, deep_feaures = self.net(input,pos,gender,age)
@@ -196,6 +197,9 @@ class Trainer():
                 output_iteration(loss.cpu().detach().numpy(), sampleNumber, currentTime - startTime, len(self.trainingdataset))
                 Trainer.writer.add_scalar('Train Loss', loss, Trainer.tot_iter)
             Trainer.tot_iter += 1
+            if i_batch==500 and self.USE_25D:
+                break
+
 
         print("Epoch "+str(epoch)+"completed, saving state...")
         print(self.use_3d)

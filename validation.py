@@ -10,7 +10,7 @@ import torch.nn as nn
 from data.dataset import NCPDataset,NCP2DDataset,NCPJPGDataset,NCPJPGDataset_new,NCPJPGtestDataset_new
 import os,cv2
 import numpy as np
-USE_25D=False
+
 def _validate(modelOutput, length, labels, total=None, wrong=None):
 
     averageEnergies = torch.mean(modelOutput.data, 1)
@@ -57,8 +57,9 @@ class Validator():
         if options['general']['use_slice']:
             if self.USE_25D:
                 f = 'data/3cls_test.list'
-                self.validationdataset = NCPJPGtestDataset_new(options["training"]["padding"],
-                                                             f, cls_num=self.cls_num, mod=options['general']['mod'])
+                self.validationdataset = NCPJPGtestDataset_new(options[mode]["data_root"],options["training"]["padding"],
+                                                             f, cls_num=self.cls_num, mod=options['general']['mod'],
+                                                               options=options)
             else:
                 self.validationdataset = NCPJPGDataset_new(options[mode]["data_root"],
                                                         options[mode]["index_root"],
@@ -82,7 +83,7 @@ class Validator():
         self.validationdataloader = DataLoader(
                                     self.validationdataset,
                                     batch_size=options["input"]["batchsize"],
-                                    shuffle=options["input"]["shuffle"],
+                                    shuffle=True,
                                     num_workers=options["input"]["numworkers"],
                                     drop_last=False
                                 )
@@ -112,7 +113,7 @@ class Validator():
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
-                length = Variable(sample_batched['length']).cuda()
+                length = len(sample_batched['length'][1])
                 features= Variable(sample_batched['features']).cuda()
                 if self.use_plus:
                     age = Variable(sample_batched['age']).cuda()
@@ -120,11 +121,12 @@ class Validator():
                     pos=Variable(sample_batched['pos']).cuda()
                 if self.USE_25D:
                     input = input.squeeze(0)
+                    features = features.squeeze(0)
                     input = input.permute(1, 0, 2, 3)
 
                 if not self.use_plus:
                     if self.R:
-                        outputs = net(input, features)
+                        outputs = net(input, features,True)
                     else:
                         outputs = net(input)
                 else:
@@ -132,11 +134,11 @@ class Validator():
                         outputs, _, _, _, deep_feaures = net(input,pos,gender,age)
                     else:
                         outputs, out_gender, out_age,out_pos,deep_feaures = net(input)
-                if self.USE_25D:
-                    outputs=outputs.unsqueeze(0)
-                    out_gender = out_gender.unsqueeze(0)
-                    out_age = out_age.unsqueeze(0)
-                    out_pos = out_pos.unsqueeze(0)
+                #if self.USE_25D:
+                    #outputs=outputs.unsqueeze(0)
+                    #out_gender = out_gender.unsqueeze(0)
+                    #out_age = out_age.unsqueeze(0)
+                    #out_pos = out_pos.unsqueeze(0)
                 if self.use_3d or self.use_lstm:
                     (outputs, top1) = validator_function(outputs, length,labels)
                     _, maxindices = outputs.cpu().max(1)##vector--outputs
@@ -179,14 +181,14 @@ class Validator():
                         if genderacc[i]==1 :
                             count[gender[i]+self.cls_num] += 1
                         num_samples[gender[i]+self.cls_num] += 1
-
-
+                if i_batch==300 and self.USE_25D:
+                    break
                 #print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                 #                                                                       count[0],len(self.validationdataset),
                 #                                                                       1.0*count[0]/num_samples))
         print(count[:self.cls_num].sum()/num_samples[:self.cls_num].sum(),np.mean(AA))
-        LL=np.array(LL)
-        np.save('re/' + self.mode + 'records' + str(self.epoch) + '.npy', LL)
+        #LL=np.array(LL)
+        #np.save('re/' + self.mode + 'records' + str(self.epoch) + '.npy', LL)
         if self.use_plus and not self.asinput:
             GG=np.array(GG)
             np.save('re/' + self.mode + 'gender_records' + str(self.epoch) + '.npy', GG)

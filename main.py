@@ -3,7 +3,7 @@ from models.Dense3D import Dense3D
 import torch
 import toml
 from training import Trainer
-from validation import Validator
+from testengine import Validator
 import torch.nn as nn
 import os
 from models.net2d import densenet121,densenet161,squeezenet1_1,vgg19_bn,resnet152,resnet152_plus,resnet152_R
@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 
 
 print("Loading options...")
-with open('options_lip.toml', 'r') as optionsFile:
+with open('options_withR', 'r') as optionsFile:
     options = toml.loads(optionsFile.read())
 
 if(options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):
@@ -58,14 +58,14 @@ if(options["general"]["usecudnn"]):
 if(options["training"]["train"]):
     trainer = Trainer(options,model)
 if(options["validation"]["validate"]):   
-    validator = Validator(options, 'validation',model)
+    validator = Validator(options, 'validation',model,savenpy=options["validation"]["saves"])
 if(options['test']['test']):   
     tester = Validator(options, 'test')
     
 for epoch in range(options["training"]["startepoch"], options["training"]["epochs"]):
     if(options["training"]["train"]):
         trainer(epoch)
-    if(options["validation"]["validate"]):
+    if (options["validation"]["validate"]) and epoch%10==0 and epoch>1:
         result,re_all = validator()
         trainer.ScheduleLR(result.min())
         print(options['training']['save_prefix'])

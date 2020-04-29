@@ -339,8 +339,8 @@ def inceptionv3(num_classes=1000, pretrained='imagenet'):
 
 def modify_resnets_r(model,num_of_cls):
     # Modify attributs
-    model.bn=torch.nn.BatchNorm1d(665)
-    model.classifier = torch.nn.Sequential(torch.nn.Linear(2048+665,num_of_cls))
+    model.bn=torch.nn.BatchNorm1d(479)
+    model.classifier = torch.nn.Sequential(torch.nn.Linear(2048+479,num_of_cls))
                                            #torch.nn.ReLU(),
                                           # torch.nn.Dropout(),
                                           # torch.nn.Linear(1024,num_of_cls))
@@ -355,9 +355,9 @@ def modify_resnets_r(model,num_of_cls):
     def forward(self, input,r,test=False):
         x = self.features_func(input)
         x = x.view(x.size(0), -1)
-        r=self.bn(r.squeeze(1))
+        r=r.squeeze(1)
+        r=self.bn(r)
         x=torch.cat([x,r],-1)
-
         if test:
             x = x.max(0).values
             x=x.unsqueeze(0)
@@ -391,8 +391,6 @@ def modify_resnets(model,num_of_cls,USE_25D):
     def forward(self, input,test):
         x = self.features_func(input)
         x = x.view(x.size(0), -1)
-        if USE_25D:
-            x = x.max(0)
         if test:
             x=x.max(0).values
             x = x.unsqueeze(0)
