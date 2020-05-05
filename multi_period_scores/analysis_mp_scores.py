@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
-all_files=os.listdir('npys_re')
+all_files=os.listdir('npys')
 def ana_group(name,group):
     R=[]
     for item in group:
@@ -29,8 +29,6 @@ def show_bins(data,name,fig_name):
     plt.legend()
     plt.savefig(fig_name)
     plt.show()
-
-
 
 
 male=[da for da in all_files if 'M' in da]
