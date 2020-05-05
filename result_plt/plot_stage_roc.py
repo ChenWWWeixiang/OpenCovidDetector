@@ -68,7 +68,7 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.",
-                    default=['../re/4cls_gender.npy'])
+                    default=['../key_result/test.npy'])
 parser.add_argument("-o", "--output_file", help="Output file path", type=str,
                     default='../saves/results_stage.csv')
 args = parser.parse_args()
@@ -116,7 +116,6 @@ with open(args.output_file,'w') as f:
             STAGEI.append([pre[sorted_idx[0],:],gt[sorted_idx[0]]])
             STAGEII.append([pre[sorted_idx[1], :], gt[sorted_idx[1]]])
             STAGE_MEAN.append([np.mean(pre[sorted_idx, :],0), gt[sorted_idx[1]]])
-
         print(cnt2)
         STAGEI=np.array(STAGEI)
         STAGEII=np.array(STAGEII)

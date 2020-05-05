@@ -2,24 +2,228 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d781ee72-262e-4054-afe6-2ded061db973" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/data/get_train_jpgs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/cam_list.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/get_ab_train_jpgs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/lists/reader_HN_vs_covid.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/lists/reader_cap_vs_covid.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/lists/reader_healthy_vs_ill.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/lists/test.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/map_HN_to_AB-in.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/number_counting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/preprocess_for_influenza.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/preprocess_for_zjdata.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/removing_reader_jpgs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/set_counting.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fractal-dimension/p_value_compute.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/key_result/list/3cls_test2.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/key_result/list/3cls_train2.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/key_result/list/reader_influenza_vs_covid.list" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reader_study/check_results_healthy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/result_plt/plot_abnormal_size.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/result_plt/plot_confusion_matrix.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/crop_jpgs.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/extract_abnormal_Set.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/find_lidc_train.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_ild_infomation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_reader_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_reader_list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_set_seperate_jpg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_slices_for_locate.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/get_test_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_test_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/get_train_jpgs.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/get_train_jpgs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/lidcpreprocess.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/move_reader_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/move_reader_set.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/test_hu.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/test_hu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fractal-dimension/HFD.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/HFD.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fractal-dimension/HFD3D.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/HFD3D.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fractal-dimension/distance.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/distance.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fractal-dimension/fractal.py" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/fractal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fractal-dimension/fractals.py" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/fractals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fractal-dimension/positions.py" beforeDir="false" afterPath="$PROJECT_DIR$/fractal-dimension/positions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/key_result/reader_cap_vs_covid.list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/key_result/reader_healthy_vs_ill.list" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/grad_volume.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/grad_volume.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/net2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/net2d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/106.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/131.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/142.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/144.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/146.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/147.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/152.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/172.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/174.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/176.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/177.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/181.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/210.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/215.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/223.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/224.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/229.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/245.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/257.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/261.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/289.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/290.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/297.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/298.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/34.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/37.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/43.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/45.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/49.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/51.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/70.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/72.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/73.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/74.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/81.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/83.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/91.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/93.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_cls/94.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/106.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/131.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/142.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/144.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/146.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/147.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/152.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/172.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/174.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/176.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/177.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/181.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/210.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/215.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/223.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/224.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/229.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/245.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/257.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/261.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/289.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/290.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/297.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/298.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/34.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/37.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/43.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/45.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/49.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/51.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/70.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/72.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/73.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/74.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/81.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/83.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/91.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/93.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/figs_re/94.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py" beforeDir="false" afterPath="$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" beforeDir="false" afterPath="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/options_lip.toml" beforeDir="false" afterPath="$PROJECT_DIR$/options_lip.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options_withR" beforeDir="false" afterPath="$PROJECT_DIR$/options_withR" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/radiomics/15_left.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/radiomics/RadiomicsParams.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/radiomics/RadiomicsParams.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/radiomics/get_r_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/radiomics/get_r_features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/radiomics/plot_lasso_coeff.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/radiomics/plot_lasso_mse.py" beforeDir="false" afterPath="$PROJECT_DIR$/radiomics/plot_lasso_mse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/114_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/11_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/124_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/128_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/12_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/135_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/136_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/145_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/165_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/176_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/1_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/20_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/22_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/25_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/28_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/2_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/31_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/38_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/47_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/52_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/60_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/69_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/7_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/83_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/90_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/img/95_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/111_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/114_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/11_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/124_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/128_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/12_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/135_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/136_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/145_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/165_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/176_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/1_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/20_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/22_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/25_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/28_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/2_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/31_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/38_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/47_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/52_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/60_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/69_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/7_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/83_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/90_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/lung/95_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/111_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/114_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/11_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/124_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/128_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/12_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/135_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/136_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/145_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/165_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/1_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/20_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/22_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/25_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/28_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/2_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/31_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/38_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/47_mix_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/52_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/60_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/69_co_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/7_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/83_GGO_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/90_paving_1.00.nii" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/cam/mask/95_paving_1.00.nii" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/reader_study/check_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/reader_study/check_results.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reader_study/reader_test 1.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reader_study/reader_test 2.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reader_study/reader_test 3.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reader_study/reader_test 4.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reader_study/reader_test 5.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/features.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reader_study/only_left.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_plt/plot_2c_roc.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_plt/plot_2c_roc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_plt/plot_mc_roc.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_plt/plot_mc_roc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_plt/plot_ss_roc.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_plt/plot_ss_roc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_plt/plot_stage_roc.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_plt/plot_stage_roc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_plt/tSNE_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/result_plt/tSNE_plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/segmentation/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/segmentation/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/segmentation/unet.py" beforeDir="false" afterPath="$PROJECT_DIR$/segmentation/unet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/segmentation/reference_seg.py" beforeDir="false" afterPath="$PROJECT_DIR$/segmentation/reference_seg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.toml" beforeDir="false" afterPath="$PROJECT_DIR$/test.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testengine.py" beforeDir="false" afterPath="$PROJECT_DIR$/testengine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training.py" afterDir="false" />
@@ -37,8 +241,17 @@
       <file leaf-file-name="options_lip.toml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/options_lip.toml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="828">
-              <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+            <state relative-caret-position="276">
+              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.toml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.toml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="50" column="6" selection-start-line="50" selection-start-column="6" selection-end-line="50" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -46,8 +259,42 @@
       <file leaf-file-name="testengine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testengine.py">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="335" lean-forward="true" selection-start-line="335" selection-end-line="335" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#645#977#0" />
+                <element signature="e#1037#1244#0" />
+                <element signature="e#1315#2241#0" />
+                <element signature="e#2912#3456#0" />
+                <element signature="e#3521#3996#0" />
+                <element signature="e#5430#5483#0" />
+                <element signature="e#6626#7302#0" />
+                <element signature="e#13290#13575#0" />
+                <element signature="e#14390#14620#0" />
+                <element signature="e#14680#14798#0" />
+                <element signature="e#15039#15143#0" />
+                <element signature="e#15352#15990#0" />
+                <element signature="e#16106#16764#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot_abnormal_size.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/result_plt/plot_abnormal_size.py">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="23">
-              <caret line="105" column="22" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
+              <caret line="1" column="43" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_abnormal_scores.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="130" column="22" selection-start-line="130" selection-start-column="22" selection-end-line="130" selection-end-column="22" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -55,84 +302,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dataset.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/dataset.py">
+      <file leaf-file-name="check_results.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reader_study/check_results.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1865">
-              <caret line="900" column="21" selection-start-line="900" selection-start-column="21" selection-end-line="900" selection-end-column="21" />
+            <state relative-caret-position="624">
+              <caret line="118" column="55" selection-start-line="118" selection-start-column="55" selection-end-line="118" selection-end-column="55" />
               <folding>
-                <element signature="e#35366#35945#0" />
-                <element signature="e#40619#42038#0" />
-                <element signature="e#41200#41774#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="557">
-              <caret line="87" column="22" selection-start-line="87" selection-start-column="22" selection-end-line="87" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="predict.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/segmentation/predict.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="62" column="26" selection-start-line="62" selection-start-column="26" selection-end-line="62" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="unet.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/segmentation/unet.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reference_seg.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/segmentation/reference_seg.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="24" column="30" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="training.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/training.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="147" column="50" selection-start-line="147" selection-start-column="50" selection-end-line="147" selection-end-column="50" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="move.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/baidunetdiskdownload/move.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -149,36 +325,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>symmetricalGLCM</find>
-      <find>index_root</find>
-      <find>Execute</find>
-      <find>GLCM is symmetrical, therefore Sum Average = 2 * Joint Average, only 1 needs to be calcu</find>
-      <find>time1</find>
-      <find>options</find>
+      <find>item</find>
+      <find>cam_mask</find>
+      <find>get_CI</find>
       <find>pre</find>
-      <find>net</find>
-      <find>lung_path</find>
+      <find>deprocess_image</find>
+      <find>gbt</find>
+      <find>gb</find>
+      <find>averageEnergies</find>
+      <find>resnet</find>
+      <find>HxNx</find>
+      <find>50</find>
+      <find>o_path</find>
       <find>outputs</find>
-      <find>topk</find>
-      <find>lungmask</find>
-      <find>predict</find>
-      <find>img</find>
-      <find>model_path</find>
-      <find>input_image</find>
-      <find>data_path</find>
-      <find>665</find>
-      <find>print</find>
+      <find>resnet50</find>
+      <find>origin</find>
+      <find>cls</find>
+      <find>subplots</find>
+      <find>Inii</find>
+      <find>fractal_dimension</find>
+      <find>hits_with_boxsize</find>
+      <find>spaced10</find>
+      <find>box_arr</find>
+      <find>KEEP_ALL</find>
       <find>name</find>
-      <find>num_samples</find>
-      <find>USE_25D</find>
-      <find>padding</find>
-      <find>isacc</find>
-      <find>Trainer</find>
-      <find>args</find>
-      <find>Starting</find>
-      <find>Starting test</find>
-      <find>covid_project_data</find>
-      <find>storage</find>
+      <find>2_105_0131_53_M</find>
+      <find>modelpath</find>
+      <find>this_name</find>
+      <find>gt</find>
+      <find>print</find>
+      <find>topK</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -195,57 +371,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/plot_ss_roc.py" />
-        <option value="$PROJECT_DIR$/result_plt/plot_age_roc.py" />
-        <option value="$PROJECT_DIR$/result_plt/plot_ss_roc.py" />
-        <option value="$PROJECT_DIR$/result_plt/plot_stage_roc.py" />
-        <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_detectset.py" />
-        <option value="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" />
-        <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" />
-        <option value="$PROJECT_DIR$/result_plt/tSNE_plot.py" />
-        <option value="$PROJECT_DIR$/result_plt/plot_roc.py" />
-        <option value="$PROJECT_DIR$/multi_period_scores/analysis_mp_scores.py" />
-        <option value="$PROJECT_DIR$/models/gradcam_demo.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/radiomics/get_r_features.py" />
-        <option value="$PROJECT_DIR$/radiomics/ploc_fig.py" />
-        <option value="$PROJECT_DIR$/radiomics/plot_lasso_mse.py" />
-        <option value="$PROJECT_DIR$/data/mypreprocess.py" />
-        <option value="$PROJECT_DIR$/data/txt/locating_train.txt" />
-        <option value="$PROJECT_DIR$/analysis_tools/lesion_size_cap.py" />
-        <option value="$PROJECT_DIR$/result_plt/plot_2c_roc.py" />
-        <option value="$PROJECT_DIR$/data/qqhr_preprocess.py" />
-        <option value="$PROJECT_DIR$/data/qqhr_pre2.py" />
-        <option value="$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/torchvision/transforms/__init__.py" />
-        <option value="$PROJECT_DIR$/options_3d.toml" />
-        <option value="$PROJECT_DIR$/result_plt/plot_mc_roc.py" />
-        <option value="$PROJECT_DIR$/data/mypreprocess_forZSdata.py" />
+        <option value="$USER_HOME$/baidunetdiskdownload/move.py" />
         <option value="$PROJECT_DIR$/data/get_reader_list.py" />
         <option value="$PROJECT_DIR$/data/move_reader_set.py" />
-        <option value="$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/radiomics/glcm.py" />
-        <option value="$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/radiomics/featureextractor.py" />
-        <option value="$USER_HOME$/extra/NCP_CTs/count.py" />
-        <option value="$PROJECT_DIR$/radiomics/RadiomicsParams.yaml" />
-        <option value="$PROJECT_DIR$/segmentation/reference_seg.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$USER_HOME$/extra/covid_project_segs/lungs/change_name.py" />
-        <option value="$PROJECT_DIR$/data/test_hu.py" />
-        <option value="$PROJECT_DIR$/test.toml" />
-        <option value="$PROJECT_DIR$/reader_study/check_results.py" />
-        <option value="$PROJECT_DIR$/validation.py" />
-        <option value="$PROJECT_DIR$/models/net2d.py" />
-        <option value="$PROJECT_DIR$/data/dataset.py" />
-        <option value="$PROJECT_DIR$/training.py" />
-        <option value="$PROJECT_DIR$/data/get_train_jpgs.py" />
-        <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
-        <option value="$PROJECT_DIR$/options_lip.toml" />
-        <option value="$PROJECT_DIR$/testengine.py" />
-        <option value="$PROJECT_DIR$/data/get_test_list.py" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/options_withR" />
-        <option value="$USER_HOME$/baidunetdiskdownload/move.py" />
-        <option value="$PROJECT_DIR$/segmentation/unet.py" />
+        <option value="$PROJECT_DIR$/data/cam_list.list" />
+        <option value="$PROJECT_DIR$/data/reader_healthy_vs_ill.list" />
+        <option value="$PROJECT_DIR$/data/reader_cap_vs_covid.list" />
+        <option value="$PROJECT_DIR$/data/removing_reader_jpgs.py" />
+        <option value="$PROJECT_DIR$/result_plt/plot_stage_roc.py" />
+        <option value="$PROJECT_DIR$/data/preprocess_for_influenza.py" />
+        <option value="$PROJECT_DIR$/data/preprocess_for_zjdata.py" />
+        <option value="$PROJECT_DIR$/key_result/list/3cls_train2.list" />
         <option value="$PROJECT_DIR$/segmentation/predict.py" />
+        <option value="$PROJECT_DIR$/segmentation/reference_seg.py" />
+        <option value="$PROJECT_DIR$/models/net2d.py" />
+        <option value="$PROJECT_DIR$/data/get_test_list.py" />
+        <option value="$PROJECT_DIR$/data/set_counting.py" />
+        <option value="$PROJECT_DIR$/data/number_counting.py" />
+        <option value="$PROJECT_DIR$/data/get_train_jpgs.py" />
+        <option value="$PROJECT_DIR$/data/3cls_test2.list" />
+        <option value="$PROJECT_DIR$/data/3cls_train2.list" />
+        <option value="$PROJECT_DIR$/data/test_hu.py" />
+        <option value="$PROJECT_DIR$/data/get_ab_train_jpgs.py" />
+        <option value="$PROJECT_DIR$/result_plt/plot_ss_roc.py" />
+        <option value="$PROJECT_DIR$/result_plt/plot_mc_roc.py" />
+        <option value="$PROJECT_DIR$/models/grad_volume.py" />
+        <option value="$PROJECT_DIR$/options_lip.toml" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/data/get_set_seperate_jpg.py" />
+        <option value="$PROJECT_DIR$/training.py" />
+        <option value="$PROJECT_DIR$/radiomics/RadiomicsParams.yaml" />
+        <option value="$PROJECT_DIR$/radiomics/get_r_features.py" />
+        <option value="$PROJECT_DIR$/result_plt/plot_confusion_matrix.py" />
+        <option value="$PROJECT_DIR$/result_plt/tSNE_plot.py" />
+        <option value="$PROJECT_DIR$/radiomics/plot_lasso_mse.py" />
+        <option value="$PROJECT_DIR$/radiomics/record.txt" />
+        <option value="$PROJECT_DIR$/fractal-dimension/fractal.py" />
+        <option value="$PROJECT_DIR$/fractal-dimension/fractals.py" />
+        <option value="$PROJECT_DIR$/fractal-dimension/positions.py" />
+        <option value="$PROJECT_DIR$/validation.py" />
+        <option value="$PROJECT_DIR$/multi_period_scores/abnormal_detector.py" />
+        <option value="$PROJECT_DIR$/result_plt/plot_2c_roc.py" />
+        <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml" />
+        <option value="$PROJECT_DIR$/fractal-dimension/p_value_compute.py" />
+        <option value="$PROJECT_DIR$/data/dataset.py" />
+        <option value="$PROJECT_DIR$/test.toml" />
+        <option value="$PROJECT_DIR$/result_plt/plot_abnormal_size.py" />
+        <option value="$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py" />
+        <option value="$PROJECT_DIR$/testengine.py" />
+        <option value="$PROJECT_DIR$/reader_study/check_results_healthy.py" />
+        <option value="$PROJECT_DIR$/data/map_HN_to_AB-in.py" />
+        <option value="$PROJECT_DIR$/reader_study/check_results.py" />
       </list>
     </option>
   </component>
@@ -271,7 +447,7 @@
             <path>
               <item name="Lipreading-DenseNet3D-master" type="b2602c69:ProjectViewProjectNode" />
               <item name="Lipreading-DenseNet3D-master" type="462c0819:PsiDirectoryNode" />
-              <item name="segmentation" type="462c0819:PsiDirectoryNode" />
+              <item name="key_result" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -286,18 +462,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/data" />
-      <recent name="$PROJECT_DIR$/segmentation" />
-      <recent name="$PROJECT_DIR$/key_result" />
-      <recent name="$PROJECT_DIR$/result_plt" />
-      <recent name="$PROJECT_DIR$/multi_period_scores" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/fractal-dimension" />
       <recent name="$PROJECT_DIR$/result_plt" />
       <recent name="$PROJECT_DIR$/analysis_tools" />
       <recent name="$PROJECT_DIR$/saves" />
       <recent name="$PROJECT_DIR$/data/txt" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/key_result" />
+      <recent name="$PROJECT_DIR$/key_result/list" />
+      <recent name="$PROJECT_DIR$/key_result/model" />
+      <recent name="$PROJECT_DIR$/saves" />
+      <recent name="$PROJECT_DIR$/data/lists" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -312,8 +489,62 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.predict">
-    <configuration name="get_test_list" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.check_results">
+    <configuration name="check_results" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Lipreading-DenseNet3D-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reader_study" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reader_study/check_results.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="check_results_healthy" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Lipreading-DenseNet3D-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reader_study" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reader_study/check_results_healthy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="get_abnormal_scores" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Lipreading-DenseNet3D-master" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/multi_period_scores" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="map_HN_to_AB-in" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -325,31 +556,13 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/get_test_list.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/map_HN_to_AB-in.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="get_train_jpgs" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Lipreading-DenseNet3D-master" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/get_train_jpgs.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="testengine" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lipreading-DenseNet3D-master" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -361,62 +574,26 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="move" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Lipreading-DenseNet3D-master" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/baidunetdiskdownload" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/baidunetdiskdownload/move.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="predict" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Lipreading-DenseNet3D-master" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/segmentation" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/segmentation/predict.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testengine.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
-      <item itemvalue="Python.get_test_list" />
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.get_train_jpgs" />
-      <item itemvalue="Python.move" />
-      <item itemvalue="Python.predict" />
+      <item itemvalue="Python.get_abnormal_scores" />
+      <item itemvalue="Python.testengine" />
+      <item itemvalue="Python.check_results_healthy" />
+      <item itemvalue="Python.map_HN_to_AB-in" />
+      <item itemvalue="Python.check_results" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.predict" />
-        <item itemvalue="Python.move" />
-        <item itemvalue="Python.get_train_jpgs" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.get_test_list" />
+        <item itemvalue="Python.check_results" />
+        <item itemvalue="Python.testengine" />
+        <item itemvalue="Python.map_HN_to_AB-in" />
+        <item itemvalue="Python.check_results_healthy" />
+        <item itemvalue="Python.get_abnormal_scores" />
       </list>
     </recent_temporary>
   </component>
@@ -430,13 +607,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1582022748789</updated>
-    </task>
-    <task id="LOCAL-00015" summary="add pic to readme">
-      <created>1585792422674</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1585792422674</updated>
     </task>
     <task id="LOCAL-00016" summary="add model plus">
       <created>1585796901993</created>
@@ -774,30 +944,37 @@
       <option name="project" value="LOCAL" />
       <updated>1587815595632</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="fix seg models bugs">
+      <created>1588163941089</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1588163941090</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="28" width="1932" height="1034" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7879925" visible="true" weight="0.1889182" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7879925" visible="true" weight="0.1889182" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5013193" side_tool="true" weight="0.40473506" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5013193" side_tool="true" weight="0.38556933" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32807216" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32919955" />
       <window_info anchor="bottom" id="Python Console" order="9" weight="0.32919955" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49868074" weight="0.3957159" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49815303" weight="0.40924466" />
       <window_info id="Structure" order="1" sideWeight="0.21200751" side_tool="true" weight="0.1889182" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.421646" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.5546787" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.43855694" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49868074" weight="0.38556933" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32807216" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -807,7 +984,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/python-fracdim" />
     </ignored-roots>
-    <MESSAGE value="add pic to readme" />
     <MESSAGE value="add model plus" />
     <MESSAGE value="readme better" />
     <MESSAGE value="cite infomation" />
@@ -832,7 +1008,8 @@
     <MESSAGE value="new weighted sampler" />
     <MESSAGE value="many fixs" />
     <MESSAGE value="seg models" />
-    <option name="LAST_COMMIT_MESSAGE" value="seg models" />
+    <MESSAGE value="fix seg models bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix seg models bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -849,7 +1026,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/fractal-dimension/positions.py</url>
-          <line>19</line>
+          <line>21</line>
           <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -861,11 +1038,6 @@
           <url>file://$PROJECT_DIR$/ipt_resaults/plot_rocs2.py</url>
           <line>33</line>
           <option name="timeStamp" value="362" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/reader_study/check_results.py</url>
-          <line>92</line>
-          <option name="timeStamp" value="446" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/reader_study/get_slice.py</url>
@@ -881,11 +1053,6 @@
           <url>file://$PROJECT_DIR$/data/read_infomation.py</url>
           <line>72</line>
           <option name="timeStamp" value="482" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/reader_study/check_results.py</url>
-          <line>81</line>
-          <option name="timeStamp" value="486" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ipt_results/show_z_hist.py</url>
@@ -923,11 +1090,6 @@
           <option name="timeStamp" value="581" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/reader_study/check_results.py</url>
-          <line>78</line>
-          <option name="timeStamp" value="597" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/../move_new.py</url>
           <line>79</line>
           <option name="timeStamp" value="605" />
@@ -963,11 +1125,6 @@
           <option name="timeStamp" value="648" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py</url>
-          <line>129</line>
-          <option name="timeStamp" value="663" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ipt_results/go_and_find.py</url>
           <line>72</line>
           <option name="timeStamp" value="682" />
@@ -989,7 +1146,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>277</line>
+          <line>337</line>
           <option name="timeStamp" value="745" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1003,29 +1160,14 @@
           <option name="timeStamp" value="759" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/extract_abnormal_Set.py</url>
-          <line>31</line>
-          <option name="timeStamp" value="777" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/dataset.py</url>
           <line>305</line>
           <option name="timeStamp" value="778" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/grad_volume.py</url>
-          <line>313</line>
-          <option name="timeStamp" value="892" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/get_CAP_infomaion.py</url>
           <line>27</line>
           <option name="timeStamp" value="906" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/lidcpreprocess.py</url>
-          <line>36</line>
-          <option name="timeStamp" value="939" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/analysis_tools/analysis_hist.py</url>
@@ -1064,7 +1206,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/test_hu.py</url>
-          <line>45</line>
+          <line>39</line>
           <option name="timeStamp" value="1009" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1084,23 +1226,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/test_hu.py</url>
-          <line>78</line>
+          <line>72</line>
           <option name="timeStamp" value="1041" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/result_plt/plot_stage_roc.py</url>
-          <line>124</line>
+          <line>123</line>
           <option name="timeStamp" value="1077" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/result_plt/plot_mc_roc.py</url>
-          <line>69</line>
-          <option name="timeStamp" value="1087" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/result_plt/tSNE_plot.py</url>
-          <line>15</line>
-          <option name="timeStamp" value="1091" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/gradcam_demo.py</url>
@@ -1129,12 +1261,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>939</line>
-          <option name="timeStamp" value="1168" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>791</line>
+          <line>801</line>
           <option name="timeStamp" value="1171" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1158,28 +1285,8 @@
           <option name="timeStamp" value="1261" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>836</line>
-          <option name="timeStamp" value="1263" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/testengine.py</url>
-          <line>217</line>
-          <option name="timeStamp" value="1265" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/data/dataset.py</url>
-          <line>989</line>
-          <option name="timeStamp" value="1289" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="1292" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/data/get_test_list.py</url>
-          <line>8</line>
+          <line>9</line>
           <option name="timeStamp" value="1294" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1194,8 +1301,123 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/segmentation/predict.py</url>
-          <line>66</line>
+          <line>70</line>
           <option name="timeStamp" value="1334" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/segmentation/reference_seg.py</url>
+          <line>35</line>
+          <option name="timeStamp" value="1338" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/training.py</url>
+          <line>148</line>
+          <option name="timeStamp" value="1363" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reader_study/check_results_healthy.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="1407" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/testengine.py</url>
+          <line>295</line>
+          <option name="timeStamp" value="1408" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/result_plt/plot_ss_roc.py</url>
+          <line>258</line>
+          <option name="timeStamp" value="1416" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/preprocess_for_zjdata.py</url>
+          <line>66</line>
+          <option name="timeStamp" value="1420" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/preprocess_for_zjdata.py</url>
+          <line>38</line>
+          <option name="timeStamp" value="1425" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/result_plt/plot_ss_roc.py</url>
+          <line>226</line>
+          <option name="timeStamp" value="1427" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/preprocess_for_influenza.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="1433" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/result_plt/plot_mc_roc.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="1443" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/set_counting.py</url>
+          <line>50</line>
+          <option name="timeStamp" value="1446" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/radiomics/plot_lasso_mse.py</url>
+          <line>91</line>
+          <option name="timeStamp" value="1458" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/result_plt/tSNE_plot.py</url>
+          <line>61</line>
+          <option name="timeStamp" value="1478" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/result_plt/tSNE_plot.py</url>
+          <line>63</line>
+          <option name="timeStamp" value="1479" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/fractal-dimension/positions.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="1489" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="1492" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/dataset.py</url>
+          <line>1011</line>
+          <option name="timeStamp" value="1496" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/fractal-dimension/p_value_compute.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="1501" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/result_plt/plot_abnormal_size.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="1505" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/map_HN_to_AB-in.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="1508" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/data/map_HN_to_AB-in.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="1509" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reader_study/check_results_healthy.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="1514" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reader_study/check_results.py</url>
+          <line>100</line>
+          <option name="timeStamp" value="1517" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1208,256 +1430,163 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1335" />
+      <option name="time" value="1518" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="result.max()" language="Python" />
+        <watch expression="V.shape" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
       <expression>
-        <expression-string>result.max()</expression-string>
+        <expression-string>idx.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>state_dict</expression-string>
+        <expression-string>idx</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>result.shape</expression-string>
+        <expression-string>V.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>result</expression-string>
+        <expression-string>L.sum(1).sum(1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>labels.shape</expression-string>
+        <expression-string>i</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>logits.shape</expression-string>
+        <expression-string>data.shape</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>img</expression-string>
+        <expression-string>data</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>num_cnt,se_cnt=name_dict[name]</expression-string>
+        <expression-string>item.split('/')[-2]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>output_name</expression-string>
+        <expression-string>item</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/radiomics/Lasso_alphas_choose.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/radiomics/plot_lasso_coeff.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/radiomics/plot_lasso_mse.py">
+    <entry file="file://$PROJECT_DIR$/radiomics/clustering.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/radiomics/imageoperations.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/radiomics/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-437">
-          <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/radiomics/glcm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7626">
-          <caret line="760" column="5" selection-start-line="760" selection-start-column="5" selection-end-line="760" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/radiomics/featureextractor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/txt/train3cls.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/3cls_test.list">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4324">
-          <caret line="848" column="113" selection-start-line="848" selection-start-column="110" selection-end-line="848" selection-end-column="113" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/extra/NCP_CTs/count.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="50" column="48" selection-start-line="50" selection-start-column="48" selection-end-line="50" selection-end-column="48" />
+        <state relative-caret-position="-253">
+          <caret line="7" column="41" lean-forward="true" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/radiomics/RadiomicsParams.yaml">
+    <entry file="file://$PROJECT_DIR$/radiomics/find_s_d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="844">
-          <caret line="44" column="8" lean-forward="true" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
+        <state relative-caret-position="-1219">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/txt/test3cls.txt">
+    <entry file="file://$PROJECT_DIR$/radiomics/ploc_fig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2093">
-          <caret line="11" column="59" lean-forward="true" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+        <state>
+          <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/xzw/plugins/reference_seg.py">
+    <entry file="file://$PROJECT_DIR$/radiomics/record.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+        <state relative-caret-position="299">
+          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/radiomics/get_r_features.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        <state relative-caret-position="253">
+          <caret line="11" column="47" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/torch/utils/data/dataset.py">
+    <entry file="file://$PROJECT_DIR$/models/grad_volume.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="156" column="8" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+        <state relative-caret-position="253">
+          <caret line="346" column="50" lean-forward="true" selection-start-line="346" selection-start-column="50" selection-end-line="346" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#964#1621#0" />
+            <element signature="e#1655#2165#0" />
+            <element signature="e#2187#3822#0" />
+            <element signature="e#3866#4665#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
+        <state relative-caret-position="146">
           <caret line="308" selection-start-line="308" selection-end-line="308" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/extra/covid_project_segs/lungs/change_name.py">
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/fractals.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/test_hu.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="63">
+          <caret line="65" column="44" selection-start-line="65" selection-start-column="33" selection-end-line="65" selection-end-column="44" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
-            <element signature="e#1100#1157#0" />
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#282#439#0" />
+            <element signature="e#570#676#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/get_slices_for_locate.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/analysis_tools/multi_period_analysis/registration.py">
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/positions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-345">
-          <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/options_3d.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="38" column="12" lean-forward="true" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.toml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="48" column="12" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="1664" selection-start-line="1664" selection-end-line="1664" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/key_result/reader_cap_vs_covid.list">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="63" column="18" selection-end-line="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reader_study/check_results.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        <state relative-caret-position="460">
+          <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/validation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="183" column="48" selection-start-line="183" selection-start-column="32" selection-end-line="183" selection-end-column="48" />
+        <state relative-caret-position="147">
+          <caret line="165" column="53" selection-start-line="165" selection-start-column="53" selection-end-line="165" selection-end-column="53" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#5935#6147#0" />
-            <element signature="e#6179#6196#0" />
-            <element signature="e#6458#6592#0" />
-            <element signature="e#6670#7431#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/net2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="390" column="32" selection-start-line="390" selection-start-column="28" selection-end-line="390" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/3cls_train.list">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="37" lean-forward="true" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/key_result/ab_detect.npy">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/result_plt/jpgs/pr_ab_detect.jpg">
       <provider selected="true" editor-type-id="images" />
@@ -1465,180 +1594,291 @@
     <entry file="file://$PROJECT_DIR$/result_plt/jpgs/roc_ab_detect.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/txt/train_all.txt">
+    <entry file="file://$PROJECT_DIR$/result_plt/csvs/ab_detect.csv">
+      <provider editor-type-id="csv-text-editor" />
+      <provider selected="true" editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3">
+          <column index="0" width="100" />
+          <column index="1" width="100" />
+          <column index="2" width="100" />
+          <column index="3" width="100" />
+          <column index="4" width="100" />
+          <column index="5" width="100" />
+          <column index="6" width="100" />
+          <column index="7" width="100" />
+          <column index="8" width="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/plot_2c_roc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
+          <folding>
+            <element signature="e#248#558#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_detectset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/analysis_mp_scores.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/key_result/model/locating.pt">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/torch/utils/data/_utils/fetch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_slices.toml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="46" column="44" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/distance.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-414">
+          <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/HFD.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/get_set_seperate_jpg.py">
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/HFD3D.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+        <state relative-caret-position="184">
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/fractal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="91" column="30" lean-forward="true" selection-start-line="91" selection-start-column="30" selection-end-line="91" selection-end-column="30" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#176#3002#0" />
+            <element signature="e#2562#2979#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/draw_distribute.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-483">
+          <caret line="12" column="24" lean-forward="true" selection-start-line="12" selection-end-line="12" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/Distance_dis.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/3D fractal dimension_dis.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/2D fractal dimension_dis.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fractal-dimension/p_value_compute.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="33" column="50" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/key_result/model/new_4cls_pure.pt">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/radiomics/plot_lasso_mse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="28" column="15" selection-start-line="28" selection-start-column="15" selection-end-line="28" selection-end-column="15" />
+          <folding>
+            <element signature="e#863#882#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/options_lip.toml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+        <state relative-caret-position="276">
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/3cls_test2.list">
+    <entry file="file://$PROJECT_DIR$/test.toml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+        <state relative-caret-position="219">
+          <caret line="50" column="6" selection-start-line="50" selection-start-column="6" selection-end-line="50" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/3cls_train2.list">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-74441">
-          <caret line="80" column="49" lean-forward="true" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/get_test_list.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/options_withR">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/read_infomation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="28" column="94" lean-forward="true" selection-start-line="24" selection-start-column="20" selection-end-line="28" selection-end-column="94" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/mypreprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="54" column="46" lean-forward="true" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/SimpleITK/SimpleITK.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="948">
-          <caret line="8612" lean-forward="true" selection-start-line="8612" selection-end-line="8612" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/get_train_jpgs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testengine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="105" column="22" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="147" column="50" selection-start-line="147" selection-start-column="50" selection-end-line="147" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/baidunetdiskdownload/move.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/dataset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1865">
-          <caret line="900" column="21" selection-start-line="900" selection-start-column="21" selection-end-line="900" selection-end-column="21" />
-          <folding>
-            <element signature="e#35366#35945#0" />
-            <element signature="e#40619#42038#0" />
-            <element signature="e#41200#41774#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/densenet.pytorch/lib/python3.6/site-packages/torch/nn/modules/module.py">
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/abnormal_detector.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
-          <caret line="203" selection-start-line="203" selection-end-line="203" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/segmentation/reference_seg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="24" column="30" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="87" column="22" selection-start-line="87" selection-start-column="22" selection-end-line="87" selection-end-column="22" />
+          <caret line="54" column="23" lean-forward="true" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file:///home/xzw/plugins/predict.py">
+    <entry file="file://$PROJECT_DIR$/key_result/ab_locate.npy">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/plot_mc_roc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="59" column="26" lean-forward="true" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
+        <state relative-caret-position="-483">
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#16#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/segmentation/unet.py">
+    <entry file="file://$PROJECT_DIR$/data/3cls_train_HN.list">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+        <state relative-caret-position="115">
+          <caret line="5" column="52" lean-forward="true" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/segmentation/predict.py">
+    <entry file="file://$PROJECT_DIR$/data/ab_detect.list">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/key_result/list/reader_HN_vs_covid.list">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="62" column="26" selection-start-line="62" selection-start-column="26" selection-end-line="62" selection-end-column="26" />
+        <state relative-caret-position="-46">
+          <caret line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/lists/reader_HN_vs_covid.list">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader_study/jpgs/roc_cap_covid.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader_study/jpgs/roc_healthy_ill.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="962" column="58" selection-start-line="962" selection-start-column="48" selection-end-line="962" selection-end-column="58" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#642#5376#0" />
+            <element signature="e#5411#7634#0" />
+            <element signature="e#7670#14400#0" />
+            <element signature="e#14440#22414#0" />
+            <element signature="e#18016#21461#0" />
+            <element signature="e#22458#27051#0" />
+            <element signature="e#27093#34384#0" />
+            <element signature="e#38703#39093#0" />
+            <element signature="e#39136#39372#0" />
+            <element signature="e#39415#39568#0" />
+            <element signature="e#39595#39809#0" />
+            <element signature="e#41966#43385#0" />
+            <element signature="e#42866#43440#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader_study/check_results_healthy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="94" column="28" selection-start-line="94" selection-start-column="28" selection-end-line="94" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/key_result/list/reader_influenza_vs_covid.list">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/map_HN_to_AB-in.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testengine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="335" lean-forward="true" selection-start-line="335" selection-end-line="335" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#645#977#0" />
+            <element signature="e#1037#1244#0" />
+            <element signature="e#1315#2241#0" />
+            <element signature="e#2912#3456#0" />
+            <element signature="e#3521#3996#0" />
+            <element signature="e#5430#5483#0" />
+            <element signature="e#6626#7302#0" />
+            <element signature="e#13290#13575#0" />
+            <element signature="e#14390#14620#0" />
+            <element signature="e#14680#14798#0" />
+            <element signature="e#15039#15143#0" />
+            <element signature="e#15352#15990#0" />
+            <element signature="e#16106#16764#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result_plt/plot_abnormal_size.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="43" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_period_scores/get_abnormal_scores.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="130" column="22" selection-start-line="130" selection-start-column="22" selection-end-line="130" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/key_result/reader_influenza_vs_covid.npy">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reader_study/check_results.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="118" column="55" selection-start-line="118" selection-start-column="55" selection-end-line="118" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>

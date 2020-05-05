@@ -4,9 +4,9 @@ title = "covid19 PyTorch"
 usecudnn = true
 usecudnnbenchmark = true
 gpuid = "1"
-loadpretrainedmodel = false
+loadpretrainedmodel = true
 random_seed = true
-pretrainedmodelpath = 'weights/model_3cls_pure.pt'
+pretrainedmodelpath = 'weights/new_4cls_pure.pt'
 use_3d = false
 use_lstm=false
 use_slice=true
@@ -14,7 +14,7 @@ use_plus=false
 use25d=false
 plus_as_input=false
 mod='co'#'ab
-class_num=3
+class_num=4
 
 [input]
 batchsize = 32
@@ -30,21 +30,21 @@ numlstms = 2
 
 [training]
 train = true
-epochs = 50
-startepoch = 0
+epochs = 31
+startepoch = 15
 statsfrequency = 1000
-data_root = 'all_ages_genders.txt'#useless and used as ages_gender.txt path
+data_root = ''#useless and used as ages_gender.txt path
 index_root = 'data/txt/train_all.txt'
 padding = 35
 learningrate = 1e-5
 momentum = 0.95
 weightdecay = 0.05
-save_prefix = "weights/new_3cls_pure"
+save_prefix = "weights/new_4cls_pure"
 
 [validation]
 validate = true
-data_root = 'all_ages_genders.txt'
-index_root = 'data/txt/test3cls_c.txt'
+data_root = ''
+index_root = ''
 padding = 35
 saveaccuracy = false
 saves='re/test.npy'

@@ -15,11 +15,11 @@ def get_CI(value,res):
     return res
 import argparse
 parser = argparse.ArgumentParser()
-saving='jpgs/roc_reader_healthy_or_not.jpg'
+saving='jpgs/roc_ab_detect.jpg'
 parser.add_argument("-i", "--ress", help="A list of npy files which record the performance.",
-                    default=['../re/reader_healthy_or_not.npy'])
+                    default=['../key_result/ab_detect.npy'])
 parser.add_argument("-o", "--output_file", help="Output file path", type=str,
-                    default='csvs/reader_healthy_or_not.csv')
+                    default='csvs/ab_detect.csv')
 args = parser.parse_args()
 
 #res=np.load('ipt_results/results/train.npy')
@@ -31,12 +31,12 @@ with open(args.output_file,'w') as f:
     f=csv.writer(f)
     f.writerow(['name','AUC','ACC','Specificity','Sensitivity','PPV','NPV','F1','Youden'])
     for a_res in ress:
-        res = np.load(a_res)
+        res = np.load(a_res,allow_pickle=True)
         if res.shape[1]==3:
             pre=np.array(res[:,1],np.float)
             gt=np.array(res[:,2],np.float)
         else:
-            pre = np.array(res[:, -2], np.float)
+            pre = np.stack(res[:, -2])[:,1]
             gt = np.array(res[:, -1], np.float)
         AUC=[]
         ACC=[]
@@ -94,4 +94,4 @@ plt.ylim([0.0, 1.0])
 plt.xlabel('recall')
 plt.ylabel('precision')
 plt.title('PR Curve ')
-plt.savefig('jpgs/pr_cap_vs_covid.jpg')
+plt.savefig('jpgs/pr_ab_detect.jpg')

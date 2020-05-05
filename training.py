@@ -95,18 +95,18 @@ class Trainer():
                                                     options["training"]["index_root"],
                                                     options["training"]["padding"],
                                                     True)##TODO:3
-        #weights = self.trainingdataset.make_weights_for_balanced_classes()
-        #weights = torch.DoubleTensor(weights)
-        #sampler = torch.utils.data.sampler.WeightedRandomSampler(
-        #    weights, len(self.trainingdataset))
+        weights = self.trainingdataset.make_weights_for_balanced_classes()
+        weights = torch.DoubleTensor(weights)
+        sampler = torch.utils.data.sampler.WeightedRandomSampler(
+            weights, len(self.trainingdataset))
 
         self.trainingdataloader = DataLoader(
                                     self.trainingdataset,
                                     batch_size=options["input"]["batchsize"],
-                                    shuffle=options["input"]["shuffle"],
+                                    #shuffle=options["input"]["shuffle"],
                                     num_workers=options["input"]["numworkers"],
                                     drop_last=True,
-                                    #sampler=sampler
+                                    sampler=sampler
                                     )
 
         self.optimizer = optim.Adam(model.parameters(),lr = self.learningrate,amsgrad=True)
@@ -119,8 +119,8 @@ class Trainer():
             #criterion=nn.
             #w=torch.Tensor(self.trainingdataset.get_w()).cuda()
             #print(w)
-            w = torch.Tensor([0.2,0.6,1.4]).cuda()
-            self.criterion =nn.NLLLoss(w).cuda()#0.3,0.7
+            #w = torch.Tensor([1.0,0.8,0.4,1]).cuda()
+            self.criterion =nn.NLLLoss().cuda()#0.3,0.7
             if self.use_plus:
                 self.criterion_age = nn.NLLLoss(ignore_index=-1).cuda()
                 self.criterion_gender = nn.NLLLoss(ignore_index=-1,
@@ -163,9 +163,9 @@ class Trainer():
                 labels = labels.cuda()
             if not self.use_plus:
                 if self.R:
-                    outputs = self.net(input, features,True)
+                    outputs,_ = self.net(input, features,True)
                 else:
-                    outputs = self.net(input,False)
+                    outputs,_ = self.net(input,False)
             else:
                 if self.asinput:
                     outputs, _, _, _, deep_feaures = self.net(input,pos,gender,age)

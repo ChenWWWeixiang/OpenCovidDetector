@@ -40,7 +40,7 @@ def check_black(b, i, k, arr):
 #supply a blocksize and a matrix to get the hitcount
 def hits_with_boxsize(arr, boxsize):
     shape = arr.shape 
-    results = np.zeros([ int(shape[0]/boxsize) , int(shape[1]/boxsize) ])
+    results = np.zeros([ int(shape[0]/boxsize+0.5) , int(shape[1]/boxsize+0.5) ])
     
     # for each box
     for i in range(0, shape[0], boxsize):
@@ -63,19 +63,18 @@ def main():
     parser.add_argument("-o", "--outputfile", help="output file's name", type=str,
                         default='../HFD.txt')
     parser.add_argument("-i", "--inputfile", help="inputfile root", type=str,
-                        default='../cam/mask/')
+                        default='/mnt/data9/cam/mask/')
     args = parser.parse_args()
     filename = args.inputfile
     f=open(args.outputfile,'w')
+    f.writelines('name' + ',' + 'value' + '\n')
     for item in os.listdir(filename):
-        if item[0]=='c':
-            continue
         #img = Image.open(filename).convert('RGB')
         data=sitk.ReadImage(os.path.join(filename,item))
         img=sitk.GetArrayFromImage(data)*255
         arr = np.array(img, dtype=np.uint8)
         arr = np.invert(arr, dtype=np.uint8)
-
+        arr=cv2.resize(arr,(255,255))
         #cv2_img = cv2.imread(filename, 0)
         #img_bw = convert_to_blacks(arr)
 

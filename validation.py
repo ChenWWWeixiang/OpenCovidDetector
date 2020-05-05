@@ -126,9 +126,9 @@ class Validator():
 
                 if not self.use_plus:
                     if self.R:
-                        outputs = net(input, features,True)
+                        outputs,f = net(input, features,True)
                     else:
-                        outputs = net(input)
+                        outputs,f = net(input)
                 else:
                     if self.asinput:
                         outputs, _, _, _, deep_feaures = net(input,pos,gender,age)
@@ -187,8 +187,8 @@ class Validator():
                 #                                                                       count[0],len(self.validationdataset),
                 #                                                                       1.0*count[0]/num_samples))
         print(count[:self.cls_num].sum()/num_samples[:self.cls_num].sum(),np.mean(AA))
-        #LL=np.array(LL)
-        #np.save('re/' + self.mode + 'records' + str(self.epoch) + '.npy', LL)
+        LL=np.array(LL)
+        np.save('re/' + self.mode + 'records' + str(self.epoch) + '.npy', LL)
         if self.use_plus and not self.asinput:
             GG=np.array(GG)
             np.save('re/' + self.mode + 'gender_records' + str(self.epoch) + '.npy', GG)

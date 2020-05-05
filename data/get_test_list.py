@@ -1,10 +1,11 @@
 import os,glob,random
 data_path='/home/cwx/extra/covid_project_data'
 seg_path='/home/cwx/extra/covid_project_segs'
-f2=open('3cls_train2.list','w')
-f=open('3cls_test2.list','w')
+f2=open('train_covid2.list','w')
+f=open('test_covid2.list','w')
 def set_it(all_files,set_name):
     person_name=[item.split('/')[-1].split('_')[0]+'_'+item.split('/')[-1].split('_')[1] for item in all_files]
+    #person_name = [item.split('/')[-1].split('_')[0] for item in all_files]
     person_name=list(set(person_name))
     l = len(person_name)
     for i,name in enumerate(person_name):
@@ -22,6 +23,8 @@ def set_it(all_files,set_name):
 
 
 for set_name in os.listdir(data_path):
+    if not set_name=='covid2':
+        continue
     all_files=glob.glob(os.path.join(data_path,set_name,'*.nii'))
     random.shuffle(all_files)
     set_it(all_files,set_name)

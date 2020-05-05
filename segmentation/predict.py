@@ -7,24 +7,28 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 from segmentation.unet import UNet
 import SimpleITK as sitk
-def get_model(model_path,cuda=True):
+def get_model(model_path,n_classes=3,cuda=True):
     cuda = cuda and torch.cuda.is_available()
     device = torch.device("cuda" if cuda else "cpu")
     torch.set_grad_enabled(False)
-    model = UNet(n_classes=3)
+    model = UNet(n_classes=n_classes)
     state_dict = torch.load(model_path, map_location=lambda storage, loc: storage)
     model.load_state_dict(state_dict)
     model.eval()
     model.to(device)
     return model
     
-def predict(img, model, batch_size=8, cuda=True):
-    model=get_model(model)
+def predict(img, model, batch_size=8, lesion=False,cuda=True):
+    if isinstance(model, str):
+        model=get_model(model)
     cuda = cuda and torch.cuda.is_available()
     device = torch.device("cuda" if cuda else "cpu")
     img = sitk.GetArrayFromImage(img)
     img[img<-1024]=-1024
-    img = img/255.
+    if lesion:
+        img = (img + 1024) / 1624.
+    else:
+        img = img/255.
     # print(model)
 
     data = torch.from_numpy(img[:, np.newaxis, :, :])
@@ -51,8 +55,8 @@ def predict(img, model, batch_size=8, cuda=True):
 
 if __name__ == '__main__':
     os.environ["CUDA_VISIBLE_DEVICES"] = '1'
-    img_path = '/home/cwx/extra/covid_project_data/HxNx'
-    pred_path = '/home/cwx/extra/covid_project_segs/lungs/HxNx'
+    img_path = '/home/cwx/extra/covid_project_data/covid2'
+    pred_path = '/home/cwx/extra/covid_project_segs/lungs/covid2'
     model_path = './lung_checkpoint.pth'
     if not os.path.exists(pred_path):
         os.makedirs(pred_path)

@@ -80,20 +80,17 @@ def main():
     parser.add_argument("-o", "--outputfile", help="output file's name", type=str,
                         default='../HFD3D.txt')
     parser.add_argument("-m", "--inputmask", help="input mask root", type=str,
-                        default='../cam/mask/')
+                        default='/mnt/data9/cam/mask/')
     parser.add_argument("-r", "--inputimgs", help="input data root", type=str,
-                        default='../cam/img/')
+                        default='/mnt/data9/cam/pre/')
     args = parser.parse_args()
     filename = args.inputmask
     raw=args.inputimgs
     f=open(args.outputfile,'w')
+    f.writelines('name' + ',' + '3d fractals' + '\n')
     for item in os.listdir(raw):
-        if item[0]=='c':
-            continue
-        #img = Image.open(filename).convert('RGB')
         data=sitk.ReadImage(os.path.join(filename,item))
         raw_img=sitk.ReadImage(os.path.join(raw,item))
-
         img=sitk.GetArrayFromImage(raw_img)
         mask = sitk.GetArrayFromImage(data)
         img=img*mask
@@ -102,8 +99,7 @@ def main():
         for i in range(arr.shape[0]):
             for j in range(arr.shape[1]):
                 map[i,j,arr[i,j]]=1
-        fd = fractal_dimension(map, n_samples=20, n_offsets=10, plot=True)
-
+        fd = fractal_dimension(map, n_samples=20, n_offsets=10, plot=False)
         print(item,fd)
         f.writelines(item+','+str(fd)+'\n')
     f.close()

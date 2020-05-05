@@ -1,11 +1,11 @@
 import os,random
 data_path='/home/cwx/extra/covid_project_data'
 seg_path='/home/cwx/extra/covid_project_segs'
-nums=[50,25,25]
-sets=['healthy','cap2','covid']
-with open('reader_healthy_vs_ill.list','w') as f:
+nums=[20,30]
+sets=['HxNx','covid']
+with open('reader_HN_vs_covid.list','w') as f:
     ALL=[]
-    with open('3cls_test.list','r') as l:
+    with open('3cls_test2.list','r') as l:
         data=l.readlines()
         for set_this,num_this in zip(sets,nums):
             this_data_t=[da.split(',')[0] for da in data if set_this+'/' in da]

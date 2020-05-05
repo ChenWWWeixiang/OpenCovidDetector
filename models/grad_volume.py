@@ -87,7 +87,7 @@ class GradCam:
             features, output = self.extractor(input.cuda())
         else:
             features, output = self.extractor(input)
-        pred = np.exp(output.log_softmax(-1).cpu().data.numpy()[:, 1])
+        pred = np.exp(output.log_softmax(-1).cpu().data.numpy()[:, index])
         if index == None:
             index = np.argmax(output.cpu().data.numpy())
 
@@ -162,9 +162,9 @@ class GuidedBackpropReLUModel:
 
     def __call__(self, input, index=None):
         if self.cuda:
-            output = self.forward(input.cuda())
+            output,f = self.forward(input.cuda())
         else:
-            output = self.forward(input)
+            output,f = self.forward(input)
 
         if index == None:
             index = np.argmax(output.cpu().data.numpy())
@@ -191,13 +191,11 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--use-cuda', action='store_true', default=True,
                         help='Use NVIDIA GPU acceleration')
-    parser.add_argument('--image_path', type=str, default='/mnt/data7/examples/data',
-                        help='Input raw image path')
-    parser.add_argument('--mask_path', type=str, default='/mnt/data7/examples/seg',
-                        help='Input mask image path')
-    parser.add_argument('--model_path', type=str, default='../saves/for_xzw.pt',
+    parser.add_argument('--list', type=str, default='../data/lists/test.list',
+                        help='path list')
+    parser.add_argument('--model_path', type=str, default='../key_result/model/new_4cls_pure.pt',
                         help='Model path')
-    parser.add_argument('--output_path', type=str, default='/mnt/data9/new_seg_set/cam/NCP_ill4',
+    parser.add_argument('--output_path', type=str, default='/mnt/data9/cam/jpgs',
                         help='Cam output path')
     args = parser.parse_args()
     args.use_cuda = args.use_cuda and torch.cuda.is_available()
@@ -208,7 +206,12 @@ def get_args():
 
     return args
 
-
+o_img_nii='/mnt/data9/cam/pre'
+o_msk_nii = '/mnt/data9/cam/mask'
+o_lung_nii='/mnt/data9/cam/lung'
+os.makedirs(o_img_nii, exist_ok=True)
+os.makedirs(o_msk_nii, exist_ok=True)
+os.makedirs(o_lung_nii, exist_ok=True)
 def deprocess_image(img, mask=None):
     """ see https://github.com/jacobgil/keras-grad-cam/blob/master/grad-cam.py#L65 """
     img = img - np.mean(img)
@@ -235,8 +238,7 @@ def show_cam_on_image(img, mask, extral=None):
 
 
 def model_get(path):
-    model = resnet152(2)
-
+    model = resnet152(4)
     pretrained_dict = torch.load(path)
     # load only exists weights
     model_dict = model.state_dict()
@@ -247,76 +249,101 @@ def model_get(path):
     model.load_state_dict(model_dict)
     return model
 
-
-import glob
-
+import glob,random
 if __name__ == '__main__':
     args = get_args()
 
     # Can work with any model, but it assumes that the model has a
     # feature method, and a classifier method,
     grad_cam = GradCam(model=model_get(args.model_path), \
-                       target_layer_names=["6"], use_cuda=args.use_cuda)
+                       target_layer_names=["7"], use_cuda=args.use_cuda)
     gb_model = GuidedBackpropReLUModel(model=model_get(args.model_path), use_cuda=args.use_cuda)
     o_path = args.output_path
-    # o_img_nii='../reader_study/cam/img'
-    # o_msk_nii = '../reader_study/cam/mask'
-    # o_lung_nii='../reader_study/cam/lung'
-    i_path_mask = args.mask_path
-    i_path_img = args.image_path
-
+    input_list = open(args.list,'r').readlines()
+    random.shuffle(input_list)
+    input_list=input_list[:500]
     os.makedirs(o_path, exist_ok=True)
-    # os.makedirs(o_img_nii, exist_ok=True)
-    ##os.makedirs(o_msk_nii, exist_ok=True)
-    # os.makedirs(o_lung_nii, exist_ok=True)
-    for names in os.listdir(i_path_img):
-        if names[0] == 'c':
-            continue
-        # exlist=glob.glob('../ipt_results/cam_good/'+names.split('.jpg')[0]+'*')
-        # if len(exlist)==0 and False:
-        #    continue
 
-        img = sitk.ReadImage(os.path.join(i_path_img, names))
-        seg = sitk.ReadImage(os.path.join(i_path_mask, names))
+    for names in input_list:
+        img = sitk.ReadImage(names.split(',')[0])
+        seg = sitk.ReadImage(names.split(',')[1][:-1])
         V=sitk.GetArrayFromImage(img)
         M = sitk.GetArrayFromImage(seg)
 
-        M = M[:V.shape[0], :, :]
+        #M = M[:V.shape[0], :, :]
         sums = M.sum(1).sum(1)
-        idd = np.where(sums > 100)[0]
-        M = M[idd, :, :]
-        V = V[idd, :, :]
-        V = V[:M.shape[0], :M.shape[1], :M.shape[2]]
-
+        idd = np.where(sums > 500)
+        iddx = np.where(M > 0)
+        M = M[idd[0], iddx[1].min():iddx[1].max(), iddx[2].min():iddx[2].max()]
+        V = V[idd[0], iddx[1].min():iddx[1].max(), iddx[2].min():iddx[2].max()]
+       # L = L[idd[0], iddx[1].min():iddx[1].max(), iddx[2].min():iddx[2].max()]
         CAM_V = []
         for idx, i in enumerate(range(0,V.shape[0],5)):
             data = V[i, :, :]
-            data[data > 700] = 700
+            data[data > 500] = 500
             data[data < -1200] = -1200
-            data = data * 255.0 / 1900
+            data = data * 255.0 / 1700
             data = data - data.min()
             img_raw = np.stack([data,data,data], -1)
             img_raw = img_raw.astype(np.uint8)
             # data=data/data.max()
-            img = np.stack([data,data, M[i, :, :] * 255], -1)  # mask one channel
+            img = np.stack([data, M[i, :, :] * data, M[i, :, :] * 255], -1)  # mask one channel
             img = img.astype(np.uint8)
             raw_shape = (img.shape[1], img.shape[0])
 
             img_raw = np.float32(cv2.resize(img_raw, (224, 224))) / 255
-            img = np.float32(cv2.resize(img, (224, 224))) / 255
+            img = np.float32(cv2.resize(img, (224, 224)))/255
 
             input = preprocess_image(img)
-
-            target_index = 1
+            if 'healthy'in names:
+                target_index=0
+                continue
+            elif 'cap' in names:
+                target_index=1
+            elif 'HxNx' in names:
+                target_index=2
+            else:
+                target_index=3
+            #target_index=3
             mask, pred = grad_cam(input, target_index)
+            cam = show_cam_on_image(img_raw, mask)
+            cam = cv2.resize(cam, raw_shape)
+            img_raw=cv2.resize(img_raw,raw_shape)
+            I=np.concatenate([img_raw*255,cam],1)
+            gb = gb_model(input, index=target_index)
+            gb = gb.transpose((1, 2, 0))
+            if pred>0.8:
+                b = deprocess_image(gb)  ##                              gb: guided backward map
+                cam_mask = cv2.merge([mask, mask, mask])
+                attention_area = (cam_mask ) > 0.85
+                #attention_area = attention_area * (np.abs(gb - 128) > 64)
+                gbt = gb.copy()
+                attention_area = np.max(attention_area,-1)
+                attention_area = (attention_area >= 0.5).astype(np.uint8)
+                kernel = np.ones((7, 7), np.uint8)
+                attention_area = cv2.erode(cv2.erode(cv2.morphologyEx(attention_area, cv2.MORPH_CLOSE, kernel), kernel), kernel)
+                attention_area=cv2.morphologyEx(attention_area, cv2.MORPH_OPEN, kernel)
+                lung_mask = cv2.dilate(img[:, :, 2], kernel)
+                attention_area = attention_area * lung_mask
+                if np.sum(attention_area) <= 300:
+                    continue
+                attention_area = np.stack([attention_area, attention_area, attention_area], -1)
 
-            cam = cv2.resize(mask, raw_shape)
-            CAM_V.append(cam)
-        CAM_V=np.array(CAM_V)
-        V=np.array(V)
-        output_name = names.split('.nii')[0] + '.npy'
-        output_path = os.path.join(o_path, 'CAM_'+output_name)
-        output_path_v = os.path.join(o_path, 'RAW_'+output_name)
-
-        np.save(output_path, CAM_V)
-        np.save(output_path_v, V)
+                # cam = show_cam_on_image(img_raw, mask)
+                cam_gb = deprocess_image(cam_mask * gbt, attention_area)  ##guided gradcam
+                img_raw = cv2.resize(img_raw, raw_shape)
+                cam_mask = cv2.resize(cam_mask, raw_shape)
+                cam_gb = cv2.resize(cam_gb, raw_shape)
+                cam = cv2.resize(cam, raw_shape)
+                attention_area=cv2.resize(attention_area,raw_shape)
+                print(names,i,'done')
+                I = np.concatenate([img_raw * 255, cam, cam_gb, attention_area * 255], 1)
+                output_name=os.path.join(o_path,names.split(',')[1].split('/')[-1].split('.')[0]+'_'+str(i)+'pre'+str(pred[0])+'.jpg')
+                cv2.imwrite(output_name,I)
+                Inii = sitk.GetImageFromArray(img_raw[:, :, 1] * 255)
+                Lnii = sitk.GetImageFromArray(img[:, :, 2])
+                Mnii = sitk.GetImageFromArray(attention_area[:, :, 1])
+                sitk.WriteImage(Inii, os.path.join(o_img_nii, output_name.split('/')[-1][:-4] + '.nii'))
+                sitk.WriteImage(Mnii, os.path.join(o_msk_nii, output_name.split('/')[-1][:-4] + '.nii'))
+                sitk.WriteImage(Lnii, os.path.join(o_lung_nii, output_name.split('/')[-1][:-4] + '.nii'))
+           # CAM_V.append(cam)

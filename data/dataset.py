@@ -729,7 +729,7 @@ class NCPJPGDataset_new(Dataset):
 
         if self.cls_num==2:
             if self.mod=='ab':#abnormal detection
-                cls = [int('pos' in data_path) for data_path in self.data]
+                cls = [int('abnor' in data_path) for data_path in self.data]
             elif self.mod=='co':
                 cls = [1-int('cap' in data_path) for data_path in self.data]
             else:
@@ -743,7 +743,17 @@ class NCPJPGDataset_new(Dataset):
                     cls.append(1)
                 else:
                     cls.append(2)#covid
-
+        else:
+            cls=[]
+            for data_path in self.data:
+                if 'healthy' in data_path:
+                    cls.append(0)
+                elif 'cap' in data_path:
+                    cls.append(1)
+                elif 'AB-in' in data_path:
+                    cls.append(2)#covid
+                else:
+                    cls.append(3)
         nums=[np.sum(np.array(cls)==i) for i in range(self.cls_num)]
         print(nums)
         self.labels=cls
@@ -788,7 +798,7 @@ class NCPJPGDataset_new(Dataset):
 
         if self.cls_num==2:
             if self.mod=='ab':#abnormal detection
-                cls = int('pos' in data_path)
+                cls = int('abnor' in data_path)
             elif self.mod=='co':
                 cls = 1-int('ild' in data_path or 'cap' in data_path)
             else:
@@ -800,6 +810,15 @@ class NCPJPGDataset_new(Dataset):
                 cls = 1
             else:
                 cls=2
+        elif self.cls_num==4:
+            if 'healthy' in data_path:
+                cls = 0
+            elif 'cap' in data_path:
+                cls = 1
+            elif 'AB-in' in data_path:
+                cls=2
+            else:
+                cls=3
         data=Image.open(data_path)
         age = int(data_path.split('_')[-3])
         gender = int(data_path.split('_')[-2]=='M')
@@ -877,20 +896,16 @@ class NCPJPGtestDataset_new(Dataset):
                                          ])
         print('num of data:', len(self.data))
         person=[da.split('/')[-2]+'_'+da.split('/')[-1].split('_')[0]+'_'+da.split('/')[-1].split('_')[1] for da in self.data]
+        #for idx, pe in enumerate(person):
+        #    if pe.split('_')[0] == 'HxNx':
+        #        person[idx] = pe.split('_')[0] + '_' + pe.split('_')[1]
         person=list(set(person))
 
 
         if self.cls_num==2:
-            if self.mod=='ab':#abnormal detection
-                cls = [int('pos' in data_path) for data_path in self.data]
-                cls_stage = [int('pos' in data_path) for data_path in self.data]
-            elif self.mod=='co':
-                cls = [1-int('cap' in data_path) for data_path in self.data]
-                cls_stage = [1 - int('cap' in data_path) for data_path in self.data]
-            else:
-                cls = [1 - int('healthy' in data_path ) for data_path in self.data]
-                cls_stage = [1 - int('healthy' in data_path) for data_path in self.data]
-
+            self.data=[da for da in self.data if '/covid/' in da]
+            self.mask = [da for da in self.mask if '/covid/' in da]
+            print('num of data:', len(self.data))
         elif self.cls_num == 3:
             cls = []
             for data_path in person:
@@ -908,11 +923,32 @@ class NCPJPGtestDataset_new(Dataset):
                     cls_stage.append(1)
                 else:
                     cls_stage.append(2)  # covid
-
-        nums = [np.sum(np.array(cls) == i) for i in range(np.max(cls) + 1)]
-        print('patient',nums)
-        nums = [np.sum(np.array(cls_stage) == i) for i in range(np.max(cls_stage) + 1)]
-        print('stages', nums)
+        else:
+            cls = []
+            for data_path in person:
+                if 'healthy' in data_path:
+                    cls.append(0)
+                elif 'cap' in data_path:
+                    cls.append(1)
+                elif 'AB-in' in data_path:
+                    cls.append(2)  # covid
+                else:
+                    cls.append(3)
+            cls_stage = []
+            for data_path in self.data:
+                if 'healthy' in data_path:
+                    cls_stage.append(0)
+                elif 'cap' in data_path:
+                    cls_stage.append(1)
+                elif 'AB-in' in data_path:
+                    cls_stage.append(2)  # covid
+                else:
+                    cls_stage.append(3)
+        if not self.cls_num == 2:
+            nums = [np.sum(np.array(cls) == i) for i in range(np.max(cls) + 1)]
+            print('patient',nums)
+            nums = [np.sum(np.array(cls_stage) == i) for i in range(np.max(cls_stage) + 1)]
+            print('stages', nums)
     def __len__(self):
         return len(self.data)
 
@@ -947,6 +983,15 @@ class NCPJPGtestDataset_new(Dataset):
                 cls = 1
             else:
                 cls = 2
+        else:
+            if 'healthy' in data_path:
+                cls = 0
+            elif 'cap' in data_path:
+                cls = 1
+            elif 'AB-in' in data_path:
+                cls = 2
+            else:
+                cls=3
         try:
             mask = sitk.ReadImage(mask_path[:-1])
         except:
@@ -963,8 +1008,9 @@ class NCPJPGtestDataset_new(Dataset):
         M[M>1]=1
         valid=np.where(M.sum(1).sum(1)>500)
         area = np.where(M>0)
+        #print(mask_path,M.max())
         data = data[valid[0], area[1].min():area[1].max(), area[2].min():area[2].max()]
-        L=L[valid[0],area[1].min():area[1].max(),area[2].min():area[2].max()]
+        L = L[valid[0], area[1].min():area[1].max(), area[2].min():area[2].max()]
         M = M[valid[0], area[1].min():area[1].max(), area[2].min():area[2].max()]
         #data=data[:M.shape[0],:M.shape[1],:M.shape[2]]
         temporalvolume,pos,feature = self.bbc(data, self.padding,data_path,M,L)
@@ -983,11 +1029,9 @@ class NCPJPGtestDataset_new(Dataset):
         temporalvolume = torch.zeros((3, padding, 224, 224))
         F=np.zeros((padding,479))
         #croptransform = transforms.CenterCrop((224, 224))
-        stride=max(V.shape[0]//padding,5)
+        stride=max(V.shape[0]//padding,3)
         cnt=0
         name=[]
-        if data_path=='/home/cwx/extra/covid_project_data/cap-qqhr/1_85_20200118_50_M.nii':
-            a=1
         for cnt,i in enumerate(range(0,V.shape[0],stride)):
         #for cnt, i in enumerate(range(V.shape[0]-5,5, -3)):
             if cnt>=padding:
@@ -998,7 +1042,7 @@ class NCPJPGtestDataset_new(Dataset):
             data = data * 255.0 / 1700
             name.append(float(i/V.shape[0]))
             data = data - data.min()
-            data = np.stack([L[i,:,:]*data,pre[i, :, :] * data,data], -1)  # mask one channel
+            data = np.stack([pre[i,:,:]*255,pre[i, :, :] * data,data], -1)  # mask one channel
             data = data.astype(np.uint8)
             data=Image.fromarray(data)
             #data.save('temp.jpg')

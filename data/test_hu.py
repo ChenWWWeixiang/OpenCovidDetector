@@ -12,15 +12,9 @@ input_lesion_mask='/home/cwx/extra/covid_project_segs/lesion/'+set_name
 #input_path='/mnt/data7/resampled_data/train3'
 #input_mask='/mnt/data7/resampled_seg/train3'
 output_path_slices='/mnt/data9/covid_detector_jpgs/crop_masked_'+set_name
-#output_path_raw='/mnt/data9/covid_detector_jpgs/raw_'+set_name
-#old_path='/mnt/data7/resampled_jpgs/masked_test3'
-#output_path_cropped='/mnt/data6/lung_resample_lungbox'
-#output_path_npy='/mnt/data6/lung_resample_npy'
+
 os.makedirs(output_path_slices,exist_ok=True)
-#os.makedirs(output_path_raw,exist_ok=True)
-#os.makedirs(output_path_cropped,exist_ok=True)
-#os.makedirs(output_path_npy,exist_ok=True)
-#data=np.stack([data,data,data],0)
+
 cnt=0
 
 name_list=os.listdir(input_path)

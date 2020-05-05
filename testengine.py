@@ -9,7 +9,7 @@ import torch.nn as nn
 from data.dataset import NCPDataset, NCP2DDataset, NCPJPGDataset,NCPJPGtestDataset,NCPJPGtestDataset_new
 import os, cv2
 import toml
-from models.net2d import densenet121,densenet161,resnet152,resnet152_plus,resnet152_R
+from models.net2d import densenet121,densenet161,resnet152,resnet152_plus,resnet152_R,resnet50
 import numpy as np
 #from models.g_cam import GuidedPropo
 import matplotlib as plt
@@ -34,27 +34,75 @@ def _validate_cp(modelOutput, labels, length,topn=1):
     iscorrect = labels.cpu().numpy() == pred
     return averageEnergies.tolist(), iscorrect, pred
 
-def _validate_mc2(modelOutput, labels, length,topn=3):
-    AV=[]
-    P=np.exp(modelOutput.cpu().numpy())[:length,:]
-    a=1
-    for i in range(4):
-        temp=list(P[:,i])#for covid19
-        pos_count=np.sum(np.array(temp)>0.5)
-        temp.sort()
-        averageEnergies = np.mean(temp[-topn:])
-        AV.append(averageEnergies)
-    #AV=np.array(AV)
-    if np.max(AV[1:])>0.80:
-        predicted=np.argmax(AV[1:])+1
+def _validate_healthy_or_not(modelOutput, labels,length,topn=3):
+    averageEnergies=[]
+    averageEnergies2=[]
+    modelOutput=np.exp(modelOutput.cpu().numpy())
+    illpro=np.sum(modelOutput[:,1:],1)
+    healthypre=modelOutput[:,0]
+    modelOutput=np.stack([healthypre,illpro],-1)
+    for i in range(0,modelOutput.shape[1]):
+        t = modelOutput[:length, i].tolist() # for covid19
+        t.sort()
+        if i==0:
+            averageEnergies.append(np.mean(t[-1:]))
+        else:
+            averageEnergies2.append(np.mean(t[-topn:]))
+    averageEnergies2=np.max(averageEnergies2)
+    averageEnergies=np.array([averageEnergies[0],averageEnergies2])
+    averageEnergies = averageEnergies / np.sum(averageEnergies, keepdims=True)
+    pred=np.argmax(averageEnergies)
+    if pred >=1:
+        pred=1
     else:
-        predicted=np.argmax(AV)
-    iscorrect = labels.cpu().numpy()==predicted
-    return AV,iscorrect,predicted
+        pred=0
+    label=labels.cpu().numpy()
+    if label>=1:
+        label=1
+    else:
+        label=0
+    iscorrect = label == pred
+    return averageEnergies.tolist(), [iscorrect],pred
+
+def _validate_cap_covid(modelOutput, labels,length,topn=3):
+    averageEnergies=[]
+    output=np.exp(modelOutput.cpu().numpy())[:length, [1,3]]
+    output=output/np.sum(output,1,keepdims=True)
+    for i in range(output.shape[1]):
+        t = output[:,i].tolist() # for covid19
+        #pos_count = np.sum(np.array(modelOutput) > 0.5)
+        t.sort()
+        averageEnergies.append(np.mean(t[-topn:]))
+    pred=np.argmax(averageEnergies)
+    label=labels.cpu().numpy()
+    if label==1:
+        label=0
+    else:
+        label=1
+    iscorrect = label == pred
+    return averageEnergies, [iscorrect],pred
+
+def _validate_hxnx_covid(modelOutput, labels,length,topn=3):
+    averageEnergies=[]
+    output=np.exp(modelOutput.cpu().numpy())[:length, [2,3]]
+    output = output / np.sum(output, 1, keepdims=True)
+    for i in range(output.shape[1]):
+        t = output[:,i].tolist() # for covid19
+        #pos_count = np.sum(np.array(modelOutput) > 0.5)
+        t.sort()
+        averageEnergies.append(np.mean(t[-topn:]))
+    pred=np.argmax(averageEnergies)
+    label=labels.cpu().numpy()
+    if label==2:
+        label=0
+    else:
+        label=1
+    iscorrect = label == pred
+    return averageEnergies, [iscorrect],pred
 
 def _validate_multicls(modelOutput, labels,length,topn=3):
     averageEnergies=[]
-    for i in range(0,3):
+    for i in range(0,modelOutput.shape[1]):
         t = np.exp(modelOutput.cpu().numpy())[:length, i].tolist() # for covid19
         #pos_count = np.sum(np.array(modelOutput) > 0.5)
         t.sort()
@@ -66,22 +114,10 @@ def _validate_multicls(modelOutput, labels,length,topn=3):
     iscorrect = labels.cpu().numpy() == pred
 
     return averageEnergies, iscorrect,pred
-def _voting_validate_multicls(modelOutput, labels,length, topn=3):
-    averageEnergies=np.exp(modelOutput.cpu().numpy()[:length,:]).mean(0)
-    #cnt=np.zeros([options['general']['class_num']])
-    idx_max=np.argmax(modelOutput.cpu().numpy()[:length,:],axis=1)
-    cnt=np.bincount(idx_max)
-    pred=np.argmax(cnt)
-    if pred==0:
-        if cnt[0]>0.9*idx_max.shape[0]:
-            pred=0
-        else:
-            pred=np.argmax(cnt[1:])+1
-    iscorrect = labels.cpu().numpy() == pred
-    return averageEnergies.tolist(), iscorrect,pred
+
 
 class Validator():
-    def __init__(self, options, mode,model,savenpy=None):
+    def __init__(self, options, mode,model,mod='',savenpy=None):
         self.R = 'R' in options['general'].keys()
         self.cls_num=options['general']['class_num']
         self.use_plus=options['general']['use_plus']
@@ -100,12 +136,19 @@ class Validator():
             #f='data/cap_vs_covid_test.list'
             f='data/3cls_test2.list'
             #f = 'data/3cls_train.list'
-            #f='data/reader_cap_vs_covid.list'
-            #f='data/reader_healthy_vs_ill.list'
+            if mod=='healthy':
+                f='data/lists/reader_healthy_vs_ill.list'
+            elif mod=='cap':
+                f = 'data/lists/reader_cap_vs_covid.list'
+            elif mod=='AB-in':
+                f = 'data/lists/reader_influenza_vs_covid.list'
+            else:
+                f = 'data/lists/test.list'
             #f='data/ab_detect.list'
             #f = open('data/txt/val_list.txt', 'r')
             #f=f.readlines()
             self.model=model
+            self.mod=mod
             if self.use_plus:
                 #self.validationdataset = NCPJPGtestDataset(datalist,
                 #                                           masklist,
@@ -117,10 +160,6 @@ class Validator():
                                                            f,cls_num=self.cls_num,mod=options['general']['mod'],
                                                                options=options)
             else:
-                #self.validationdataset = NCPJPGtestDataset(datalist,
-                #                                           masklist,
-                #                                           options[mode]["padding"],f,1-args.invert_exclude,
-                #                                           cls_num=self.cls_num)
                 self.validationdataset = NCPJPGtestDataset_new(options[mode]["data_root"],
                                                                options[mode]["padding"],
                                                            f,cls_num=self.cls_num,mod=options['general']['mod'],
@@ -136,7 +175,7 @@ class Validator():
                                                            masklist,
                                                            options[mode]["padding"],cls_num=self.cls_num
                                                            )
-        self.topk=5
+        self.topk=3
         self.tot_data = len(self.validationdataset)
         self.validationdataloader = DataLoader(
             self.validationdataset,
@@ -155,8 +194,14 @@ class Validator():
             count = np.zeros((self.cls_num + self.use_plus * 2*(1-self.asinput)))
             Matrix = np.zeros((self.cls_num, self.cls_num))
             if self.cls_num>2:
-                #validator_function=_voting_validate_multicls#win1
-                validator_function=_validate_multicls#win0
+                if self.mod=='healthy':
+                    validator_function=_validate_healthy_or_not#win0
+                elif self.mod== 'cap':
+                    validator_function = _validate_cap_covid
+                elif self.mod== 'AB-in':
+                    validator_function = _validate_hxnx_covid
+                else:
+                    validator_function = _validate_multicls
             else:
                 validator_function = _validate_cp
             self.model.eval()
@@ -167,11 +212,6 @@ class Validator():
                 net = nn.DataParallel(self.model).cuda()
             #error_dir = 'error/'
             #os.makedirs(error_dir, exist_ok=True)
-            cnt = 0
-            cnt_for_wh=0
-            cnt_for_lidc=0
-            e_cnt_l=0
-            e_cnt_w=0
             num_samples = np.zeros((self.cls_num + self.use_plus * 2*(1-self.asinput)))
             #elist=open('val_slices_count.txt','w+')
             #truth_list=truth_list.readlines()
@@ -180,6 +220,7 @@ class Validator():
             tic=time.time()
             X=[]
             Y=[]
+            Z=[]
             for i_batch, sample_batched in enumerate(self.validationdataloader):
                 input = Variable(sample_batched['temporalvolume']).cuda()
                 labels = Variable(sample_batched['label']).cuda()
@@ -199,17 +240,19 @@ class Validator():
                 input=input.permute(1,0,2,3)
                 if not self.use_plus:
                     if self.R:
-                        outputs = net(input, features,True)
+                        outputs,deep_feaures = net(input, features,True)
                     else:
-                        outputs = net(input,False)
+                        outputs,deep_feaures = net(input,False)
                 else:
                     if self.asinput:
                         outputs, _, _, _, deep_feaures = net(input,pos,gender,age)
                     else:
                         outputs, out_gender, out_age,out_pos,deep_feaures = net(input)
                 if SAVE_DEEP:
-                    deep_feaures=deep_feaures.cpu().numpy()[:valid_length,:].mean(0)
+                    deep_feaures=deep_feaures.cpu().numpy()
+                    I_r=input.cpu().numpy()[:]
                     X.append(deep_feaures)
+                    Z.append(name)
                     Y.append(labels.cpu().numpy()[0][0])
                 if KEEP_ALL:
                     all_numpy=np.exp(outputs.cpu().numpy()[:valid_length,1])
@@ -232,13 +275,28 @@ class Validator():
                 #if self.use_plus and not self.asinput and gender_numpy[0]>-1 :
                #     print(name[0], isacc, vector, 'sex:', genderacc)
                # else:
-                #    print(name[0],isacc,vector)
+                print(name[0],isacc,vector)
+                if self.mod=='healthy':
+                    if label_numpy>=1:
+                        label_numpy=1
+                    else:
+                        label_numpy=0
+                elif self.mod=='cap':
+                    if label_numpy==1:
+                        label_numpy=0
+                    else:
+                        label_numpy=1
+                elif self.mod=='AB-in':
+                    if label_numpy==2:
+                        label_numpy=0
+                    else:
+                        label_numpy=1
                 # argmax = (-vector.cpu().numpy()).argsort()
                 for i in range(labels.size(0)):
                     LL.append([name[0]]+ output_numpy+[label_numpy])
                     Matrix[label_numpy, pos_count] += 1
                     #if isacc[i]==0:
-                    #elist.writelines(name[0]+'\t'+str(all_numpy)+'\t'+str(pos_count)+'\t'+str(np.array(slice_idx).tolist())+'\n')
+                    #(name[0]+'\t'+str(all_numpy)+'\t'+str(pos_count)+'\t'+str(np.array(slice_idx).tolist())+'\n')
                     if isacc[i] == 1:
                         count[labels[i]] += 1
                     num_samples[labels[i]] += 1
@@ -254,7 +312,7 @@ class Validator():
                         print('i_batch/tot_batch:{}/{},corret/tot:{}/{},current_acc:{}'.format(i_batch,len(self.validationdataloader),
                                                                                       count.sum(),len(self.validationdataset),
                                                                                        1.0*count/num_samples))
-                #if i_batch==500:
+                #if i_batch==500*(self.epoch+1):
                 #    break
         print(count[:self.cls_num].sum() / num_samples[:self.cls_num].sum(),np.mean(AA))
         LL = np.array(LL)
@@ -263,8 +321,10 @@ class Validator():
         if SAVE_DEEP:
             X=np.array(X)
             Y=np.array(Y)
-            np.save(os.path.join(args.deepsave,'X.npy'),X)
-            np.save(os.path.join(args.deepsave, 'Y.npy'), Y)
+            Z = np.array(Z)
+            np.save(os.path.join('saves','X.npy'),X)
+            np.save(os.path.join('saves', 'Y.npy'), Y)
+            np.save(os.path.join('saves', 'Z.npy'), Z)
         if self.use_plus and not self.asinput:
             GG = np.array(GG)
             AA=np.array(AA)
@@ -282,7 +342,7 @@ class Validator():
 
 def main():
     parser = argparse.ArgumentParser()
-
+    mod='AB-in'
     parser.add_argument("-m", "--maskpath", help="A list of paths for lung segmentation data",  # type=list,
                         default=['/mnt/data6/CAP/seg_test',
                                  '/mnt/data7/ILD/resampled_seg',
@@ -306,8 +366,10 @@ def main():
                                  # '/mnt/data7/resampled_data/resampled_test_3']
                                  ])
     parser.add_argument("-o", "--savenpy", help="A path to save record", type=str,
-                        # default='re/cap_vs_covid.npy')
-                        default='re/pure.npy')
+                        #default='re/reader_healthy_vs_ill.npy')
+                        #default = 're/reader_cap_vs_covid.npy')
+                        default = 're/reader_influenza_vs_covid.npy')
+                        #default='re/test_2.npy')
     parser.add_argument("-d", "--deepsave", help="A path to save deepfeature", type=str,
                         # default='re/cap_vs_covid.npy')
                         default='deep_f')
@@ -318,10 +380,10 @@ def main():
     parser.add_argument("-v", "--invert_exclude", help="Whether to invert exclude to include", type=bool,
                         default=False)
     parser.add_argument("-p", "--model_path", help="Whether to invert exclude to include", type=str,
-                        default='weights/crop_R3.pt')
+                        default='weights/new_4cls_pure.pt')
     # default='weights/healthy_or_not.pt')
     parser.add_argument("-g", "--gpuid", help="gpuid", type=str,
-                        default='4')
+                        default='1')
     args = parser.parse_args()
     os.makedirs(args.deepsave, exist_ok=True)
 
@@ -355,7 +417,7 @@ def main():
     model_dict.update(pretrained_dict)
     model.load_state_dict(model_dict)
 
-    tester = Validator(options, 'test',model,savenpy=args.savenpy)
+    tester = Validator(options, 'test',model,mod,savenpy=args.savenpy)
 
     result, re_all = tester()
     print (tester.savenpy)
@@ -367,5 +429,4 @@ def main():
     print('-' * 21)
 
 if __name__ == "__main__":
-    print ('This is main of module "hello.py"')
     main()

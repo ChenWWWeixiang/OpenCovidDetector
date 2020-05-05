@@ -6,14 +6,14 @@ from training import Trainer
 from testengine import Validator
 import torch.nn as nn
 import os
-from models.net2d import densenet121,densenet161,squeezenet1_1,vgg19_bn,resnet152,resnet152_plus,resnet152_R
+from models.net2d import densenet161,resnet152,resnet152_plus,resnet152_R,resnet50
 import warnings
 warnings.filterwarnings("ignore")
 
 
 
 print("Loading options...")
-with open('options_withR', 'r') as optionsFile:
+with open('options_lip.toml', 'r') as optionsFile:
     options = toml.loads(optionsFile.read())
 
 if(options["general"]["usecudnnbenchmark"] and options["general"]["usecudnn"]):
@@ -65,7 +65,7 @@ if(options['test']['test']):
 for epoch in range(options["training"]["startepoch"], options["training"]["epochs"]):
     if(options["training"]["train"]):
         trainer(epoch)
-    if (options["validation"]["validate"]) and epoch%10==0 and epoch>1:
+    if (options["validation"]["validate"]) and epoch==30:
         result,re_all = validator()
         trainer.ScheduleLR(result.min())
         print(options['training']['save_prefix'])

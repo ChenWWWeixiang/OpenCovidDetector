@@ -388,14 +388,16 @@ def modify_resnets(model,num_of_cls,USE_25D):
         x = self.last_linear(x)
         return x
 
-    def forward(self, input,test):
+    def forward(self, input,test=False):
         x = self.features_func(input)
         x = x.view(x.size(0), -1)
         if test:
             x=x.max(0).values
             x = x.unsqueeze(0)
+        d = x.max(0).values
+        d = d.unsqueeze(0)
         x = self.classifier(x).log_softmax(-1)
-        return x
+        return x,d
 
     # Modify methods
     model.features_func = types.MethodType(features_func, model)
@@ -611,14 +613,14 @@ def resnet34(num_classes=1000, pretrained='imagenet'):
     model = modify_resnets(model)
     return model
 
-def resnet50(num_classes=1000, pretrained='imagenet'):
+def resnet50(num_classes=1000, pretrained='imagenet',USE_25D=False):
     """Constructs a ResNet-50 model.
     """
-    model = models.resnet50(pretrained=False)
+    model = models.resnet152(pretrained=False)
     if pretrained is not None:
-        settings = pretrained_settings['resnet50'][pretrained]
+        settings = pretrained_settings['resnet152'][pretrained]
         model = load_pretrained(model, num_classes, settings)
-    model = modify_resnets(model)
+    model = modify_resnets(model,num_classes,USE_25D=USE_25D)
     return model
 
 def resnet101(num_classes=1000, pretrained='imagenet'):

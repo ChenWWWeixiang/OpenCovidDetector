@@ -10,14 +10,14 @@ parser.add_argument("-p", "--path", help="A list of paths to jpgs for seperate",
                               #'/mnt/data9/covid_detector_jpgs/masked_ild',
                              #'/mnt/data9/covid_detector_jpgs/crop_masked_healthy',
                              #'/mnt/data9/covid_detector_jpgs/crop_masked_covid',
-                             #'/mnt/data9/covid_detector_jpgs/crop_masked_cap',
-                            # '/mnt/data9/covid_detector_jpgs/crop_masked_cap-zs'
-                            '/mnt/data9/covid_detector_jpgs/training_jpgs/'
+                             #'/mnt/data9/covid_detector_jpgs/training_jpgs_covid2',
+                            #'/mnt/data9/covid_detector_jpgs/training_jpgs_HN',
+                            '/mnt/data9/covid_detector_jpgs/test_ab/'
                              ])
 parser.add_argument("-t", "--train_txt",
                     help="train list output path",
                     type=str,                    
-                    default='txt/train_all.txt')
+                    default='txt/test_abnormal.txt')
 parser.add_argument("-v", "--val_txt",
                     help="validation list output path",
                     type=str,
@@ -32,7 +32,7 @@ else:
 f1 = open(args.train_txt, 'w')
 f2 = open(args.val_txt, 'w')
 
-train_count=500000
+train_count=5000000
 c=0
 for ipath in path:
     cnt = 0
